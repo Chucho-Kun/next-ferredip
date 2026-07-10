@@ -1,0 +1,127 @@
+{
+  "id": "2aae9a4a-c904-4ba0-b3f4-b8d6f596fd25",
+  "prevId": "072f649d-e469-4294-bc13-44df7422dc32",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.productos_": {
+      "name": "productos_",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(10)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "clave": {
+          "name": "clave",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "variante": {
+          "name": "variante",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "descripcion": {
+          "name": "descripcion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "informacion": {
+          "name": "informacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "disponible": {
+          "name": "disponible",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "marca": {
+          "name": "marca",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "categoria": {
+          "name": "categoria",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "existencias": {
+          "name": "existencias",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "precioant": {
+          "name": "precioant",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "precio": {
+          "name": "precio",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "destacado": {
+          "name": "destacado",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "orden_prod": {
+          "name": "orden_prod",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "orden_cat": {
+          "name": "orden_cat",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "createdat": {
+          "name": "createdat",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

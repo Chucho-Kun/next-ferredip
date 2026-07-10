@@ -1,0 +1,25 @@
+# robots.txt para dipemsa.com.mx
+
+User-agent: *
+Allow: /
+
+# Bloquear rutas sensibles
+Disallow: /api/
+Disallow: /_next/static/media/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /private/
+Disallow: /checkout/
+Disallow: /cart/success
+Disallow: /compra/
+
+# Sitemaps
+Sitemap: https://www.dipemsa.com.mx/sitemap.xml
+Sitemap: https://www.dipemsa.com.mx/products.xml
+
+# Opcional: permitir Google y Bing específicamente
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
