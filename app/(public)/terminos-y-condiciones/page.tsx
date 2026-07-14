@@ -22,11 +22,11 @@ export default function TerminosYCondicionesPage() {
           <p className="mt-4">
             En caso de requerir envío a otro estado de la república o las zonas no mencionadas, favor de cotizar con el equipo de ventas.
           </p>
-          <p>Teléfonos fijos:</p>
-              <p><span className="font-semibold">(55) 8751 2193</span></p>
+          <p></p>
+              {/* <p><span className="font-semibold">(55) 8751 2193</span></p>
               <p><span className="font-semibold">(55) 8751 2194</span></p>
-              <p><span className="font-semibold">(55) 5770 8512</span></p>
-              <p>WhatsApp: <span className="font-semibold">55 3265 1039</span></p>
+              <p><span className="font-semibold">(55) 5770 8512</span></p> */}
+              <p>WhatsApp: <span className="font-semibold">55 7347 6687</span></p>
 
           <h2 className="text-2xl font-bold text-gray-800 mt-12 mb-4">Política de Aceptación de Órdenes</h2>
           <p>

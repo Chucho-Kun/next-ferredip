@@ -44,7 +44,8 @@ export default function ProductComponent({ item }: Props) {
     <div className="flex gap-2 min-[400px]:gap-4 py-4 border-b">
         <div className="w-20 h-20 min-[400]:w-28 bg-gray-100 rounded-lg overflow-hidden relative shrink-0">
             <Image
-            src={`/fotos/${ item.id }.jpg`}
+                src={'/fotos/default/img.webp'}
+            // src={`/fotos/${ item.id }.jpg`}
             alt="Lija de agua"
             fill
             className="object-cover"

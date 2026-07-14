@@ -129,11 +129,11 @@ export default function SearchBar() {
 
               { product.precioant && (
                 <div className='text-md line-through text-gray-400'>
-                  {product.precioant}
+                  ${product.precioant}.00
                 </div>
               ) }
               <div className="font-bold text-[#E30613]">
-                {product.precio}
+                ${product.precio}.00
               </div>
             </Command.Item>
           ))}

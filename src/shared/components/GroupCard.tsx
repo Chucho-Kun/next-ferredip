@@ -40,11 +40,15 @@ export default function GroupCard({ group }: { group: GroupedProduct }) {
       {/* Imagen */}
       <div className="relative h-52 bg-white flex items-center justify-center p-6">
         <Image
-          src={`/fotos/${group.variants[0].id}.jpg`}
+          src={`/fotos/default/img.webp`}
+          //src={`/fotos/${group.variants[0].id}.jpg`}
           alt={mainName}
           fill
           className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          onError={(e) => {
+            e.currentTarget.src = '/fotos/default/img.webp'
+          }}
         />
       </div>
 
@@ -59,7 +63,7 @@ export default function GroupCard({ group }: { group: GroupedProduct }) {
         <div className="mt-auto">
           
              {/* Select de variantes */}
-        { group.variants.length > 1 ? (
+        {/* { group.variants.length > 1 ? (
             <span>
                 <label className="text-xs text-gray-500 block mb-1"> { group.variants.length } Variantes</label>
                 <select
@@ -81,13 +85,13 @@ export default function GroupCard({ group }: { group: GroupedProduct }) {
             <p className="w-full border border-gray-300 px-4 py-3 text-sm bg-white">
                 { group.variants[0].descripcion.split('|')[1]?.trim() }
             </p>
-        )}
+        )} */}
         </div>
 
         {/* Precio */}
         <div className="mt-4">
           <span className="text-3xl font-bold text-[#E30613]">
-            {selectedVariant.precio}
+            ${selectedVariant.precio}.00
           </span>
         </div>
 

@@ -12,7 +12,7 @@ export async function GET() {
         ${products
           .map((product) => {
             const slug = slugify( product.descripcion! );
-            const url = `https://www.dipemsa.com.mx/producto/${product.id}/${slug}`;
+            const url = `https://www.ferredip.com.mx/producto/${product.id}/${slug}`;
 
             return `
         <url>

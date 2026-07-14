@@ -10,7 +10,7 @@ export default function SoyMayorista() {
           <h2 className="text-4xl font-bold text-gray-800">SOY MAYORISTA</h2>
           <div className="text-xl font-bold text-gray-600 mt-3">¡FORMA PARTE DE NUESTRO EQUIPO!</div>
           <p className="text-gray-600 mt-3 w-150 mx-auto text-left text-lg">
-            En DIPEMSA estamos comprometidos contigo, por eso te presentamos nuestro programa de afiliación para mayoristas y constructores, a fin de que obtengas los mejores precios y beneficios.
+            En FERREDIP estamos comprometidos contigo, por eso te presentamos nuestro programa de afiliación para mayoristas y constructores, a fin de que obtengas los mejores precios y beneficios.
           </p>
         </div>
 
@@ -19,7 +19,7 @@ export default function SoyMayorista() {
               src="/constructor.jpeg"
               width={699}
               height={892}
-              alt="Equipo Mayorista Dipemsa"
+              alt="Equipo Mayorista Ferredip"
               className="object-cover mx-auto rounded-2xl"
               sizes="(max-width: 768px) 100vw, 1200px"
             />

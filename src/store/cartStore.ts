@@ -102,7 +102,7 @@ export const useCartStore = create<CartStore>()(
       
     }),
     {
-      name: 'dipemsa-cart',
+      name: 'ferredip-cart',
       // Opcional: No guardar `isLoaded` en localStorage
       partialize: (state) => ({
         items: state.items,

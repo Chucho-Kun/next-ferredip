@@ -3,15 +3,15 @@
 import ContactoClient from "@/src/shared/components/ContactoCliente";
 
 export const metadata = {
-  title: 'Dipemsa | Contacto',
+  title: 'Ferredip | Contacto',
   description: 'Envíanos tu mensaje, cotización o consulta. Contáctanos por teléfono, WhatsApp o correo electrónico. Entregas a toda la República Mexicana.',
-  keywords: ['contacto dipemsa', 'cotización', 'envíos a mexico', 'atención al cliente'],
+  keywords: ['contacto ferredip', 'cotización', 'envíos a mexico', 'atención al cliente'],
   openGraph: {
-    title: 'Contáctanos - DIPEMSA',
+    title: 'Contáctanos - FERREDIP',
     description: 'Estamos listos para atender tu consulta. Contáctanos hoy.',
     images: [
       {
-        url: "https://www.dipemsa.com.mx/logoDipemsa.jpg",
+        url: "https://www.ferredip.com.mx/logoferredip.jpg",
         width: 1200,
         height: 630,
       },

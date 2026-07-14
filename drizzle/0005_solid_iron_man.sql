@@ -1,0 +1,1 @@
+ALTER TABLE "productos_" ADD COLUMN "related_products" jsonb DEFAULT '[]'::jsonb;

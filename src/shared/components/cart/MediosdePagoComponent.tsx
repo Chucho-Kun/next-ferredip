@@ -43,7 +43,7 @@ export default function MediosdePagoComponent() {
         body: JSON.stringify({
           items: items.map(item => ({
             id: item.id,
-            title: ( item.titulo || (`Producto Dipemsa ${item.id || ''}`)).toString().trim(),
+            title: ( item.titulo || (`Producto Ferredip ${item.id || ''}`)).toString().trim(),
             currency_id: 'MXN',
             picture_url: `/fotos/${item.id}.jpg`,
             description: item.descripcion || '',
@@ -70,7 +70,7 @@ export default function MediosdePagoComponent() {
           additional_info: {
             items: items.map(item => ({
               id: item.id,
-              title: ( item.titulo || (`Producto Dipemsa ${item.id || ''}`)).toString().trim(),
+              title: ( item.titulo || (`Producto Ferredip ${item.id || ''}`)).toString().trim(),
               description: item.descripcion,
               quantity: item.cantidad,
               unit_price: parseFloat(item.precio.replace(/[$,]/g, '')) || 0,

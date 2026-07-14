@@ -9,14 +9,14 @@ export async function generateMetadata(props: PageProps<'/marca/[slug]'>): Promi
   const marcaNombre = slugToMarca(slug);
 
   return {
-    title: `Dipemsa | ${marcaNombre}`,
+    title: `Ferredip | ${marcaNombre}`,
     description: `Explora productos de la marca ${ marcaNombre }`,
     openGraph: {
       title: `${marcaNombre}`,
       description: `Explora productos de la marca ${ marcaNombre }`,
       images: [
       {
-        url: `https://www.dipemsa.com.mx/marcas/${ slug }.webp`,
+        url: `https://www.ferredip.com.mx/marcas/${ slug }.webp`,
         width: 683,
         height: 400,
       },

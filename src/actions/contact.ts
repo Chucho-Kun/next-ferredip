@@ -17,14 +17,14 @@ export async function sendContactEmail(formData: FormData) {
       port: 587,
       secure: false,
       auth: {
-        user: "contacto@dipemsa.com.mx",
+        user: "contacto@ferredip.com.mx",
         pass: process.env.EMAIL_PASSWORD,
       },
     });
 
     const info = await transporter.sendMail({
-      from: `"Sitio Web Dipemsa" <contacto@dipemsa.com.mx>`,
-      to: "contacto@dipemsa.com.mx",
+      from: `"Sitio Web Ferredip" <contacto@ferredip.com.mx>`,
+      to: "contacto@ferredip.com.mx",
       replyTo: email,
       subject: `Nuevo mensaje - ${nombre}`,
       html: `...`,

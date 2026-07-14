@@ -14,9 +14,9 @@ export async function POST(request: NextRequest) {
     const improvedItems = body.items.map((item: any) => ({
       // Aseguramos un title no vacío y con fallback consistente
       id: item.id || undefined,
-      title: (item.title || item.titulo || (`Producto Dipemsa ${item.id || ''}`)).toString().trim(),
+      title: (item.title || item.titulo || (`Producto Ferredip ${item.id || ''}`)).toString().trim(),
       currency_id: 'MXN',
-      picture_url: `https://www.dipemsa.com.mx/fotos/${ item.id }.jpg`,
+      picture_url: `https://www.ferredip.com.mx/fotos/${ item.id }.jpg`,
       description: (item.description || item.descripcion || '').toString(),
       category_id: item.marca,
       quantity: Number(item.quantity ?? item.cantidad ?? 1),
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
           failure: `${process.env.NEXT_PUBLIC_URL}/compra/pago-fallido`,
           pending: `${process.env.NEXT_PUBLIC_URL}/compra/pago-pendiente`,
         },
-        statement_descriptor: "DIPEMSA",           // ← Aparece en el estado de cuenta
+        statement_descriptor: "FERREDIP",           // ← Aparece en el estado de cuenta
         external_reference: `ORD-${Date.now()}`,   // Referencia externa
         additional_info: {
            items: improvedItems.map((item: any) => ({
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
         } as any,
         metadata: {
           ...body.metadata,                    // ← Mantiene todo lo que enviaste
-          source: "dipemsa-web",
+          source: "ferredip-web",
           platform: "nextjs",
           environment: process.env.NODE_ENV,
           total_items: improvedItems.length,

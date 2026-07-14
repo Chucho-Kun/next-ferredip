@@ -89,7 +89,7 @@ export default function PagoExitoso() {
           </h1>
 
           <p className="text-xl text-gray-600 mb-8">
-            Gracias por tu compra en <span className="font-semibold">DIPEMSA</span>
+            Gracias por tu compra en <span className="font-semibold">FERREDIP</span>
           </p>
 
           {paymentId && (

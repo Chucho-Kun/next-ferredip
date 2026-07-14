@@ -8,31 +8,29 @@ import { productos } from "@/src/shared/db/productos";
 
 // ==================== METADATA SEO ====================
 export const metadata: Metadata = {
-  title: "Dipemsa | Materiales de Construcción Ligera",
-  description: "Somos DIPEMSA una empresa distribuidora de materiales para construcción ligera, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.",
+  title: "Ferredip | Herramientas",
+  description: "Somos FERREDIP una empresa distribuidora de herramientas para construcción ligera, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.",
   
   keywords: [
-    "materiales de construcción ligera","distribuidora de materiales","construcción ligera",
-    "armstrong","cempanel","dipemsa","fischer","gram bel","gyproc","mapei","pennsylvania","panel rey","truper","owens corning","riho","stabilit","trim tex","usg",
-    "aislantes térmicos","perfiles galvanizados","sistemas de fijación","compuestos y cintas","cempanel","tornilleria","herramientas","tablaroca","plafones","liner panel","suspensiones",
-    "anclajes y quimicos epoxicos","perfiles plasticos","sellado","adhesivos y nivelantes",
-    "perfiles metálicos",
+    "herramientas de construcción ligera","distribuidora de herramientas","construcción ligera",
+    "truper","pretul","fiero","foset","hermex","volteck","klintec","fischer","pennsylvania",
+    "electricidad", "iluminacion", "acabados y remodelacion", "cerrajeria", "tornilleria y fijacion", "plomeria", "corte y desbaste", "equipo de seguridad", "accesorios para baño", "aceites y lubricantes", "mantenimiento automotriz", "jardineria", "soldadura", "accesorios neumaticos", "herramienta manual", "herramienta industrial", "articulos de limpieza",
     "ecatepec",
     "cdmx"
   ],
 
-  authors: [{ name: "Dipemsa" }],
+  authors: [{ name: "Ferredip" }],
   openGraph: {
-    title: "Dipemsa | Materiales de Construcción Ligera",
-    description: "Somos DIPEMSA una empresa distribuidora de materiales para construcción ligera, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.",
-    url: "https://www.dipemsa.com.mx/",
-    siteName: "Dipemsa",
+    title: "Ferredip | Herramientas",
+    description: "Somos Ferredip una empresa distribuidora de herramientas, contamos con las mejores marcas y stock siempre en existencia.",
+    url: "https://www.ferredip.com.mx/",
+    siteName: "Ferredip",
     images: [
       {
-        url: "https://www.dipemsa.com.mx/logoDipemsa.jpg",   // Cambia por tu imagen real
+        url: "https://www.ferredip.com.mx/logo.svg",   // Cambia por tu imagen real
         width: 1200,
         height: 630,
-        alt: "Dipemsa - Materiales de Construcción",
+        alt: "Ferredip - Herramientas",
       },
     ],
     type: "website",
@@ -41,9 +39,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Dipemsa | Materiales de Construcción Ligera",
-    description: "Somos DIPEMSA una empresa distribuidora de materiales para construcción ligera, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.",
-    images: ["https://www.dipemsa.com.mx/logoDipemsa.jpg"],
+    title: "Ferredip | Herramientas",
+    description: "Somos Ferredip una empresa distribuidora de herramientas, contamos con las mejores marcas y stock siempre en existencia.",
+    images: ["https://www.ferredip.com.mx/logoferredip.jpg"],
   },
 };
 // =====================================================
@@ -59,88 +57,88 @@ export default function page() {
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "Organization",
-                "name": "Dipemsa",
-                "description": "Somos DIPEMSA una empresa distribuidora de materiales para construcción ligera, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.",
-                "url": "https://www.dipemsa.com.mx",
-                "logo": "https://www.dipemsa.com.mx/logo.webp",
-                "image": "https://www.dipemsa.com.mx/logoDipemsa.jpg",
+                "name": "Ferredip",
+                "description": "Somos Ferredip una empresa distribuidora de herramientas, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.",
+                "url": "https://www.ferredip.com.mx",
+                "logo": "https://www.ferredip.com.mx/logo.webp",
+                "image": "https://www.ferredip.com.mx/logoferredip.jpg",
 
                 // Sucursales
                 "location": [
                   {
                     "@type": "Place",
-                    "name": "DIPEMSA SUCURSAL ECATEPEC",
+                    "name": "FERREDIP PIRAMIDES",
                     "address": {
                       "@type": "PostalAddress",
-                      "streetAddress": "Av Insurgentes Esq 3a. Privada Allende El, Capulín 7730",
-                      "addressLocality": "Ecatepec de Morelos",
+                      "streetAddress": "Carr. Mexico tulancingo Lote kilometro 27-5",
+                      "addressLocality": "Teotihuacán de Arista",
                       "addressRegion": "Estado de México",
-                      "postalCode": "55037",
+                      "postalCode": "55800",
                       "addressCountry": "MX"
                     },
                     "geo": {
                       "@type": "GeoCoordinates",
-                      "latitude": 19.593784328073735,
-                      "longitude": -99.04405754907754
+                      "latitude": 19.692939433412597,
+                      "longitude": -98.8239674153464
                     },
-                    "telephone": "+52-55-9236-8879",
+                    "telephone": "+52-55-7329-0946",
                     "openingHoursSpecification": [
                       {
                         "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
                         "opens": "08:30",
                         "closes": "18:00"
                       },
                       {
                         "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": "Saturday",
+                        "dayOfWeek": "Sunday",
                         "opens": "08:30",
-                        "closes": "15:00"
+                        "closes": "18:00"
                       }
                     ]
                   },
                   {
                     "@type": "Place",
-                    "name": "DIPEMSA SUCURSAL TEXCOCO",
+                    "name": "FERREDIP TEQUISISTLAN",
                     "address": {
                       "@type": "PostalAddress",
-                      "streetAddress": "Lechería - Texcoco km 27.5, San Francisco Acuexcomac",
-                      "addressLocality": "San Francisco Acuexcomac",
+                      "streetAddress": "Carretera Federal Lechería-Los Reyes km.34 Ejidos de Tequisistlán",
+                      "addressLocality": "Tequisistlán",
                       "addressRegion": "Estado de México",
-                      "postalCode": "56300",
+                      "postalCode": "56020",
                       "addressCountry": "MX"
                     },
                     "geo": {
                       "@type": "GeoCoordinates",
-                      "latitude": 19.558544270236247,
-                      "longitude": -98.91190823558253
+                      "latitude": 19.58853677394558,  
+                      "longitude": -98.92532129999836
                     },
-                    "telephone": "+52-55-9298-6436",
+                    "telephone": "+52-55-6895-3906",
                     "openingHoursSpecification": [
                       {
                         "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday"],
                         "opens": "08:30",
                         "closes": "18:00"
                       },
                       {
                         "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": "Saturday",
+                        "dayOfWeek": "Sunday",
                         "opens": "08:30",
-                        "closes": "15:00"
+                        "closes": "18:00"
                       }
                     ]
                   }
                 ],
 
-                "telephone": "+52-55-9236-8879",
-                "email": "contacto@dipemsa.com.mx",
+                "telephone": "+52-55-6895-3906",
+                "email": "contacto@ferredip.com.mx",
 
                 "priceRange": "$$",
                 "paymentAccepted": ["Cash", "Credit Card", "Transferencia", "Mercado Pago"],
 
                 "sameAs": [
-                  "https://www.facebook.com/Dipemsa/"
+                  "https://www.facebook.com/FerreDipPiramides/"
                 ]
               })
             }}

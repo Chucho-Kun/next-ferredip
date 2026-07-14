@@ -96,12 +96,15 @@ export default function ProductCard({producto, productosVariantes}: Props) {
             ) }
           </nav>
           <Image
-            src={`/fotos/${ producto.id }.jpg`} 
-            alt={ producto.descripcion! }
+            src={'/fotos/default/img.webp'}
+            // src={`/fotos/${producto.id}.jpg`}
+            alt={producto.descripcion || ''}
             width={366}
             height={214}
             className="h-auto object-contain mt-8"
-            priority
+            priority={true}           // Solo pon true en la página principal
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 366px"
+            quality={85}
           />
         </div>
 
@@ -121,9 +124,9 @@ export default function ProductCard({producto, productosVariantes}: Props) {
 
           {/* Precios */}
           <div className="flex items-center gap-4">
-            <span className="text-4xl font-bold text-[#E30613]">{ producto.precio }</span>
+            <span className="text-4xl font-bold text-[#E30613]">${ producto.precio }.00</span>
             { producto.precioant && (
-              <span className="text-2xl line-through text-gray-400">{ producto.precioant }</span>
+              <span className="text-2xl line-through text-gray-400">${ producto.precioant }.00</span>
             ) }
           </div>
 

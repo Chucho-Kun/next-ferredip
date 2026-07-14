@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await resend.emails.send({
       // ← AQUÍ ES EL CAMBIO IMPORTANTE
-      from: `DIPEMSA WEB <avisos@noreply.dipemsa.com.mx>`,
+      from: `FERREDIP WEB <avisos@noreply.ferredip.com.mx>`,
 
       to: [customerEmail],
       bcc: ["ventas.grupoceic@gmail.com"],
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
       </head>
       <body style="background-color: #efefef;">
       <div style="width: 100%;text-align: center;background-color: white;">
-          <img style="width: 300px;max-width: 300px;margin: 11px 0px;" src="https://www.dipemsa.com.mx/logo.jpg">
+          <img style="width: 300px;max-width: 300px;margin: 11px 0px;" src="https://www.ferredip.com.mx/logo.jpg">
           <p class="" style="background-color: #000B66;font-weight: bold;color:white;height: 40px;"></p>
       </div>
 
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
           <div style="padding-top:30px;">Fecha: ${new Date().toLocaleString('es-MX')}</div>
           <div style="padding-top:30px;">Orden: ${orderData.paymentId}</div>
           <p style="font-weight:bold;font-size:18px;font-family:Cabin,sans-serif;font-style: italic;text-transform:uppercase">${ deliveryData.nombre }</p>
-          <p style="font-weight:bold;font-size:16px;font-family:Cabin,sans-serif;font-style: italic;text-transform:uppercase">¡Gracias por tu compra en DIPEMSA!</p>
+          <p style="font-weight:bold;font-size:16px;font-family:Cabin,sans-serif;font-style: italic;text-transform:uppercase">¡Gracias por tu compra en FERREDIP!</p>
 
       <div class="fichaCarrito" style="text-align: center;position: relative;text-align: center;padding: 10px;">
 
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
                           <tbody>
                               <tr style="height: 18px;">
                                   <td style="width: 25%; height: 36px;" rowspan="2">
-                                      <img width="120" style="position: relative;left: 6px;border-radius: 7px;" src="https://www.dipemsa.com.mx/fotos/${ item.id }.jpg">   
+                                      <img width="120" style="position: relative;left: 6px;border-radius: 7px;" src="https://www.ferredip.com.mx/fotos/${ item.id }.jpg">   
                                       
                                   </td>
                                   <td style="width: 25%; height: 16px;" colspan="3">
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
                       <tr>
                           <td colspan="2">
                               <div style="font-size: 14px;">Vendedor que lo atendió:</div>
-                              <div style="font-size: 12px;">www.dipemsa.com.mx</div>
+                              <div style="font-size: 12px;">www.ferredip.com.mx</div>
                           </td>
                       </tr>
                   </tbody>
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
 
       <div class="separador"></div>
 
-      <img src="https://www.dipemsa.com.mx/sliders/mainSlider/2.webp" width="100%" style="margin: 25px 0px;">
+      <img src="https://www.ferredip.com.mx/sliders/mainSlider/2.webp" width="100%" style="margin: 25px 0px;">
 
       </div>
       </div>
@@ -195,7 +195,7 @@ export async function POST(request: NextRequest) {
       </div>
 
         <div style="background-color: black;color: white !important;padding: 10px;text-decoration: none;text-align: center;">
-            <a href="https://www.dipemsa.com.mx" style="color: white !important;font-size: 14px;display: inline-block;">www.dipemsa.com.mx</a>
+            <a href="https://www.ferredip.com.mx" style="color: white !important;font-size: 14px;display: inline-block;">www.ferredip.com.mx</a>
         </div>
 
 

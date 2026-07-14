@@ -19,12 +19,11 @@ export function slugToMarca(slug: string): string {
 
 export function slugToCategory(slug: string): string {
   const mapa: Record<string, string> = {
-    'anclajes-y-quimicos-epoxicos': 'Anclajes y químicos epoxicos',
-    'sistemas-de-fijacion-directa': 'Sistemas de fijacion directa',
-    'perfiles-galvanizados': 'Perfiles galvanizados',
-    'tablaroca-y-durock':'Tablaroca y Durock',
-    'trim-tex': 'Liner panel',
-    'cempanel': 'Cempanel',
+    'construccion': 'Construcción',
+    'tornilleria-y-fijacion': 'Tornillería y fijación',
+    'mantenimiento-automotriz': 'Automotriz',
+    'jardineria': 'Jardinería',
+   
     // Agrega más según necesites
   };
 

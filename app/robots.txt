@@ -1,4 +1,4 @@
-# robots.txt para dipemsa.com.mx
+# robots.txt para ferredip.com.mx
 
 User-agent: *
 Allow: /
@@ -14,8 +14,8 @@ Disallow: /cart/success
 Disallow: /compra/
 
 # Sitemaps
-Sitemap: https://www.dipemsa.com.mx/sitemap.xml
-Sitemap: https://www.dipemsa.com.mx/products.xml
+Sitemap: https://www.ferredip.com.mx/sitemap.xml
+Sitemap: https://www.ferredip.com.mx/products.xml
 
 # Opcional: permitir Google y Bing específicamente
 User-agent: Googlebot

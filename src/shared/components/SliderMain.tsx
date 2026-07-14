@@ -14,7 +14,7 @@ export default function SliderMain() {
     <div className="overflow-hidden" ref={emblaRef}>
       <div className="flex pb-5 cursor-grab">
         <div className="flex-[0_0_100%] min-w-0">
-          <img src="/sliders/mainSlider/1.webp" alt="Dipemsa web" className="slider-responsive" fetchPriority='high' />
+          <img src="/sliders/mainSlider/1.webp" alt="Ferredip web" className="slider-responsive" fetchPriority='high' />
         </div>
         <div className="flex-[0_0_100%] min-w-0">
           <img loading="lazy" src="/sliders/mainSlider/1b.webp" alt="Mayoristas o constructores" className="slider-responsive" />
@@ -35,7 +35,7 @@ export default function SliderMain() {
           <img loading="lazy" src="/sliders/mainSlider/AR1.webp" alt="Plafones y suspension Armstrong" className="slider-responsive" />
         </div>
         <div className="flex-[0_0_100%] min-w-0">
-          <img loading="lazy" src="/sliders/mainSlider/AR3.webp" alt="Venta de productos Dipemsa" className="slider-responsive" />
+          <img loading="lazy" src="/sliders/mainSlider/AR3.webp" alt="Venta de productos Ferredip" className="slider-responsive" />
         </div>
         <div className="flex-[0_0_100%] min-w-0">
           <img loading="lazy" src="/sliders/mainSlider/AR4.webp" alt="Glass liner y liner panel disponibles" className="slider-responsive" />

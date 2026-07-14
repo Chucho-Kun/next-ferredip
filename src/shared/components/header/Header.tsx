@@ -23,14 +23,14 @@ export default function Header() {
       </div>
 
       {/* Main Header */}
-      <div className="bg-white">
+      <div className="bg-gray-200">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Logo */}
             <div className="shrink-0">
 
               <Link href={'/'} className="cursor-pointer">
-                  <img width={200} height={70} src="/logo.svg" alt="Logo Dipemsa SVG" />
+                  <img width={200} height={70} src="/logo.svg" alt="Logo Ferredip" />
                   {/* <Image 
                     src={'/logo.webp'}
                     width={200}
@@ -54,9 +54,9 @@ export default function Header() {
 
               {/* Cotiza Ahora Button */}
               <Link 
-                  href={ 'https://api.whatsapp.com/send?phone=5532651039' }
+                  href={ 'https://api.whatsapp.com/send?phone=5573476687' }
                   target='_blank'
-                  className="bg-[#FF5E00] hover:bg-[#E30613] text-white font-bold px-6 py-2 rounded-lg flex items-center gap-2 transition text-sm whitespace-nowrap">
+                  className="bg-[#e94923] hover:bg-[#E30613] text-white font-bold px-6 py-2 rounded-lg flex items-center gap-2 transition text-sm whitespace-nowrap">
                 COTIZA POR WHATSAPP
                 <span className="text-xl">
                   <Image 
@@ -82,14 +82,14 @@ export default function Header() {
       </div>
 
       {/* Navigation Menu */}
-      <nav className="bg-[#1E2A44] text-white">
+      <nav className="bg-white text-black">
         <div className="max-w-7xl mx-auto px-4">
           <div className="hidden md:flex items-center justify-center gap-14 py-4 font-bold text-large">
             
             <Link href={'/'} className='hover:text-[#FF5E00] transition'>HOME</Link>
             <Link href={'/marcas'} className='hover:text-[#FF5E00] transition'>MARCAS</Link>
-            <Link href={'/productos'} className='hover:text-[#FF5E00] transition'>PRODUCTOS</Link>
-            <Link href={'/soy-mayorista'} className='hover:text-[#FF5E00] transition'>SOY MAYORISTA</Link>
+            <Link href={'/productos'} className='hover:text-[#FF5E00] transition'>CATEGORIAS</Link>
+            {/* <Link href={'/soy-mayorista'} className='hover:text-[#FF5E00] transition'>SOY MAYORISTA</Link> */}
             <Link href={'/carrito-de-compra'} className='hover:text-[#FF5E00] transition'>CARRITO DE COMPRA</Link>
             <Link href={'/contacto'} className='hover:text-[#FF5E00] transition'>CONTACTO</Link>
 
@@ -101,7 +101,7 @@ export default function Header() {
               <Link href={'/'} className='hover:text-[#FF5E00] transition'>HOME</Link>
               <Link href={'/marcas'} className='hover:text-[#FF5E00] transition'>MARCAS</Link>
               <Link href={'/productos'} className='hover:text-[#FF5E00] transition'>PRODUCTOS</Link>
-              <Link href={'/soy-mayorista'} className='hover:text-[#FF5E00] transition'>SOY MAYORISTA</Link>
+              {/* <Link href={'/soy-mayorista'} className='hover:text-[#FF5E00] transition'>SOY MAYORISTA</Link> */}
               <Link href={'/carrito-de-compra'} className='hover:text-[#FF5E00] transition'>CARRITO DE COMPRA</Link>
               <Link href={'/contacto'} className='hover:text-[#FF5E00] transition'>CONTACTO</Link>
             </div>
@@ -112,7 +112,7 @@ export default function Header() {
       {/* Brands Bar */}
       <div className="bg-white py-3 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="max-w-full mx-auto hidden md:flex items-center justify-center gap-2 md:gap-1 text-xs md:text-sm font-bold text-gray-600 flex-wrap">
+          <div className="max-w-full mx-auto hidden md:flex items-center justify-center gap-3 md:gap-3 text-xs md:text-sm font-bold text-gray-600 flex-wrap">
             
             { marcas.sort((a,b) => a.name.localeCompare(b.name))
                     .map( (marca, index) => (
