@@ -9,7 +9,7 @@ type Props = {
 
 // Metadata Dinámica con datos reales del producto
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
+  const { id, slug } = await params;
   const producto = await getProductById(id);
 
   if (!producto) {
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [`/fotos/${id}.jpg`],
     },
     alternates: {
-      canonical: `https://www.ferredip.com.mx/producto/${id}/${producto.descripcion?.split('|')[0] || ''}`,
+      canonical: `https://www.ferredip.com.mx/producto/${id}/${ slug }`,
     },
   };
 }
