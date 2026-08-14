@@ -17,7 +17,7 @@ export default function TerminosYCondicionesPage() {
           
           <h2 className="text-2xl font-bold text-gray-800 mt-10 mb-4">Envíos</h2>
           <p>
-            Envíos gratis sólo aplican en compras mayores a <strong>$5,000 MXN</strong> (Solo aplica para CDMX y Área Metropolitana, únicamente a compras hechas en www.dipemsa.com.mx).
+            Envíos gratis sólo aplican en compras mayores a <strong>$5,000 MXN</strong> (Solo aplica para CDMX y Área Metropolitana, únicamente a compras hechas en www.ferredip.com.mx).
           </p>
           <p className="mt-4">
             En caso de requerir envío a otro estado de la república o las zonas no mencionadas, favor de cotizar con el equipo de ventas.
@@ -33,7 +33,7 @@ export default function TerminosYCondicionesPage() {
             El recibo de un formulario electrónico o de otro tipo de confirmación de pedido no significa nuestra aceptación de su pedido, ni constituye una confirmación de nuestra oferta de venta.
           </p>
           <p className="mt-4">
-            DIPEMSA se reserva el derecho en cualquier momento después de recibir su orden de aceptar o rechazar su pedido por cualquier razón.
+            FERREDIP se reserva el derecho en cualquier momento después de recibir su orden de aceptar o rechazar su pedido por cualquier razón.
           </p>
 
           <h2 className="text-2xl font-bold text-gray-800 mt-12 mb-4">Productos Agotados o Fuera de Existencia</h2>
@@ -73,7 +73,7 @@ export default function TerminosYCondicionesPage() {
           </p>
 
           <div className="mt-16 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
-            <p>DIPEMSA • Todos los derechos reservados © 2026</p>
+            <p>FERREDIP • Todos los derechos reservados © 2026</p>
           </div>
         </div>
 

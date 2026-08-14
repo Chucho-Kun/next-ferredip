@@ -21,7 +21,7 @@ type GroupedProduct = {
   variants: Variant[]
 };
 
-const LOGO_SRC = '/logo.webp';
+const LOGO_SRC = '/logo_.webp';
 const fotoDe = (id: string) => `/fotos/webp/${id}.webp`;
 
 type Props = {
@@ -45,7 +45,7 @@ export default function GroupCard({ group, listId, listName }: Props) {
     }
   };
 
-  //console.log( `https://www.dipemsa.com.mx/producto/${ selectedVariant.id }/${ slugify( selectedVariant.descripcion ) }`)
+  //console.log( `https://ferredip.com.mx/producto/${ selectedVariant.id }/${ slugify( selectedVariant.descripcion ) }`)
 
   const handleSelectItem = () => {
     const item = toGA4Item(selectedVariant, { item_list_id: listId, item_list_name: listName });
@@ -123,7 +123,7 @@ export default function GroupCard({ group, listId, listName }: Props) {
         {/* Precio */}
         <div className="mt-4">
           <span className="text-3xl font-bold text-[#E30613]">
-            {selectedVariant.precio}
+            ${selectedVariant.precio}.00
           </span>
         </div>
 

@@ -2,15 +2,15 @@ import Marcas from "@/src/shared/components/Marcas";
 
 
 export const metadata = {
-  title: 'Dipemsa | Marcas',
+  title: 'Ferredip | Marcas',
   description: 'Listado de todas las marcas con las que contamos en nuestro catálogo',
-  keywords: ['armstrong','cempanel','dipemsa','fischer','gram bel','gyproc','mapei','owens corning','panel rey','pennsylvania','riho','stabilit','trim tex','truper','usg'],
+  keywords: ['Pretul','Fiero','Ferredip','Truper'],
   openGraph: {
-    title: 'Marcas - DIPEMSA',
+    title: 'Marcas - Ferredip',
     description: 'Listado de todas las marcas con las que contamos en nuestro catálogo',
     images: [
       {
-        url: "https://www.dipemsa.com.mx/logoDipemsa.jpg",
+        url: "https://ferredip.com.mx/logoFerredip.jpg",
         width: 1200,
         height: 630,
       },

@@ -56,9 +56,9 @@ export async function POST(request: NextRequest) {
       payment_method_id: formData.payment_method_id,
       transaction_amount: transactionAmount,
       installments: Number(formData.installments) || 1,
-      description: body.description || "Compra en Dipemsa",
+      description: body.description || "Compra en Ferredip",
       //additional_info: additionalItems.length ? { items: additionalItems } : undefined,
-      payer: { email: formData.payer?.email || "contacto@dipemsa.com.mx" },
+      payer: { email: formData.payer?.email || "contacto@ferredip.com.mx" },
       additional_info: {
         items: additionalItems,
         payer: {

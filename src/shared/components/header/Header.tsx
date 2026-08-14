@@ -35,7 +35,7 @@ export default function Header() {
                     src={'/logo.webp'}
                     width={200}
                     height={70}
-                    alt='Logo Dipemsa'
+                    alt='Logo Ferredip'
                     className="w-auto h-14 md:h-16 object-contain"
                     priority
                   /> */}

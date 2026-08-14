@@ -1,7 +1,7 @@
 import { CartItem } from "@/src/store/cartStore";
 
-const ORDER_SNAPSHOT_KEY = 'dipemsa-last-order';
-const PURCHASE_SENT_KEY = 'dipemsa-purchase-sent';
+const ORDER_SNAPSHOT_KEY = 'ferredip-last-order';
+const PURCHASE_SENT_KEY = 'ferredip-purchase-sent';
 const MAX_PURCHASE_SENT_ENTRIES = 20;
 
 export type OrderSnapshot = {

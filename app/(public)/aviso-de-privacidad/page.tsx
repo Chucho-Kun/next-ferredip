@@ -17,11 +17,11 @@ export default function AvisoDePrivacidad() {
           
           
           <p>
-            DIPEMSA con domicilio en Av. vía Morelos, Cerezo 77A, Boulevares Impala, 55040 Ecatepec de Morelos, Méx. Estado de México es quien comercializa los productos ofrecidos en esta Página. Toda transacción realizada a través de la Página, se sujetará a los términos y condiciones aquí expresados.
+            FERREDIP con domicilio en Av. vía Morelos, Cerezo 77A, Boulevares Impala, 55040 Ecatepec de Morelos, Méx. Estado de México es quien comercializa los productos ofrecidos en esta Página. Toda transacción realizada a través de la Página, se sujetará a los términos y condiciones aquí expresados.
           </p>
 
           <p className="mt-6">
-          Tu privacidad es muy importante para DIPEMSA ,ponemos a tu disposición este Aviso de Privacidad de Datos Personales, mismo que describe, solicita y trata tus Datos Personales
+          Tu privacidad es muy importante para FERREDIP ,ponemos a tu disposición este Aviso de Privacidad de Datos Personales, mismo que describe, solicita y trata tus Datos Personales
           </p>
 
           <h3 className="text-xl font-semibold mt-10 mb-4">Datos Personales que Recabamos</h3>
@@ -59,7 +59,7 @@ export default function AvisoDePrivacidad() {
 
           <div className="mt-12 pt-8 border-t border-gray-200 text-sm text-gray-500">
             <p>
-              DIPEMSA se compromete a proteger tus datos personales y a cumplir con todas las 
+              FERREDIP se compromete a proteger tus datos personales y a cumplir con todas las 
               disposiciones legales aplicables en materia de protección de datos personales en México.
             </p>
           </div>

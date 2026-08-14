@@ -14,7 +14,7 @@ export default function Footer() {
               <img width={200} height={70} src="/logoBlanco.svg" alt="Logo Ferredip Footer" />
               {/* <Image
                 src={'/logoBlanco.webp'}
-                alt='Logo Transparente DIPEMSA'
+                alt='Logo Transparente '
                 width={136}
                 height={34}
                 loading='lazy'
@@ -39,17 +39,17 @@ export default function Footer() {
               {/* <Link href={'https://wa.me/5532651039'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
                 <img aria-label='whatsapp de sucursal' className='hove:text-yellow-300' width={25} height={25} src={'/icons/whatsapp.svg'} alt='icono whatsApp' />
               </Link>
-              <Link href={'https://www.facebook.com/Dipemsa/'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
+              <Link href={'https://www.facebook.com/Ferredip/'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
                 <img aria-label='facebook de sucursal' width={25} height={25} src={'/icons/facebook.svg'} alt='icono facebook' />
               </Link>
-              <Link href={'https://www.tiktok.com/@dipemsa_construccionlig'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
-                <img aria-label='cuenta de tiktok de Dipemsa' width={25} height={25} src={'/icons/tiktok.svg'} alt='icono tiktok' />
+              <Link href={'https://www.tiktok.com/@Ferredip_construccionlig'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
+                <img aria-label='cuenta de tiktok de Ferredip' width={25} height={25} src={'/icons/tiktok.svg'} alt='icono tiktok' />
               </Link>
-              <Link href={'https://www.instagram.com/dipemsa_/'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
-                <img aria-label='cuenta de tiktok de Dipemsa' width={25} height={25} src={'/icons/instagram.svg'} alt='icono instagram' />
+              <Link href={'https://www.instagram.com/Ferredip_/'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
+                <img aria-label='cuenta de tiktok de Ferredip' width={25} height={25} src={'/icons/instagram.svg'} alt='icono instagram' />
               </Link>
-              <Link href={'https://www.youtube.com/@DIPEMSACONSTRUCCIONLIGERA'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
-                <img aria-label='cuenta de tiktok de Dipemsa' width={25} height={25} src={'/icons/youtube.svg'} alt='icono youtube' />
+              <Link href={'https://www.youtube.com/@FerredipCONSTRUCCIONLIGERA'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
+                <img aria-label='cuenta de tiktok de Ferredip' width={25} height={25} src={'/icons/youtube.svg'} alt='icono youtube' />
               </Link> */}
               
             </div>
@@ -69,7 +69,7 @@ export default function Footer() {
                 <Link className="text-bold hover:text-orange-400 transition" href={''} >Quejas y Sugerencias</Link>
               </li> */}
               <li>
-                <Link className="text-bold text-yellow-300 hover:text-orange-400 transition" target='_blank' href={'https://www.mercadolibre.com.mx/pagina/dipemsa5699#origin=search_intervention&tracking_id=4f8a91a2-cb77-43cb-984d-fe7bde46fe18'} >Tienda Oficial Mercado Libre</Link>
+                <Link className="text-bold text-yellow-300 hover:text-orange-400 transition" target='_blank' href={'https://www.mercadolibre.com.mx/pagina/Ferredip5699#origin=search_intervention&tracking_id=4f8a91a2-cb77-43cb-984d-fe7bde46fe18'} >Tienda Oficial Mercado Libre</Link>
               </li>
             </ul>
           </div>

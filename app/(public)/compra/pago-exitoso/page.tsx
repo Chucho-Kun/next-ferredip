@@ -2,8 +2,8 @@ import PagoExitosoContent from '@/src/shared/components/cart/PagoExitosoContent'
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Dipemsa | Gracias por tu compra',
-  description: 'Tu pago fue procesado exitosamente. Gracias por comprar en DIPEMSA',
+  title: 'Ferredip | Gracias por tu compra',
+  description: 'Tu pago fue procesado exitosamente. Gracias por comprar en Ferredip',
 };
 
 // Esta es la página principal (Server Component)

@@ -11,22 +11,22 @@ export async function generateMetadata(props: PageProps<'/marca/[slug]'>): Promi
   const marcaNombre = slugToMarca(slug);
 
   return {
-    title: `Dipemsa | ${marcaNombre}`,
+    title: `Ferredip | ${marcaNombre}`,
     description: `Explora productos de la marca ${ marcaNombre }`,
     openGraph: {
       title: `${marcaNombre}`,
       description: `Explora productos de la marca ${ marcaNombre }`,
-      url: `https://www.dipemsa.com.mx/marca/${ slug }`,
+      url: `https://ferredip.com.mx/marca/${ slug }`,
       images: [
       {
-        url: `https://www.dipemsa.com.mx/marcas/jpg/${ slug }.jpg`,  // https://www.dipemsa.com.mx/marcas/jpg/trim-tex.jpg
+        url: `https://ferredip.com.mx/marcas/jpg/${ slug }.jpg`,  // https://ferredip.com.mx/marcas/jpg/trim-tex.jpg
         width: 683,
         height: 400,
       },
     ],
     },
     alternates: {
-          canonical: `https://www.dipemsa.com.mx/marca/${ slugify(slug) }`,
+          canonical: `https://ferredip.com.mx/marca/${ slugify(slug) }`,
     },
   };
 }

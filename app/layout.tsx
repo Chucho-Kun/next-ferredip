@@ -15,8 +15,8 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Dipemsa | Bienvenidos",
-  description: "Somos DIPEMSA una empresa de construcción ligera distribuidora de materiales de construcción ligera, contamos con las mejores marcas y stock siempre en existencia.",
+  title: "Ferredip | Bienvenidos",
+  description: "Somos Ferredip una empresa de venta de Herramientas",
 };
 
 export default function RootLayout({

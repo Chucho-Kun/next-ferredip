@@ -18,23 +18,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!producto) {
     return {
-      title: "Producto no encontrado | Dipemsa",
+      title: "Producto no encontrado | Ferredip",
       description: "El producto que buscas no está disponible.",
     };
   }
 
   const tituloProducto = producto.descripcion 
     ? producto.descripcion.split('|')[0].trim() 
-    : producto.descripcion || "Producto Dipemsa";
+    : producto.descripcion || "Producto Ferredip";
 
   return {
-    title: `${tituloProducto} | Dipemsa`,
-    description: `${tituloProducto} - Marca: ${producto.marca || 'Dipemsa'}. Precio: ${producto.precio}. Disponible en nuestra tienda en línea.`,
+    title: `${tituloProducto} | Ferredip`,
+    description: `${tituloProducto} - Marca: ${producto.marca || 'Ferredip'}. Precio: ${producto.precio}. Disponible en nuestra tienda en línea.`,
     
     openGraph: {
       title: `${tituloProducto} | ${ producto.marca }`,
       description: `${ producto.descripcion?.split('|')[1] } - [ ${ producto.id } ]`,
-      url: `https://www.dipemsa.com.mx/producto/${id}/${ slugify( slug ) }`,
+      url: `https://ferredip.com.mx/producto/${id}/${ slugify( slug ) }`,
       images: [
         {
           url: `/fotos/webp/${id}.webp`,
@@ -44,17 +44,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
       ],
       type: "website",
-      siteName: "Dipemsa",
+      siteName: "Ferredip",
     },
 
     twitter: {
       card: "summary_large_image",
-      title: `${tituloProducto} | Dipemsa`,
-      description: `${tituloProducto} - ${producto.marca || 'Dipemsa'}`,
+      title: `${tituloProducto} | Ferredip`,
+      description: `${tituloProducto} - ${producto.marca || 'Ferredip'}`,
       images: [`/fotos/webp/${id}.webp`],
     },
     alternates: {
-      canonical: `https://www.dipemsa.com.mx/producto/${id}/${ slugify( slug ) }`,
+      canonical: `https://ferredip.com.mx/producto/${id}/${ slugify( slug ) }`,
     },
   };
 }
@@ -85,25 +85,25 @@ export default async function ProductoPage(props: PageProps<'/producto/[id]/[slu
                     "@type": "ListItem",
                     "position": 1,
                     "name": "Inicio",
-                    "item": "https://www.dipemsa.com.mx"
+                    "item": "https://ferredip.com.mx"
                   },
                   {
                     "@type": "ListItem",
                     "position": 2,
                     "name": "Marca",
-                    "item": `https://www.dipemsa.com.mx/marca/${ slugify(producto.marca || '') }`
+                    "item": `https://ferredip.com.mx/marca/${ slugify(producto.marca || '') }`
                   },
                   {
                     "@type": "ListItem",
                     "position": 3,
                     "name": "Producto",
-                    "item": `https://www.dipemsa.com.mx/categoria/${ slugify(producto.categoria || '') }`
+                    "item": `https://ferredip.com.mx/categoria/${ slugify(producto.categoria || '') }`
                   },
                   {
                     "@type": "ListItem",
                     "position": 4,
                     "name": tituloProducto,
-                    "item": `https://www.dipemsa.com.mx/producto/${id}/${ slug }`
+                    "item": `https://ferredip.com.mx/producto/${id}/${ slug }`
                   }
                 ]
               })
@@ -120,10 +120,10 @@ export default async function ProductoPage(props: PageProps<'/producto/[id]/[slu
                 "name": tituloProducto,
                 "description": tituloDesc || "varios modelos",
                 "sku": producto.clave,
-                "image": `https://www.dipemsa.com.mx/webp/${id}.webp`,
+                "image": `https://ferredip.com.mx/webp/${id}.webp`,
                 "brand": {
                   "@type": "Brand",
-                  "name": producto.marca || "Dipemsa"
+                  "name": producto.marca || "Ferredip"
                 },
 
                 // ← NUEVO: Aggregate Rating
@@ -153,7 +153,7 @@ export default async function ProductoPage(props: PageProps<'/producto/[id]/[slu
                 
                 "offers": {
                   "@type": "Offer",
-                  "url": `https://www.dipemsa.com.mx/producto/${id}/${ slug || ''}`,
+                  "url": `https://ferredip.com.mx/producto/${id}/${ slug || ''}`,
                   "priceCurrency": "MXN",
                   "price": parseFloat(producto.precio?.replace(/[$,]/g, '') || "0"),
                   "validFrom": "2026-01-01",
@@ -161,7 +161,7 @@ export default async function ProductoPage(props: PageProps<'/producto/[id]/[slu
                   "availability": "https://schema.org/InStock", // o "OutOfStock" si no hay stock
                   "seller": {
                     "@type": "Organization",
-                    "name": "Dipemsa"
+                    "name": "Ferredip"
                   },
 
                               // === NUEVO: Shipping Details ===

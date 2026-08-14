@@ -12,9 +12,9 @@ export async function GET() {
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
         <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
         <channel>
-            <title>Dipemsa - Productos</title>
-            <description>Catálogo de productos Dipemsa para Google Merchant Center</description>
-            <link>https://www.dipemsa.com.mx</link>
+            <title>Ferredip - Productos</title>
+            <description>Catálogo de productos Ferredip para Google Merchant Center</description>
+            <link>https://ferredip.com.mx</link>
             <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 
             ${products
@@ -32,14 +32,14 @@ export async function GET() {
                     <g:id>${product.id}</g:id>
                     <g:title>${escapeXml( product.descripcion || '')}</g:title>
                     <g:description>${escapeXml(product.informacion || product.descripcion || '')}</g:description>
-                    <g:link>https://www.dipemsa.com.mx/producto/${product.id}/${ slugify( product.descripcion! ) }</g:link>
-                    <g:image_link>https://www.dipemsa.com.mx/fotos/webp/${product.id}.webp</g:image_link>
+                    <g:link>https://ferredip.com.mx/producto/${product.id}/${ slugify( product.descripcion! ) }</g:link>
+                    <g:image_link>https://ferredip.com.mx/fotos/${product.id}.jpg</g:image_link>
                     
                     <g:condition>new</g:condition>
                     <g:availability>in stock</g:availability>
                     <g:price>${precioLimpio} MXN</g:price>
                     
-                    <g:brand>${escapeXml(product.marca || 'Dipemsa')}</g:brand>
+                    <g:brand>${escapeXml(product.marca || 'Ferredip')}</g:brand>
                     <g:gtin></g:gtin>
                     <g:mpn>${product.clave || ''}</g:mpn>
                     

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "Ferredip",
     images: [
       {
-        url: "https://ferredip.com.mx/logoDipemsa.jpg",   // Cambia por tu imagen real
+        url: "https://ferredip.com.mx/logoFerredip.jpg",   // Cambia por tu imagen real
         width: 1200,
         height: 630,
         alt: "Ferredip - Herramientas",
@@ -62,7 +62,7 @@ export default function page() {
                 "description": "Somos Ferredip una empresa distribuidora de herramientas, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.",
                 "url": "https://ferredip.com.mx",
                 "logo": "https://ferredip.com.mx/logo.webp",
-                "image": "https://ferredip.com.mx/logoDipemsa.jpg",
+                "image": "https://ferredip.com.mx/logoFerredip.jpg",
 
                 // Sucursales
                 "location": [

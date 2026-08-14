@@ -32,7 +32,7 @@ Configuration is read from `.env` (see `drizzle.config.ts` and `src/shared/db/in
 
 ### Route groups (`app/`)
 
-- `app/(public)` — the storefront: home, `producto/[id]/[slug]`, `categoria/[slug]`, `marca/[slug]`, `marcas`, `resultados/[slug]` (search results), `carrito-de-compra`, `compra` (checkout + `pago-exitoso`/`pago-fallido`/`pago-pendiente` result pages), plus static pages (`contacto`, `soy-mayorista`, `terminos-y-condiciones`, `aviso-de-privacidad`).
+- `app/(public)` — the storefront: home, `producto/[id]/[slug]`, `categoria/[slug]`, `marca/[slug]`, `marcas`, `productos` (category overview grid), `resultados/[slug]` (search results), `carrito-de-compra`, `compra` (checkout + `pago-exitoso`/`pago-fallido`/`pago-pendiente` result pages), plus static pages (`contacto`, `soy-mayorista`, `terminos-y-condiciones`, `aviso-de-privacidad`).
 - `app/(admin)` — admin panel (currently only `productos/relacionados`, for managing related-product associations). There is no `middleware.ts` and no auth check found in the admin layout/routes — treat admin pages/APIs as currently unprotected rather than assuming they're gated.
 - `app/api` — route handlers: `admin/productos` (list/manage products, including `[id]/relacionados`), `mercadopago/preference` and `mercadopago/process-payment` (checkout flow), `search`, `send-email`.
 - `app/sitemap.ts`, `app/feed.xml/route.ts`, `app/products.xml/route.ts` — generated SEO/feed endpoints.
@@ -42,17 +42,21 @@ Configuration is read from `.env` (see `drizzle.config.ts` and `src/shared/db/in
 - `index.ts` — single `pg.Pool` + `drizzle()` instance shared app-wide (SSL only in production).
 - `schema/productList.ts` — the whole catalog lives in one table, `productos_` (Drizzle table `productos`). There's no separate brands/categories table: `marca` and `categoria` are free-text varchar columns, and product variants are encoded by splitting `descripcion` on `|` (see `getProductsByGroupsofTrademarks`/`getProductsByGroupsofCategories` in `queries.ts`). Sort order is driven by the `orden_prod`/`orden_cat` integer columns, not by insertion order or price.
 - `queries.ts` — all product read queries, plus `slugToMarca`/`slugToCategory` helpers that map URL slugs to display names via a hardcoded lookup table (extend these maps when adding a new brand/category slug). `marcas.ts`, `resultados.ts`, `contact-info.ts` hold other query groups.
+- `productos.ts` — not a DB query module despite living in `db/`: it's a static array mapping category slugs to their `/productos/*.webp` image, used by the home page and `app/(public)/productos` to render the category grid. Commented-out entries are categories awaiting artwork — uncomment once the image exists in `public/productos/`.
 
 ### State & actions
 
 - `src/store` — Zustand stores: `cartStore.ts` (cart contents, persisted to `localStorage` under key `ferredip-cart`, computes subtotal/shipping/total — free shipping threshold is $5000) and `deliveryStore.ts`.
 - `src/actions` — server actions (`contact.ts` sends the contact form via email).
+- `src/utils` — `formatPrice.ts`, `slugify.ts` (URL slug generation for products/brands/categories), `gtm.ts` (Google Tag Manager event pushes), `orderSnapshot.ts`.
+- `src/hooks` — `useDeleteToast.tsx`.
 
 ### Components (`src/shared/components`)
 
-Flat-ish by domain rather than by route: top-level components are storefront sections (product cards/lists, brand/category results, sliders), with subfolders for `cart/` (checkout UI incl. `MercadoPagoBrick`/`MercadoPagoButton`), `dashboard/` (admin related-products dashboard, with its own `types/producto.ts`), `header/`, and `footer/`.
+Flat-ish by domain rather than by route: top-level components are storefront sections (product cards/lists, brand/category results, sliders), with subfolders for `cart/` (checkout UI incl. `MercadoPagoBrick`/`MercadoPagoButton`), `dashboard/` (admin related-products dashboard, with its own `types/producto.ts`), `header/`, `footer/`, and `analytics/` (`ViewItemListTracker.tsx`, fires GTM view-item-list events).
 
 ### Misc
 
 - `src/respaldo/` contains historical CSV data dumps/backups, not application code — don't treat it as a source of truth for the current schema.
 - `productos.csv` at the repo root is the bulk-import source file for `scripts/import-csv.ts`.
+- This repo was repurposed from an earlier storefront (Dipemsa, a construction-materials retailer) into Ferredip (a general hardware retailer); the git history was reset to a single initial commit once the rebrand landed.
