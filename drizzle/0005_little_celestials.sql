@@ -1,0 +1,1 @@
+ALTER TABLE "productos_" ADD COLUMN "ficha" varchar(100);

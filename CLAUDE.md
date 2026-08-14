@@ -1,0 +1,58 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+@AGENTS.md
+
+## Project overview
+
+Ferredip is an e-commerce storefront for tools/hardware (multiple brands and categories), built with Next.js (App Router) + React + TypeScript. It uses PostgreSQL (hosted on Railway) via Drizzle ORM, Mercado Pago for checkout, Zustand for client state, and Resend/Nodemailer for transactional email. Deployed on Railway.
+
+## Commands
+
+- `npm run dev` — start the dev server (Turbopack). `npm run dev:webpack` is the same command using the classic webpack dev server.
+- `npm run build` — production build.
+- `npm run start` — run the production build.
+- `npm run lint` — ESLint (flat config, `eslint-config-next` core-web-vitals + typescript).
+- `npm run db:studio` — open Drizzle Studio against `DATABASE_URL`.
+- `npm run import:csv` — runs `scripts/import-csv.ts` to bulk-insert `productos.csv` into the `productos_` table. The script's own header comment says it currently doesn't work reliably; importing via TablePlus (or another Postgres client) directly is the recommended path instead.
+- There is no `test` script and no Jest/Playwright config file, even though `jest`, `@testing-library/*`, and `@playwright/test` are installed as devDependencies — a test runner is not wired up yet.
+
+Drizzle migrations live in `drizzle/` (SQL files + `meta/`), generated from the schema in `src/shared/db/schema` per `drizzle.config.ts`. Use `drizzle-kit` (via `npx drizzle-kit generate` / `push`) when changing the schema — there's no npm script for it currently.
+
+## Environment
+
+Configuration is read from `.env` (see `drizzle.config.ts` and `src/shared/db/index.ts`). Expected variables: `DATABASE_URL`, `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_GTM_ID`, `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY`, `MERCADOPAGO_ACCESS_TOKEN`, `RESEND_API_KEY`, `EMAIL_USER`, `EMAIL_PASSWORD`, `EMAIL_APP_PASSWORD`.
+
+## Architecture
+
+### Path alias
+
+`tsconfig.json` maps `@/*` to the **repo root**, not `src/`. Imports look like `@/src/shared/db`, `@/src/store/cartStore`, etc. — don't assume the common `@/` = `src/` convention from other Next.js projects.
+
+### Route groups (`app/`)
+
+- `app/(public)` — the storefront: home, `producto/[id]/[slug]`, `categoria/[slug]`, `marca/[slug]`, `marcas`, `resultados/[slug]` (search results), `carrito-de-compra`, `compra` (checkout + `pago-exitoso`/`pago-fallido`/`pago-pendiente` result pages), plus static pages (`contacto`, `soy-mayorista`, `terminos-y-condiciones`, `aviso-de-privacidad`).
+- `app/(admin)` — admin panel (currently only `productos/relacionados`, for managing related-product associations). There is no `middleware.ts` and no auth check found in the admin layout/routes — treat admin pages/APIs as currently unprotected rather than assuming they're gated.
+- `app/api` — route handlers: `admin/productos` (list/manage products, including `[id]/relacionados`), `mercadopago/preference` and `mercadopago/process-payment` (checkout flow), `search`, `send-email`.
+- `app/sitemap.ts`, `app/feed.xml/route.ts`, `app/products.xml/route.ts` — generated SEO/feed endpoints.
+
+### Data layer (`src/shared/db`)
+
+- `index.ts` — single `pg.Pool` + `drizzle()` instance shared app-wide (SSL only in production).
+- `schema/productList.ts` — the whole catalog lives in one table, `productos_` (Drizzle table `productos`). There's no separate brands/categories table: `marca` and `categoria` are free-text varchar columns, and product variants are encoded by splitting `descripcion` on `|` (see `getProductsByGroupsofTrademarks`/`getProductsByGroupsofCategories` in `queries.ts`). Sort order is driven by the `orden_prod`/`orden_cat` integer columns, not by insertion order or price.
+- `queries.ts` — all product read queries, plus `slugToMarca`/`slugToCategory` helpers that map URL slugs to display names via a hardcoded lookup table (extend these maps when adding a new brand/category slug). `marcas.ts`, `resultados.ts`, `contact-info.ts` hold other query groups.
+
+### State & actions
+
+- `src/store` — Zustand stores: `cartStore.ts` (cart contents, persisted to `localStorage` under key `ferredip-cart`, computes subtotal/shipping/total — free shipping threshold is $5000) and `deliveryStore.ts`.
+- `src/actions` — server actions (`contact.ts` sends the contact form via email).
+
+### Components (`src/shared/components`)
+
+Flat-ish by domain rather than by route: top-level components are storefront sections (product cards/lists, brand/category results, sliders), with subfolders for `cart/` (checkout UI incl. `MercadoPagoBrick`/`MercadoPagoButton`), `dashboard/` (admin related-products dashboard, with its own `types/producto.ts`), `header/`, and `footer/`.
+
+### Misc
+
+- `src/respaldo/` contains historical CSV data dumps/backups, not application code — don't treat it as a source of truth for the current schema.
+- `productos.csv` at the repo root is the bulk-import source file for `scripts/import-csv.ts`.
