@@ -6,6 +6,7 @@ import { useState } from "react";
 import { whatsAppNumber } from "../db/contact-info";
 import { slugify } from "@/src/utils/slugify";
 import { pushEcommerce, toGA4Item, CURRENCY } from "@/src/utils/gtm";
+import { totalxcantidad } from "@/src/utils/formatPrice";
 
 type Variant = {
   id: string
@@ -123,7 +124,7 @@ export default function GroupCard({ group, listId, listName }: Props) {
         {/* Precio */}
         <div className="mt-4">
           <span className="text-3xl font-bold text-[#E30613]">
-            ${selectedVariant.precio}.00
+            ${totalxcantidad(selectedVariant.precio, 1)}
           </span>
         </div>
 

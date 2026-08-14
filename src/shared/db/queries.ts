@@ -1,7 +1,9 @@
 // db/queries.ts
 import { db } from '@/src/shared/db';
 import { productos } from '@/src/shared/db/schema/productList';
-import { eq, like, desc, asc, sql, ilike, inArray } from 'drizzle-orm';
+import { eq, like, desc, asc, sql, ilike, inArray, and, gt } from 'drizzle-orm';
+
+const precioMayorACero = gt(sql`${productos.precio}::numeric`, 0);
 
 export function slugToMarca(slug: string): string {
   const mapa: Record<string, string> = {
@@ -39,7 +41,10 @@ export async function getProductsByGroupsofTrademarks(marca: string) {
   const rawProducts = await db.select()
     .from(productos)
     .where(
-      ilike(productos.marca, `%${marcaReal}%`)
+      and(
+        ilike(productos.marca, `%${marcaReal}%`),
+        precioMayorACero
+      )
     )
     .orderBy(desc(productos.orden_cat));   // ← Cambiado a orden_prod
 
@@ -81,7 +86,10 @@ export async function getProductsByGroupsofCategories(categoria: string) {
   const rawProducts = await db.select()
     .from(productos)
     .where(
-      ilike(productos.categoria, `%${categoriaReal}%`)
+      and(
+        ilike(productos.categoria, `%${categoriaReal}%`),
+        precioMayorACero
+      )
     )
     .orderBy(desc(productos.orden_prod));     // ← Cambiado a orden_cat
 
@@ -136,12 +144,13 @@ export async function getProductById(id: string) {
 export async function getRecomendedProducts() {
         return await db.select()
             .from(productos)
-            .where(eq(productos.destacado, true))
+            .where(and(eq(productos.destacado, true), precioMayorACero))
 }
 
 export async function getAllProductosXML() {
   return await db.select()
                       .from(productos)
+                      .where(precioMayorACero)
                       .orderBy(desc(productos.createdat))
 }
  
@@ -162,7 +171,7 @@ export async function getRelatedProducts(relatedIds: string[]) {
     destacado: productos.destacado,
   })
   .from(productos)
-  .where(inArray(productos.id, relatedIds))
+  .where(and(inArray(productos.id, relatedIds), precioMayorACero))
   .orderBy(desc(productos.related_products));
 }
 

@@ -5,6 +5,7 @@ import { Search, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { marcas } from '../../db/marcas';
+import { whatsAppNumber } from '../../db/contact-info';
 import SearchBar from './SearchBar';
 import CartModule from './CartModule';
 import { usePathname } from 'next/navigation';
@@ -54,7 +55,7 @@ export default function Header() {
 
               {/* Cotiza Ahora Button */}
               <Link 
-                  href={ 'https://api.whatsapp.com/send?phone=5573476687' }
+                  href={ `https://api.whatsapp.com/send?phone=${whatsAppNumber}` }
                   target='_blank'
                   className="bg-[#e94923] hover:bg-[#E30613] text-white font-bold px-6 py-2 rounded-lg flex items-center gap-2 transition text-sm whitespace-nowrap">
                 COTIZA POR WHATSAPP

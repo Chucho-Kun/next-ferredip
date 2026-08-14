@@ -10,6 +10,7 @@ import MediosdePagoComponent from './MediosdePagoComponent';
 import EntregaComponent from './EntregaComponent';
 import { useDeliveryStore } from '@/src/store/deliveryStore';
 import { useSearchParams } from 'next/navigation';
+import { whatsAppNumber } from '@/src/shared/db/contact-info';
 
 export default function ResumenCompraPage() {
     const { items, totalPrice , shippingCost, subTotal, isLoaded, loadCart } = useCartStore()
@@ -43,7 +44,7 @@ const cotizaWhatsApp = () => {
       `*TOTAL:* $${total.toFixed(2)}`;
 
     window.open(
-      `https://api.whatsapp.com/send?phone=5537091930&text=${encodeURIComponent(mensaje)}`,
+      `https://api.whatsapp.com/send?phone=${whatsAppNumber}&text=${encodeURIComponent(mensaje)}`,
       '_blank'
     );
   } catch (error) {
