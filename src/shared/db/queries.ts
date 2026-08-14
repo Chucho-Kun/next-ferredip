@@ -154,6 +154,20 @@ export async function getAllProductosXML() {
                       .orderBy(desc(productos.createdat))
 }
  
+export async function getProductVariants(variante: string | null) {
+  if (!variante) return [];
+
+  return await db.select({
+    id: productos.id,
+    clave: productos.clave,
+    descripcion: productos.descripcion,
+    precio: productos.precio,
+  })
+  .from(productos)
+  .where(and(eq(productos.variante, variante), precioMayorACero))
+  .orderBy(asc(productos.precio));
+}
+
 export async function getRelatedProducts(relatedIds: string[]) {
   if (!relatedIds?.length) return [];
 
