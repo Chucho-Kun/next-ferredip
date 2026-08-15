@@ -93,7 +93,7 @@ export default function GroupCard({ group, listId, listName }: Props) {
         <div className="mt-auto">
 
              {/* Select de variantes */}
-        { group.variants.length > 1 ? (
+        {/* { group.variants.length > 1 ? (
             <span>
                 <label className="text-xs text-gray-500 block mb-1"> { group.variants.length } Variantes</label>
                 <select
@@ -118,7 +118,7 @@ export default function GroupCard({ group, listId, listName }: Props) {
             <p className="w-full border border-gray-300 px-4 py-3 text-sm bg-white">
                 { group.variants[0].descripcion.split('|')[1]?.trim() }
             </p>
-        )}
+        )} */}
         </div>
 
         {/* Precio */}

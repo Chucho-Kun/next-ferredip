@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { ProductosType } from "../db/productos"
+import { slugToCategory } from "../db/queries"
 import Link from "next/link"
 
 type Props = {
@@ -30,7 +31,7 @@ export default function ProductsSection({productos}: Props) {
                   {/* Nombre del producto */}
                   <div className="p-5 text-center">
                     <h3 className="font-semibold text-gray-800 text-lg leading-tight uppercase">
-                      {producto.name.replaceAll('-', ' ') }
+                      {slugToCategory(producto.name)}
                     </h3>
                   </div>
                 </div>

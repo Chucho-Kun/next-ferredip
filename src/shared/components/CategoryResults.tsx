@@ -1,4 +1,4 @@
-import { getProductsByGroupsofCategories } from "../db/queries";
+import { getProductsByGroupsofCategories, slugToCategory } from "../db/queries";
 import GroupCard from "./GroupCard";
 import ViewItemListTracker from "./analytics/ViewItemListTracker";
 import { toGA4Item } from "@/src/utils/gtm";
@@ -17,7 +17,7 @@ export default async function CategoryResults({ slug }: Props) {
   //console.log(groupedProducts);
 
   const listId = `categoria_${slug}`;
-  const listName = slug.replace(/-/g, ' ').toUpperCase();
+  const listName = slugToCategory(slug).toUpperCase();
 
   const ga4Items = groupedProducts.map((group, index) =>
     toGA4Item(group.variants[0], { index, item_list_id: listId, item_list_name: listName })
@@ -28,7 +28,7 @@ export default async function CategoryResults({ slug }: Props) {
       <ViewItemListTracker items={ga4Items} listId={listId} listName={listName} />
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center mb-12">
-          { slug.replace(/-/g, ' ').toUpperCase()}
+          { listName }
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

@@ -13,7 +13,7 @@ export default async function TrademarckResults({ slug }: Props) {
   const groupedProducts = await getProductsByGroupsofTrademarks( slug )
 
   const listId = `marca_${slug}`;
-  const listName = slug.replace(/-/g, ' ').toUpperCase();
+  const listName = slug.replace(/-/g, ' ').replace('banos','baños').toUpperCase();
 
   const ga4Items = groupedProducts.map((group, index) =>
     toGA4Item(group.variants[0], { index, item_list_id: listId, item_list_name: listName })
@@ -24,7 +24,7 @@ export default async function TrademarckResults({ slug }: Props) {
       <ViewItemListTracker items={ga4Items} listId={listId} listName={listName} />
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center mb-12">
-          { slug.replace(/-/g, ' ').toUpperCase()}
+          { slug.replace(/-/g, ' ').replace('banos','baños').toUpperCase()}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

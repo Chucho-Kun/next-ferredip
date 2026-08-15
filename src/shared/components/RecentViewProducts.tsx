@@ -55,7 +55,7 @@ function RecentCard({ producto }: { producto: RecentProduct }) {
               </span>
             )}
             <span className="text-2xl font-bold text-[#E30613]">
-              {producto.precio}
+              ${producto.precio}
             </span>
           </div>
           <p className="text-xs text-gray-500 mt-1">CLAVE: {producto.clave}</p>

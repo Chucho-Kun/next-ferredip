@@ -5,6 +5,9 @@ import { useDeleteFromCart } from "@/src/hooks/useDeleteToast";
 import { totalxcantidad } from "@/src/utils/formatPrice";
 import { useState } from "react";
 
+const LOGO_SRC = '/logo.webp';
+const fotoDe = (id: string) => `/fotos/webp/${id}.webp`;
+
 type Props = {
     item: CartItem
 }
@@ -14,6 +17,11 @@ export default function ProductComponent({ item }: Props) {
     const { updateQuantity , removeFromCart } = useCartStore()
     const { deleteItem } = useDeleteFromCart()
     const [quantity, setQuantity] = useState(1);
+    const [imgSrc, setImgSrc] = useState(() => fotoDe(item.id ?? ''));
+
+    const handleImageError = () => {
+        if (imgSrc !== LOGO_SRC) setImgSrc(LOGO_SRC);
+    };
 
     const increase = () => setQuantity(prev => Math.min(prev + 1, 999));
     const decrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
@@ -44,11 +52,13 @@ export default function ProductComponent({ item }: Props) {
     <div className="flex gap-2 min-[400px]:gap-4 py-4 border-b">
         <div className="w-20 h-20 min-[400]:w-28 bg-gray-100 rounded-lg overflow-hidden relative shrink-0">
             <Image
-            src={`/fotos/webp/${ item.id }.webp`}
-            alt="Lija de agua"
+            key={imgSrc}
+            src={imgSrc}
+            alt={ item.marca }
             fill
             className="object-cover"
             sizes="366px"
+            onError={handleImageError}
             />
         </div>
         <div className="flex-1">

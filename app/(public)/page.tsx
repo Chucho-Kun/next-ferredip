@@ -149,7 +149,7 @@ export default function page() {
         <SliderMain />
       </main>
 
-      <RecommendedProductsServer />
+      {/* <RecommendedProductsServer /> */}
 
       <RecentViewProducts />
 
