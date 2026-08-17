@@ -120,7 +120,7 @@ export default async function ProductoPage(props: PageProps<'/producto/[id]/[slu
                 "name": tituloProducto,
                 "description": tituloDesc || "varios modelos",
                 "sku": producto.clave,
-                "image": `https://ferredip.com.mx/webp/${id}.webp`,
+                "image": `https://ferredip.com.mx/fotos/webp/${id}.webp`,
                 "brand": {
                   "@type": "Brand",
                   "name": producto.marca || "Ferredip"

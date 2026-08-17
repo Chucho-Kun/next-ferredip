@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# scripts/download-truper-images.mjs output (raw jpg downloads + report)
+/fotos-truper
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -45,7 +45,7 @@ export default function MediosdePagoComponent() {
             id: item.id,
             title: ( item.titulo || (`Producto Ferredip ${item.id || ''}`)).toString().trim(),
             currency_id: 'MXN',
-            picture_url: `/fotos/webp/${item.id}.webp`,
+            picture_url: `https://ferredip.com.mx/fotos/webp/${item.id}.webp`,
             description: item.descripcion || '',
             category_id: item.marca,
             quantity: item.cantidad,
