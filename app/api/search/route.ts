@@ -1,6 +1,6 @@
 import { db } from '@/src/shared/db';
 import { productos } from '@/src/shared/db/schema/productList';
-import { ilike, desc, or, and, gt, sql } from 'drizzle-orm';
+import { ilike, desc, or, and, gt, eq, sql } from 'drizzle-orm';
 import { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
   .where(
     and(
       or(
+        eq(productos.id, search.trim()),
         ilike(productos.clave, `%${search}%`),
         ilike(productos.descripcion, `%${search}%`),
         ilike(productos.marca, `%${search}%`)
@@ -30,11 +31,12 @@ export async function GET(request: NextRequest) {
     )
   )
   .orderBy(
-    sql`CASE 
-          WHEN clave ILIKE ${'%' + search + '%'} THEN 1 
-          WHEN descripcion ILIKE ${'%' + search + '%'} THEN 2 
-          WHEN marca ILIKE ${'%' + search + '%'} THEN 3 
-          ELSE 4 
+    sql`CASE
+          WHEN id = ${search.trim()} THEN 0
+          WHEN clave ILIKE ${'%' + search + '%'} THEN 1
+          WHEN descripcion ILIKE ${'%' + search + '%'} THEN 2
+          WHEN marca ILIKE ${'%' + search + '%'} THEN 3
+          ELSE 4
         END`,
     desc(productos.destacado)
   )

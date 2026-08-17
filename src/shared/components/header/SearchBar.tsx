@@ -10,6 +10,7 @@ import { slugify } from '@/src/utils/slugify';
 
 type ProductSearch = {
   id: string;
+  clave: string;
   descripcion: string;
   precioant: string;
   precio: string;
@@ -25,7 +26,7 @@ export default function SearchBar() {
 
   useEffect(() => {
     const timer = setTimeout(async () => {
-      if (query.length < 2) {
+      if (query.length < 3) {
         setResults([]);
         return;
       }
@@ -55,6 +56,7 @@ export default function SearchBar() {
         open={open}
         onOpenChange={setOpen}
         label="Buscador"
+        shouldFilter={false}
         className="fixed top-20 left-1/2 -translate-x-1/2 w-full max-w-xl bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50"
       >
         {/* Título requerido por Radix */}
@@ -86,7 +88,7 @@ export default function SearchBar() {
           )}
 
           {results.length === 0 &&
-            query.length > 2 && (
+            query.length >= 3 && (
               <div className="py-6 text-center text-gray-500">
                 No se encontraron resultados para { query }
               </div>
@@ -95,7 +97,7 @@ export default function SearchBar() {
           {results.map((product) => (
             <Command.Item
               key={product.id}
-              value={product.descripcion}
+              value={product.id}
               onSelect={() => {
                 router.push(
                   `/producto/${ product.id }/${ slugify( product.descripcion ) }`
@@ -124,6 +126,11 @@ export default function SearchBar() {
 
                 <p className="text-xs text-gray-500 uppercase">
                   {product.marca}
+                </p>
+
+                <p className="text-xs text-gray-400">
+                  #{product.id}
+                  {product.clave && ` · ${product.clave}`}
                 </p>
               </div>
 
