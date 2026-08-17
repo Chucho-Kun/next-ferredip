@@ -208,7 +208,7 @@ export default function ProductCard({producto, productosVariantes, variantes}: P
           ) : (
             <p className="text-gray-600 text-xl font-bold">{ detalle }</p>
           )}
-          <p className="text-gray-600 text-xl">Clave: { producto.clave}</p>
+          <p className="text-gray-600 text-xl">Código: { producto.id}</p>
            {/* Descripción */}
           <div>
             <p className="text-gray-700 leading-relaxed">

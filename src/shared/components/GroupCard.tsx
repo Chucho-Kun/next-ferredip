@@ -129,7 +129,7 @@ export default function GroupCard({ group, listId, listName }: Props) {
         </div>
 
         <p className="text-xs text-gray-500 mt-1">
-          CLAVE: {selectedVariant.clave}
+          CÓDIGO: {selectedVariant.id}
         </p>
       </div>
 
