@@ -33,11 +33,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     
     openGraph: {
       title: `${tituloProducto} | ${ producto.marca }`,
-      description: `${ producto.descripcion?.split('|')[1] } - [ ${ producto.id } ]`,
+      description: `${ producto.informacion }`,
       url: `https://ferredip.com.mx/producto/${id}/${ slugify( slug ) }`,
       images: [
         {
-          url: `/fotos/${id}.jpg`,
+          url: `https://ferredip.com.mx/fotos/${id}.jpg`,
           width: 1800,
           height: 1800,
           alt: tituloProducto,
@@ -50,8 +50,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: `${tituloProducto} | Ferredip`,
-      description: `${tituloProducto} - ${producto.marca || 'Ferredip'}`,
-      images: [`/fotos/webp/${id}.webp`],
+      description: `${ producto.informacion }`,
+      images: [`https://ferredip.com.mx/fotos/${id}.jpg`],
     },
     alternates: {
       canonical: `https://ferredip.com.mx/producto/${id}/${ slugify( slug ) }`,
