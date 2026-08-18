@@ -108,9 +108,12 @@ Constantes y geometría:
 4. **Panel ampliado.** `div` absoluto de 366×366 px a la derecha de la foto, `hidden lg:block`,
    `z-20`, borde gris y fondo blanco, con `backgroundImage` apuntando a la `.jpg` y
    `backgroundSize` / `backgroundPosition` según la fórmula del modelo de datos. Visible solo mientras
-   el cursor está sobre la foto.
-   *Verificación:* mover la lente a una esquina muestra esa misma esquina en el panel; el panel no
-   tapa el precio ni el botón de agregar al carrito.
+   el cursor está sobre la foto. Se quita `overflow-hidden` del wrapper `div` de la foto en
+   `ProductCard.tsx` para que el panel no quede recortado (ver «Decisiones» sobre el conflicto de
+   ancho con la columna de info).
+   *Verificación:* mover la lente a una esquina muestra esa misma esquina en el panel; en pantallas
+   donde no cabe junto a la foto, el panel se superpone a la columna de info mientras dura el hover y
+   desaparece al quitar el cursor.
 
 5. **Lightbox táctil.** Detectar puntero grueso con `window.matchMedia('(pointer: coarse)')` dentro
    de un `useEffect` (estado inicial `false` para no romper la hidratación). Si es grueso, se
@@ -130,7 +133,9 @@ Constantes y geometría:
       sobre la foto y el panel de 366×366 px a su derecha.
 - [ ] Mover el cursor a la esquina inferior derecha de la foto muestra esa esquina en el panel.
 - [ ] La lente nunca se sale del recuadro de la foto.
-- [ ] El panel no tapa el precio, el selector de cantidad ni el botón de agregar al carrito.
+- [ ] El panel se muestra completo (366×366) junto a la foto; en anchos de columna donde no cabe sin
+      tocar la información del producto, se superpone temporalmente a esa columna mientras dura el
+      hover y desaparece por completo al quitar el cursor.
 - [ ] Salir de la foto con el cursor oculta lente y panel de inmediato.
 - [ ] Con una `.jpg` de 1200 px el contenido del panel se ve a píxel real (no interpolado).
 - [ ] Un producto **sin** `/fotos/{id}.jpg` no muestra lente, ni panel, ni `cursor-zoom-in`, y la foto
@@ -168,8 +173,14 @@ Constantes y geometría:
   sola vez, sobre archivo del mismo origen.
 - **Sí:** medir con `getBoundingClientRect()` en vez de asumir 366 px. La foto usa `h-auto` y
   `sizes="(max-width: 768px) 100vw, ..."`, así que su tamaño real depende del viewport.
-- **Sí:** panel de 366×366. Cabe en el espacio sobrante de la columna izquierda del grid
-  `lg:grid-cols-2`, así que no hace falta superponerlo a la información del producto.
+- **Sí:** panel de 366×366, incluso si eso implica superponerse a la columna de info. Se verificó
+  durante la implementación que la columna de la foto (`grid lg:grid-cols-2 gap-10 lg:gap-16` dentro
+  de `max-w-7xl`) mide entre ~456 px y ~584 px, y foto (366) + separación (16) + panel (366) = 748 px
+  nunca cabe ahí — el diseño original de este spec asumía que sí cabía, sin haber hecho la cuenta. Ante
+  el conflicto entre "panel de 366×366 exactos" y "no tapa el precio ni el botón", el usuario priorizó
+  el tamaño del panel: se acepta que, en ese rango de anchos, el panel se dibuje encima de la columna de
+  info mientras dura el hover. Se quita `overflow-hidden` del wrapper de la foto en `ProductCard.tsx`
+  para que esto sea visible en vez de quedar recortado.
 - **No:** lightbox también con clic en escritorio. Dos caminos a la misma foto confunden y el hover ya
   resuelve el caso; queda anotado como fuera de alcance.
 - **No:** pan y pinch dentro del lightbox. Los navegadores móviles ya permiten pellizcar la imagen del
@@ -192,6 +203,7 @@ Constantes y geometría:
 | Portátiles táctiles reportan puntero grueso y pierden el zoom de hover | Comportamiento aceptado: en esos equipos abre el lightbox, que muestra la misma foto grande. |
 | `mousemove` a 60 Hz recalculando estilos | Solo se escriben estilos inline en dos `div` ya montados; sin `setState` por píxel si se escribe con `ref.current.style`. Si aparece jank, `requestAnimationFrame`. |
 | La foto grande tarda en el primer hover | Es del mismo origen, con caché de 24 h ya configurada; la lente aparece cuando la imagen resuelve, sin estado intermedio roto. |
+| El panel (366×366) tapa temporalmente el precio/cantidad/botón en columnas angostas | Aceptado por decisión explícita del usuario ante el conflicto de ancho documentado en «Decisiones». Es transitorio: solo mientras el cursor está sobre la foto, y desaparece de inmediato al salir. |
 
 ## Lo que **no** está en este spec
 
