@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Eye, Minus, Plus, ShoppingCart } from 'lucide-react';
@@ -10,6 +9,7 @@ import { whatsAppNumber } from '../db/contact-info';
 import { useCartStore } from '@/src/store/cartStore';
 import toast from 'react-hot-toast';
 import RelatedProducts from './RelatedProducts';
+import ProductImageZoom from './ProductImageZoom';
 import { slugify } from '@/src/utils/slugify';
 import { pushEcommerce, toGA4Item, itemsValue, CURRENCY } from '@/src/utils/gtm';
 import { totalxcantidad } from '@/src/utils/formatPrice';
@@ -142,7 +142,7 @@ export default function ProductCard({producto, productosVariantes, variantes}: P
       <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
 
         {/* Imagen del producto */}
-        <div className="flex flex-col items-center relative bg-white overflow-hidden">
+        <div className="flex flex-col items-center relative bg-white">
           {/* Breadcrumb */}
           <nav className="text-sm text-gray-500 mb-8 font-bold">
             <Link
@@ -167,16 +167,11 @@ export default function ProductCard({producto, productosVariantes, variantes}: P
               </>
             ) }
           </nav>
-          <Image
-            key={imgSrc}
+          <ProductImageZoom
+            key={producto.id}
+            id={producto.id ?? ''}
             src={imgSrc}
             alt={producto.descripcion || ''}
-            width={366}
-            height={214}
-            className="h-auto object-contain mt-8"
-            priority={true}           // Solo pon true en la página principal
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 366px"
-            quality={85}
             onError={handleImageError}
           />
         </div>
@@ -208,7 +203,7 @@ export default function ProductCard({producto, productosVariantes, variantes}: P
           ) : (
             <p className="text-gray-600 text-xl font-bold">{ detalle }</p>
           )}
-          <p className="text-gray-600 text-xl">Clave: { producto.clave}</p>
+          <p className="text-gray-600 text-xl">Código: { producto.id}</p>
            {/* Descripción */}
           <div>
             <p className="text-gray-700 leading-relaxed">
