@@ -37,9 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://ferredip.com.mx/producto/${id}/${ slugify( slug ) }`,
       images: [
         {
-          url: `/fotos/webp/${id}.webp`,
-          width: 366,
-          height: 214,
+          url: `/fotos/${id}.jpg`,
+          width: 1800,
+          height: 1800,
           alt: tituloProducto,
         },
       ],

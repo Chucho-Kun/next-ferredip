@@ -19,8 +19,8 @@ export async function generateMetadata(props: PageProps<'/categoria/[slug]'>): P
       images: [
         {
           url: `https://ferredip.com.mx/productos/jpg/${ slug }.jpg`,
-          width: 683,
-          height: 400,
+          width: 363,
+          height: 197,
         },
       ],
     },
