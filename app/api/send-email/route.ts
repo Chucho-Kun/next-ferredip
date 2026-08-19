@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       from: `Ferredip Web <avisos@noreply.ferredip.com.mx>`,
 
       to: [customerEmail],
-      bcc: ["ventas.grupoceic@gmail.com"],
+      bcc: ["gameroapp@gmail.com"],
       subject: `Confirmación de compra - Orden #${orderData.paymentId}`,
       html:  `
     <html lang="es"><head>
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       <body style="background-color: #efefef;">
       <div style="width: 100%;text-align: center;background-color: white;">
           <img style="width: 300px;max-width: 300px;margin: 11px 0px;" src="https://ferredip.com.mx/logo.jpg">
-          <p class="" style="background-color: #000B66;font-weight: bold;color:white;height: 40px;"></p>
+          <p class="" style="background-color: #ff471b;font-weight: bold;color:white;height: 40px;"></p>
       </div>
 
       <div style="width: 100%;text-align: center;padding-bottom:30px;">
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
 
       <div class="separador"></div>
 
-      <img src="https://ferredip.com.mx/sliders/mainSlider/2.webp" width="100%" style="margin: 25px 0px;">
+      <img src="https://ferredip.com.mx/sliders/mainSlider/logos.jpg" width="100%" style="margin: 25px 0px;">
 
       </div>
       </div>
