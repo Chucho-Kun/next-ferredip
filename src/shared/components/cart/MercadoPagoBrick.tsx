@@ -8,6 +8,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { pushEcommerce, toGA4Item, round2, paymentTypeLabel, CURRENCY } from '@/src/utils/gtm';
 import { saveOrderSnapshot } from '@/src/utils/orderSnapshot';
+import PagoProcesadoOverlay from './PagoProcesadoOverlay';
 
 initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY!, {
   locale: 'es-MX',
@@ -61,6 +62,10 @@ async function sendEmailInBackground(data: any) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
+      // keepalive: el navegador termina esta petición aunque el documento
+      // se descargue antes de que responda (window.location.href en
+      // MercadoPagoButton ocurre ~1s después de disparar este fetch).
+      keepalive: true,
       // No esperamos respuesta para no bloquear
     });
 
@@ -75,11 +80,11 @@ async function sendEmailInBackground(data: any) {
   }
 }
 
+type EstadoPago = 'idle' | 'aprobado' | 'pendiente'
+
 export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Props) {
     const [ resetKey,  setResetKey ] = useState(0)
-    const { formData: { nombre, apellidos, direccion, entreCalles, ciudad, cp, telefono } } = useDeliveryStore()
-
-    const { shippingCost, subTotal, totalPrice, items } = useCartStore()
+    const [ estadoPago, setEstadoPago ] = useState<EstadoPago>('idle')
     const beginCheckoutSent = useRef(false)
     const addPaymentInfoSent = useRef(false)
 
@@ -99,6 +104,9 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
 
     const handleSubmit = useCallback(async (formData: any, _brick: unknown) => {
         try {
+            const { items, shippingCost, subTotal, totalPrice } = useCartStore.getState()
+            const { nombre, apellidos, direccion, entreCalles, ciudad, cp, telefono } = useDeliveryStore.getState().formData
+
             const { formData:{ payer} } = formData
             // Extraer correctamente el email
             const mpEmail = payer.email || "";
@@ -147,6 +155,8 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
 
             if (result.status === 'approved' || result.status === 'in_process') {
 
+                setEstadoPago(result.status === 'approved' ? 'aprobado' : 'pendiente')
+
                 // ==================== ENVÍO DE CORREO EN BACKGROUND ====================
       console.log("📧 Iniciando envío de correo en segundo plano...");
 
@@ -184,7 +194,6 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
                 createdAt: Date.now(),
             });
 
-            toast.success("¡Pago exitoso! Te hemos enviado un correo de confirmación.");
             setTimeout(() => {
                 onSuccess?.(result)
             },1000)
@@ -260,7 +269,7 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
             console.error(error);
             alert('Error al procesar el pago');
         }
-    }, [items, subTotal, shippingCost, totalPrice, nombre, apellidos, direccion, entreCalles, ciudad, cp, telefono, onSuccess, handleReset])
+    }, [onSuccess, handleReset])
 
     const handleReady = useCallback(() => {
         console.log('✅ Brick cargado correctamente')
@@ -268,6 +277,7 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
         if (!beginCheckoutSent.current) {
             beginCheckoutSent.current = true
 
+            const { items, subTotal } = useCartStore.getState()
             const ga4Items = items.map((item) => toGA4Item(item, { quantity: item.cantidad }))
             pushEcommerce('begin_checkout', {
                 currency: CURRENCY,
@@ -275,7 +285,7 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
                 items: ga4Items,
             })
         }
-    }, [items, subTotal])
+    }, [])
 
     const handleError = useCallback((error: unknown) => {
         console.error('Error cargando el Brick:', error);
@@ -283,6 +293,7 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
 
   return (
     <div className="max-w-lg mx-auto">
+      {estadoPago !== 'idle' && <PagoProcesadoOverlay variante={estadoPago} />}
       <Payment
         key={resetKey}
         initialization={initialization}

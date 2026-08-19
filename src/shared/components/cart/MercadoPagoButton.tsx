@@ -2,7 +2,7 @@ import Image from "next/image";
 import MercadoPagoBrick from "./MercadoPagoBrick";
 import { CartItem } from "@/src/store/cartStore";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 type Props = {
     preferenceId: string | null
@@ -15,6 +15,10 @@ type Props = {
 export default function MercadoPagoButton( { preferenceId, crearPreferencia, loading, items, totalPrice }: Props) {
 
     const [ showLoader, setShowLoader ] = useState(false)
+
+    const handleSuccess = useCallback((data: any) => {
+        window.location.href = `/compra/pago-exitoso?payment_id=${data.payment_id}`;
+    }, [])
 
   return (
     <div className="min-h-12 py-1">
@@ -62,9 +66,7 @@ export default function MercadoPagoButton( { preferenceId, crearPreferencia, loa
                 <MercadoPagoBrick
                     preferenceId={preferenceId}
                     amount={totalPrice()}
-                    onSuccess={(data) => {
-                    window.location.href = `/compra/pago-exitoso?payment_id=${data.payment_id}`;
-                    }}
+                    onSuccess={handleSuccess}
                 />
             </>
             )}
