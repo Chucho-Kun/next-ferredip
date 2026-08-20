@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Eye, Minus, Plus, ShoppingCart } from 'lucide-react';
 import { RelatedProductType, ResultadosType, VariantOptionType } from '../db/resultados';
 import Link from 'next/link';
@@ -17,13 +18,19 @@ import { totalxcantidad } from '@/src/utils/formatPrice';
 const LOGO_SRC = '/logo.webp';
 const fotoDe = (id: string) => `/fotos/webp/${id}.webp`;
 
+type FotoGaleria = {
+  src: string;      // lo que ve el usuario a 366 px
+  zoomSrc: string;  // lo que consume la lente / el lightbox del SPEC 03
+}
+
 type Props = {
   producto: ResultadosType
   productosVariantes: RelatedProductType[]
   variantes: VariantOptionType[]
+  fotosAdicionales: string[]
 }
 
-export default function ProductCard({producto, productosVariantes, variantes}: Props) {
+export default function ProductCard({producto, productosVariantes, variantes, fotosAdicionales}: Props) {
   const { addToCart, totalItems } = useCartStore()
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
@@ -34,14 +41,33 @@ export default function ProductCard({producto, productosVariantes, variantes}: P
   // el render cuando cambia producto.id, en vez de depender de un remount.
   const [renderedId, setRenderedId] = useState(producto.id);
   const [imgSrc, setImgSrc] = useState(() => fotoDe(producto.id ?? ''));
+  // 0 = foto principal; 1..n = posición dentro de fotosAdicionales
+  const [fotoActiva, setFotoActiva] = useState(0);
   if (producto.id !== renderedId) {
     setRenderedId(producto.id);
     setImgSrc(fotoDe(producto.id ?? ''));
+    setFotoActiva(0);
   }
 
   const handleImageError = () => {
     if (imgSrc !== LOGO_SRC) setImgSrc(LOGO_SRC);
   };
+
+  // Una foto adicional rota vuelve a la principal en vez de caer al logo:
+  // el logo es el fallback de "no hay foto", no de "esta foto en particular falló".
+  const handleFotoActualError = () => {
+    if (fotoActiva === 0) {
+      handleImageError();
+    } else {
+      setFotoActiva(0);
+    }
+  };
+
+  const fotoGaleria: FotoGaleria[] = [
+    { src: imgSrc, zoomSrc: `/fotos/${producto.id}.jpg` },
+    ...fotosAdicionales.map((src) => ({ src, zoomSrc: src })),
+  ];
+  const fotoActual = fotoGaleria[fotoActiva] ?? fotoGaleria[0];
 
   const [ titulo, detalle ] = producto.descripcion
                                                 ?.split('|')
@@ -168,12 +194,31 @@ export default function ProductCard({producto, productosVariantes, variantes}: P
             ) }
           </nav>
           <ProductImageZoom
-            key={producto.id}
-            id={producto.id ?? ''}
-            src={imgSrc}
+            key={`${producto.id}-${fotoActiva}`}
+            zoomSrc={fotoActual.zoomSrc}
+            src={fotoActual.src}
             alt={producto.descripcion || ''}
-            onError={handleImageError}
+            onError={handleFotoActualError}
           />
+
+          {fotosAdicionales.length > 0 && (
+            <div className="flex gap-3 mt-4 flex-wrap">
+              {fotoGaleria.map((foto, i) => (
+                <button
+                  key={foto.src}
+                  type="button"
+                  onClick={() => setFotoActiva(i)}
+                  aria-label={`Ver foto ${i + 1} de ${fotoGaleria.length}`}
+                  aria-current={fotoActiva === i}
+                  className={`relative w-[72px] h-[72px] shrink-0 overflow-hidden border-2 ${
+                    fotoActiva === i ? 'border-[#FF5E00]' : 'border-gray-200'
+                  }`}
+                >
+                  <Image src={foto.src} alt="" fill className="object-cover" sizes="72px" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Información del producto */}

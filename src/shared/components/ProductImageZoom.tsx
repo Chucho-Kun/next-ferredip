@@ -47,13 +47,13 @@ type Interaccion = {
 };
 
 type Props = {
-  id: string;
+  zoomSrc: string;
   src: string;
   alt: string;
   onError: () => void;
 };
 
-export default function ProductImageZoom({ id, src, alt, onError }: Props) {
+export default function ProductImageZoom({ zoomSrc, src, alt, onError }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   // La foto tiene mt-8: su caja no arranca en (0,0) del contenedor, así que la
   // geometría del zoom se mide sobre la <img> real, no sobre el contenedor.
@@ -72,7 +72,7 @@ export default function ProductImageZoom({ id, src, alt, onError }: Props) {
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || !id || src === LOGO_SRC) return;
+    if (!container || !zoomSrc || src === LOGO_SRC) return;
 
     let cancelled = false;
 
@@ -96,7 +96,7 @@ export default function ProductImageZoom({ id, src, alt, onError }: Props) {
         if (cancelled) return;
         setZoom(null);
       };
-      fotoGrande.src = `/fotos/${id}.jpg`;
+      fotoGrande.src = zoomSrc;
     };
 
     container.addEventListener('pointerenter', precargarFotoGrande);
@@ -104,7 +104,7 @@ export default function ProductImageZoom({ id, src, alt, onError }: Props) {
       cancelled = true;
       container.removeEventListener('pointerenter', precargarFotoGrande);
     };
-  }, [id, src]);
+  }, [zoomSrc, src]);
 
   const moverLente = (e: React.MouseEvent<HTMLDivElement>) => {
     // En táctil no hay lente ni panel: manda el lightbox (ver abrirLightbox).

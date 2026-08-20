@@ -6,6 +6,7 @@
     "db:studio": "drizzle-kit studio",
     "import:csv": "tsx scripts/import-csv.ts",
     "fotos:truper": "node --env-file=.env scripts/download-truper-images.mjs",
+    "fotos:adicionales": "node --env-file=.env scripts/download-truper-adicionales.mjs",
     "dev:webpack": "next dev",
     "dev": "next dev",
     "build": "next build",

@@ -1,4 +1,5 @@
 import { getProductById, getProductVariants, getRelatedProducts } from "../db/queries";
+import { fotosAdicionalesDe } from "@/src/utils/fotosAdicionales";
 import ProductCard from "./ProductCard";
 
 type Props = {
@@ -19,7 +20,9 @@ export default async function  ProductCardsServer({ id }: Props) {
         getProductVariants( producto.variante ),
     ])
 
+    const fotosAdicionales = fotosAdicionalesDe( producto.id ?? '' )
+
   return (
-    <ProductCard producto={productoConTipo} productosVariantes={ productosVariantes} variantes={ variantes } />
+    <ProductCard producto={productoConTipo} productosVariantes={ productosVariantes} variantes={ variantes } fotosAdicionales={ fotosAdicionales } />
   )
 }
