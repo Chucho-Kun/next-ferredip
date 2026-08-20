@@ -10,6 +10,7 @@ import { ResultadosType } from '../db/resultados';
 import Link from 'next/link';
 import { whatsAppNumber } from '../db/contact-info';
 import { slugify } from '@/src/utils/slugify';
+import { formatPrecio } from '@/src/utils/formatPrice';
 
 type Props = {
   productosRecomendados: ResultadosType[]
@@ -79,11 +80,11 @@ export default function RecommendedProducts( {productosRecomendados} : Props ) {
                               <div className="flex items-baseline gap-2">
                                  { producto.precioant && (
                                   <span className="line-through text-gray-400 text-sm">
-                                    { producto.precioant }
+                                    ${ formatPrecio(producto.precioant) }
                                   </span>
                                  )}
                                 <span className="text-2xl font-bold text-[#E30613]">
-                                  {producto.precio}
+                                  ${formatPrecio(producto.precio)}
                                 </span>
                               </div>
                               <p className="text-xs text-gray-500 mt-1">CLAVE: {producto.clave}</p>

@@ -1,16 +1,20 @@
-export const parsePrecio = (precio: string): number => {
+export const parsePrecio = (precio: string | null | undefined): number => {
     if (!precio) return 0;
     const precioNumerico = parseFloat(precio.replace(/[\$,]/g, '').trim());
     return isNaN(precioNumerico) ? 0 : precioNumerico;
 }
 
+export const formatMoney = (valor: number): string => {
+    return valor.toLocaleString('es-MX', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+}
+
+export const formatPrecio = (precio: string | null | undefined): string => {
+    return formatMoney(parsePrecio(precio));
+}
+
 export const totalxcantidad = ( precio: string, cantidad: number ) => {
-        if (!precio) return "0.00";
-        // Limpiar el precio: eliminar $ , y espacios
-        const precioLimpio = precio
-            .replace(/[\$,]/g, '')   // Elimina dólares y comas
-            .trim();
-        const precioNumerico = parseFloat(precioLimpio);
-        if (isNaN(precioNumerico)) return "0.00";
-        return (precioNumerico * cantidad).toFixed(2);
+        return formatMoney(parsePrecio(precio) * cantidad);
     }

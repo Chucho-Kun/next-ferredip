@@ -4,6 +4,7 @@ import TrackRecentProduct from "@/src/shared/components/TrackRecentProduct";
 import RecommendedProductsServer from "@/src/shared/components/RecommendedProductsServer";
 import { getProductById } from "@/src/shared/db/queries";
 import { slugify } from "@/src/utils/slugify";
+import { formatPrecio } from "@/src/utils/formatPrice";
 import { Metadata } from "next";
 
 type Props = {
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${tituloProducto} | Ferredip`,
-    description: `${tituloProducto} - Marca: ${producto.marca || 'Ferredip'}. Precio: ${producto.precio}. Disponible en nuestra tienda en línea.`,
+    description: `${tituloProducto} - Marca: ${producto.marca || 'Ferredip'}. Precio: $${formatPrecio(producto.precio)}. Disponible en nuestra tienda en línea.`,
     
     openGraph: {
       title: `${tituloProducto} | ${ producto.marca }`,

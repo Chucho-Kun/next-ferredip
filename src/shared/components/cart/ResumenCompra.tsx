@@ -5,7 +5,7 @@ import { useCartStore } from '@/src/store/cartStore';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { useEffect } from 'react';
-import { totalxcantidad } from '@/src/utils/formatPrice';
+import { totalxcantidad, formatMoney } from '@/src/utils/formatPrice';
 import MediosdePagoComponent from './MediosdePagoComponent';
 import EntregaComponent from './EntregaComponent';
 import { useDeliveryStore } from '@/src/store/deliveryStore';
@@ -39,9 +39,9 @@ const cotizaWhatsApp = () => {
         `   Cant: ${item.cantidad} × ${totalxcantidad(item.precio, item.cantidad)}`
       ).join('\n\n') +
       `\n────────────────────\n` +
-      `*Subtotal:* $${subtotal.toFixed(2)}\n` +
-      `*Envío:* $${shipping.toFixed(2)}\n` +
-      `*TOTAL:* $${total.toFixed(2)}`;
+      `*Subtotal:* $${formatMoney(subtotal)}\n` +
+      `*Envío:* $${formatMoney(shipping)}\n` +
+      `*TOTAL:* $${formatMoney(total)}`;
 
     window.open(
       `https://api.whatsapp.com/send?phone=${whatsAppNumber}&text=${encodeURIComponent(mensaje)}`,
@@ -93,16 +93,16 @@ const cotizaWhatsApp = () => {
             <div className="pt-6 space-y-3">
             <div className="flex justify-between text-lg">
               <span className="text-gray-600">SUBTOTAL</span>
-              <span className="font-semibold">${ subTotal().toFixed(2) }</span>
+              <span className="font-semibold">${ formatMoney(subTotal()) }</span>
             </div>
             <div className="flex justify-between text-lg">
               <span className="text-gray-600">COSTO DE ENVÍO</span>
-              <span className="font-semibold">${ shippingCost().toFixed(2) }</span>
+              <span className="font-semibold">${ formatMoney(shippingCost()) }</span>
             </div>
-            
+
             <div className="flex justify-between text-2xl font-bold border-t pt-4">
               <span>TOTAL</span>
-              <span className="text-[#E30613]">${ totalPrice().toFixed(2) }</span>
+              <span className="text-[#E30613]">${ formatMoney(totalPrice()) }</span>
             </div>
 
             <div className='flex'>

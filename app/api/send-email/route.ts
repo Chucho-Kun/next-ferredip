@@ -1,7 +1,7 @@
 // app/api/send-email/route.ts
 import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
-import { totalxcantidad } from '@/src/utils/formatPrice';
+import { totalxcantidad, formatMoney } from '@/src/utils/formatPrice';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       from: `Ferredip Web <avisos@noreply.ferredip.com.mx>`,
 
       to: [customerEmail],
-      bcc: ["truperdipemsa@gmail.com"],
+      bcc: ["gameroapp@gmail.com"], //truperdipemsa@gmail.com
       subject: `Confirmación de compra - Orden #${orderData.paymentId}`,
       html:  `
     <html lang="es"><head>
@@ -108,19 +108,19 @@ export async function POST(request: NextRequest) {
                       <tr>
                           <td> SubTotal: </td>
                           <td width="20%">
-                              <div class="subTotal preciosNormales"> $${ subTotalReal }</div>
+                              <div class="subTotal preciosNormales"> $${ formatMoney(subTotalReal) }</div>
                           </td>
                       </tr>
                       <tr>
                           <td> Costos de Envío: </td>
                           <td>
-                              <div class="precioEnvio preciosNormales">$${orderData.shipping}</div>
+                              <div class="precioEnvio preciosNormales">$${ formatMoney(Number(orderData.shipping) || 0) }</div>
                           </td>
                       </tr>
                       <tr>
                           <td> Monto a Pagar: </td>
                           <td>
-                              <div class="sumaTotal" style="height: 36px;font-weight: bold;font-size: 19px;color: red;position: relative;top: 3px;">$${ totalReal }</div>
+                              <div class="sumaTotal" style="height: 36px;font-weight: bold;font-size: 19px;color: red;position: relative;top: 3px;">$${ formatMoney(totalReal) }</div>
                           </td>
                       </tr>
                       <tr>

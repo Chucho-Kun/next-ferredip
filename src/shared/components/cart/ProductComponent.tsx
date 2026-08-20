@@ -2,7 +2,7 @@ import { CartItem, useCartStore } from "@/src/store/cartStore";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { useDeleteFromCart } from "@/src/hooks/useDeleteToast";
-import { totalxcantidad } from "@/src/utils/formatPrice";
+import { totalxcantidad, formatPrecio } from "@/src/utils/formatPrice";
 import { useState } from "react";
 
 const LOGO_SRC = '/logo.webp';
@@ -69,7 +69,7 @@ export default function ProductComponent({ item }: Props) {
                 <div>
                     <p className="text-sm text-gray-500 uppercase mb-1">{ item.marca }</p>
                     {/* <p className="text-gray-400">{ item.precioant && ( <span className="line-through">({ item.precioant })</span> ) }</p> */}
-                    <p className="text-sm mb-1">{ item.precio } x u.</p>
+                    <p className="text-sm mb-1">${ formatPrecio(item.precio) } x u.</p>
                     <div className="flex items-center justify-center border border-gray-300 w-26">
                         <button 
                             onClick={ () => updateQuantity( item.id, item.cantidad - 1) }
