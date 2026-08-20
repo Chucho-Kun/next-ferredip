@@ -234,9 +234,9 @@ export default async function ProductoPage(props: PageProps<'/producto/[id]/[slu
           <ProductCardsServer id={id} />
         </section>
 
-        <section>
+        {/* <section>
           <RecommendedProductsServer />
-        </section>
+        </section> */}
 
         <section>
           <RecentViewProducts currentId={id} />

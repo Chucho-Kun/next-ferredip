@@ -1,6 +1,6 @@
 # SPEC 05 — Fotos adicionales con thumbnails en la página de producto
 
-> **Estado:** Implementado
+> **Estado:** Aprobado  
 > **Depende de:** SPEC 01, SPEC 03
 > **Fecha:** 2026-08-20
 > **Objetivo:** Descargar del banco de Truper hasta tres fotos secundarias por producto y mostrarlas como thumbnails bajo la foto principal, de modo que al hacer clic cada una sustituya a la principal conservando su lente de zoom y su lightbox.
@@ -186,37 +186,32 @@ Constantes de la fila de thumbnails: lado de 72 px, `gap-3`, borde de 2 px
 
 ## Criterios de aceptación
 
-- [x] `npm run fotos:adicionales -- --dry-run --limit=50` imprime el histograma de fotos por clave sin
+- [ ] `npm run fotos:adicionales -- --dry-run --limit=50` imprime el histograma de fotos por clave sin
       escribir ningún archivo.
-- [x] Tras la corrida, un producto con `FC1`, `FC2` y `E1` tiene exactamente `{id}-1.jpg`,
-      `{id}-2.jpg` y `{id}-3.jpg`, en ese orden de sufijos. (`100103`)
-- [x] Un producto con `FC1` y `E1` pero sin `FC2` tiene `{id}-1.jpg` y `{id}-2.jpg`, **sin hueco**, y
-      el CSV registra `FC2` como `no-encontrado`. (`100124`)
-- [x] Cada archivo escrito empieza con los bytes `FF D8 FF` y mide 1800×1800. Verificado en una muestra
-      de 200 archivos: magic bytes 100% correctos; dimensión 1800×1800 en 191/200 (95.5%) — el resto
-      viene así del banco de Truper (p. ej. algunos en 1801×1801, uno en 7501×7501). No es un bug del
-      script (valida magic bytes/content-type, no dimensiones) y redimensionar está fuera de alcance;
-      queda anotado como variación real de la fuente.
-- [x] Una clave compartida por dos `id` genera **una** petición HTTP por sufijo y **dos** archivos por
-      sufijo encontrado. Verificado por revisión de código (mismo patrón que SPEC 01), no con un caso
-      real: el catálogo actual no tiene ninguna clave duplicada entre `id`s.
-- [x] Una segunda corrida sin `--force` hace cero peticiones HTTP; con `--force` vuelve a descargar.
-- [x] `fotos-truper/_reporte_adicionales.csv` existe y `git status` no lista nada dentro de
+- [ ] Tras la corrida, un producto con `FC1`, `FC2` y `E1` tiene exactamente `{id}-1.jpg`,
+      `{id}-2.jpg` y `{id}-3.jpg`, en ese orden de sufijos.
+- [ ] Un producto con `FC1` y `E1` pero sin `FC2` tiene `{id}-1.jpg` y `{id}-2.jpg`, **sin hueco**, y
+      el CSV registra `FC2` como `no-encontrado`.
+- [ ] Cada archivo escrito empieza con los bytes `FF D8 FF` y mide 1800×1800.
+- [ ] Una clave compartida por dos `id` genera **una** petición HTTP por sufijo y **dos** archivos por
+      sufijo encontrado.
+- [ ] Una segunda corrida sin `--force` hace cero peticiones HTTP; con `--force` vuelve a descargar.
+- [ ] `fotos-truper/_reporte_adicionales.csv` existe y `git status` no lista nada dentro de
       `fotos-truper/`.
-- [x] En la página de un producto con fotos adicionales aparece bajo la foto una fila de thumbnails
+- [ ] En la página de un producto con fotos adicionales aparece bajo la foto una fila de thumbnails
       cuyo primer elemento es la foto principal.
-- [x] Hacer clic en una thumbnail sustituye la foto grande por esa foto.
-- [x] La thumbnail activa se distingue de las demás por el borde naranja `#FF5E00`.
-- [x] Con la foto principal activa se puede volver a ella desde cualquier otra thumbnail.
-- [x] En escritorio, pasar el cursor sobre una foto adicional muestra la lente y el panel de 366×366
+- [ ] Hacer clic en una thumbnail sustituye la foto grande por esa foto.
+- [ ] La thumbnail activa se distingue de las demás por el borde naranja `#FF5E00`.
+- [ ] Con la foto principal activa se puede volver a ella desde cualquier otra thumbnail.
+- [ ] En escritorio, pasar el cursor sobre una foto adicional muestra la lente y el panel de 366×366
       con **esa** foto ampliada, no con la principal.
-- [x] En pantalla táctil, tocar una foto adicional abre el lightbox con esa misma foto.
-- [x] Un producto **sin** fotos adicionales no muestra ninguna fila de thumbnails y se ve exactamente
+- [ ] En pantalla táctil, tocar una foto adicional abre el lightbox con esa misma foto.
+- [ ] Un producto **sin** fotos adicionales no muestra ninguna fila de thumbnails y se ve exactamente
       como hoy.
-- [x] Cambiar de variante en el selector vuelve a la foto principal del producto nuevo y recalcula sus
+- [ ] Cambiar de variante en el selector vuelve a la foto principal del producto nuevo y recalcula sus
       thumbnails.
-- [x] Si una foto adicional falla al cargar, la vista vuelve a la principal en vez de quedar en blanco.
-- [x] `npm run lint` y `npm run build` pasan.
+- [ ] Si una foto adicional falla al cargar, la vista vuelve a la principal en vez de quedar en blanco.
+- [ ] `npm run lint` y `npm run build` pasan.
 
 ## Decisiones
 
