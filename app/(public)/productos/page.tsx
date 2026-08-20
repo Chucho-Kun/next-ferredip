@@ -10,7 +10,7 @@ export const metadata = {
     description: 'Listado de todos los productos con los que contamos en nuestro catálogo',
     images: [
       {
-        url: "https://ferredip.com.mx/logoFerredip.jpg",
+        url: "https://ferredip.com.mx/nuevologo.jpg",
         width: 1200,
         height: 630,
       },

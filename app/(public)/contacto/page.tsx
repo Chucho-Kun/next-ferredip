@@ -11,7 +11,7 @@ export const metadata = {
     description: 'Estamos listos para atender tu consulta. Contáctanos hoy.',
     images: [
       {
-        url: "https://ferredip.com.mx/logoFerredip.jpg",
+        url: "https://ferredip.com.mx/nuevologo.jpg",
         width: 1200,
         height: 630,
       },

@@ -68,9 +68,6 @@ export default function Footer() {
               {/* <li>
                 <Link className="text-bold hover:text-orange-400 transition" href={''} >Quejas y Sugerencias</Link>
               </li> */}
-              <li>
-                <Link className="text-bold text-yellow-300 hover:text-orange-400 transition" target='_blank' href={'https://www.mercadolibre.com.mx/pagina/Ferredip5699#origin=search_intervention&tracking_id=4f8a91a2-cb77-43cb-984d-fe7bde46fe18'} >Tienda Oficial Mercado Libre</Link>
-              </li>
             </ul>
           </div>
 
@@ -79,7 +76,7 @@ export default function Footer() {
             <h3 className="font-bold text-lg mb-4">SERVICIOS</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link className="text-bold hover:text-orange-400 transition" target='_blank' href={'/catalogos/CATALOGO2026ABRIL.pdf'} >Descargar Catálogo</Link>
+                <Link className="text-bold hover:text-orange-400 transition" target='_blank' href={'https://catalogovigente.truper.com/catalogo_nacional_2026.pdf?2026-08-14'} >Descargar Catálogo</Link>
               </li>
             </ul>
           </div>

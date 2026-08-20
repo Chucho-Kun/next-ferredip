@@ -10,7 +10,7 @@ export const metadata = {
     description: 'Forma parte de nuestro programa de afiliación para mayoristas y constructores.',
     images: [
       {
-        url: "https://ferredip.com.mx/logoFerredip.jpg",
+        url: "https://ferredip.com.mx/nuevologo.jpg",
         width: 1200,
         height: 630,
       },

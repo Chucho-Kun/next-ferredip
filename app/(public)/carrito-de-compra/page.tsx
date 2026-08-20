@@ -11,7 +11,7 @@ export const metadata = {
     description: 'Paga tus compras con Tarjeta VISA, MasterCard, Mercado Pago o en OXXO',
     images: [
       {
-        url: "https://ferredip.com.mx/logoFerredip.jpg",
+        url: "https://ferredip.com.mx/nuevologo.jpg",
         width: 1200,
         height: 630,
       },

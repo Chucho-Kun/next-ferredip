@@ -10,18 +10,21 @@ export default function AvisoDePrivacidad() {
           <h1 className="text-4xl font-bold text-gray-800 mb-3">
             Aviso de Privacidad
           </h1>
-          <p className="text-gray-600">Última actualización: Mayo 2026</p>
+          <p className="text-gray-600">Última actualización: Agosto 2026</p>
         </div>
 
         <div className="bg-white rounded-3xl shadow-sm p-8 md:p-12 prose prose-lg max-w-none leading-relaxed">
           
           
           <p>
-            FERREDIP con domicilio en Av. vía Morelos, Cerezo 77A, Boulevares Impala, 55040 Ecatepec de Morelos, Méx. Estado de México es quien comercializa los productos ofrecidos en esta Página. Toda transacción realizada a través de la Página, se sujetará a los términos y condiciones aquí expresados.
+            <div>GRUPO COMERCIAL CEIC</div>
+            <div>RFC: GCC190711FP1</div>
+            <div>CERRADA COMUNIDAD S/N, Santa Isabel Ixtapan, Del. San Mateo Atenco, Atenco, Estado de México, México CP: 56300 </div>
+            es quien comercializa los productos ofrecidos en esta Página. Toda transacción realizada a través de la Página, se sujetará a los términos y condiciones aquí expresados.
           </p>
 
           <p className="mt-6">
-          Tu privacidad es muy importante para FERREDIP ,ponemos a tu disposición este Aviso de Privacidad de Datos Personales, mismo que describe, solicita y trata tus Datos Personales
+          Tu privacidad es muy importante para FERREDIP, ponemos a tu disposición este Aviso de Privacidad de Datos Personales, mismo que describe, solicita y trata tus Datos Personales
           </p>
 
           <h3 className="text-xl font-semibold mt-10 mb-4">Datos Personales que Recabamos</h3>

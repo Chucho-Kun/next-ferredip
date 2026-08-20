@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: 'https://ferredip.com.mx/logoFerredip.jpg',
+      url: 'https://ferredip.com.mx/nuevologo.jpg',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
