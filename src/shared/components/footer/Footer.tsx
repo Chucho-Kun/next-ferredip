@@ -30,7 +30,7 @@ export default function Footer() {
               <p><span className="font-semibold">(55) 8751 2194</span></p>
               <p><span className="font-semibold">(55) 5770 8512</span></p> */}
               <p>WhatsApp: <span className="font-semibold">55 7347 6687</span></p>
-              <p>E-mail: <span className="font-semibold">contacto@ferredip.com.mx</span></p>
+              <p>E-mail: <span className="font-semibold">truperdipemsa@gmail.com</span></p>
             </div>
 
             {/* Redes Sociales */}
