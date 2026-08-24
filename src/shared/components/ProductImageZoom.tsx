@@ -165,7 +165,7 @@ export default function ProductImageZoom({ zoomSrc, src, alt, onError }: Props) 
         className="h-auto object-contain mt-8"
         priority={true}           // Solo pon true en la página principal
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 366px"
-        quality={85}
+        quality={75}
         onError={onError}
       />
 
