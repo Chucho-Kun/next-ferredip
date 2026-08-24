@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       from: `Ferredip Web <avisos@noreply.ferredip.com.mx>`,
 
       to: [customerEmail],
-      bcc: ["gameroapp@gmail.com"], //truperdipemsa@gmail.com
+      bcc: ["truperdipemsa@gmail.com"], //truperdipemsa@gmail.com
       subject: `Confirmación de compra - Orden #${orderData.paymentId}`,
       html:  `
     <html lang="es"><head>

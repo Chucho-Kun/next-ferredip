@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { MercadoPagoConfig, Payment } from 'mercadopago';
 import { PaymentCreateRequest } from 'mercadopago/dist/clients/payment/create/types';
+import { registrarOrden } from '@/src/shared/db/ordenes';
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN!,
@@ -33,6 +34,8 @@ export async function POST(request: NextRequest) {
       description?: string;
       picture_url?: string;
       category_id?: string;
+      clave?: string;
+      marca?: string;
       quantity?: number;
       unit_price?: number;
       currency_id?: string;
@@ -75,6 +78,37 @@ export async function POST(request: NextRequest) {
     const response = await payment.create({ body: paymentBody });
 
     console.log("✅ Pago procesado:", response.status);
+
+    await registrarOrden({
+      mp_payment_id: String(response.id),
+      mp_status: response.status,
+      mp_status_detail: response.status_detail,
+      payment_method_id: formData.payment_method_id,
+      installments: Number(formData.installments) || 1,
+
+      nombre: body.deliveryData?.nombre || "",
+      apellidos: body.deliveryData?.apellidos || "",
+      email: formData.payer?.email || "",
+      telefono: body.deliveryData?.telefono || "",
+      direccion: body.deliveryData?.direccion || "",
+      entre_calles: body.deliveryData?.entreCalles || "",
+      ciudad: body.deliveryData?.ciudad || "",
+      cp: body.deliveryData?.cp || "",
+
+      subtotal: Number(body.subtotal) || 0,
+      envio: Number(body.shipping) || 0,
+      total: Number(body.total) || transactionAmount,
+
+      items: rawItems.map((it, idx) => ({
+        id: String(it.id ?? idx),
+        titulo: String(it.title ?? "Producto"),
+        descripcion: it.description ?? "",
+        clave: it.clave ?? "",
+        marca: it.marca ?? "",
+        cantidad: Number(it.quantity ?? 1),
+        precio: Number(it.unit_price ?? 0),
+      })),
+    });
 
     return NextResponse.json({
       status: response.status,

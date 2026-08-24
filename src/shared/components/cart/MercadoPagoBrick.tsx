@@ -142,11 +142,16 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
                     id: item.id,
                     title: String(item.titulo ?? `Producto Ferredip ${item.id ?? ""}`).trim(),
                     description: item.descripcion ?? "",
+                    clave: item.clave ?? "",
+                    marca: item.marca ?? "",
                     quantity: Number(item.cantidad ?? 1),
                     unit_price: Number(String(item.precio).replace(/[$,]/g, "")) || 0,
                     currency_id: "MXN",
                 })),
                     deliveryData: { nombre, apellidos, direccion, entreCalles, ciudad, cp, telefono },
+                    subtotal: subTotal(),
+                    shipping: shippingCost(),
+                    total: totalPrice(),
                 }),
             });
 
