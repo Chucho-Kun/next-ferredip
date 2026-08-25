@@ -2,7 +2,7 @@
 
 @layer components {
   .slider-responsive {
-    @apply w-full h-35 sm:h-80 md:h-96 lg:h-104 object-cover
+    @apply w-full aspect-[1134/377] object-cover
   }
 }
 
