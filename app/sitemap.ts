@@ -1,217 +1,66 @@
 // app/sitemap.ts
 import { MetadataRoute } from 'next';
+import { marcas } from '@/src/shared/db/marcas';
+import { productos as categorias } from '@/src/shared/db/productos';
+
+const BASE_URL = 'https://ferredip.com.mx';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+  const staticPages: MetadataRoute.Sitemap = [
     {
-      url: 'https://ferredip.com.mx',
+      url: BASE_URL,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1.0,
     },
     {
-      url: 'https://ferredip.com.mx/nuevologo.jpg',
+      url: `${BASE_URL}/marcas`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: 'https://ferredip.com.mx/marcas',
+      url: `${BASE_URL}/productos`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: 'https://ferredip.com.mx/productos',
+      url: `${BASE_URL}/contacto`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: 'https://ferredip.com.mx/carrito-de-compra',
+      url: `${BASE_URL}/terminos-y-condiciones`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
     {
-      url: 'https://ferredip.com.mx/contacto',
+      url: `${BASE_URL}/aviso-de-privacidad`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
-    {
-      url: 'https://ferredip.com.mx/marca/expert',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/marca/fiero',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/marca/foset',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/marca/hermex',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/marca/klintek',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/marca/pretul',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/marca/truper',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/marca/ultracraft',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/marca/volteck',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/acabados-y-remodelacion',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/accesorios-para-banos',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/aceites-y-lubricantes',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/articulos-del-hogar',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/articulos-de-limpieza',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/automotriz',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/cerrajeria',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/construccion',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/corte-y-desbaste',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/electricidad',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/equipo-de-seguridad',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/herramientas-manuales',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/herramientas-industriales',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/iluminacion',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/jardineria',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/medicion-y-pesaje',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/neumaticos',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/plomeria',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/soldadura',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://ferredip.com.mx/categoria/tornilleria-y-fijacion',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    }
   ];
+
+  // Misma fuente que usa la grilla de marcas (src/shared/db/marcas.ts) —
+  // agregar una marca ahí ya la suma aquí sin tocar este archivo.
+  const marcaPages: MetadataRoute.Sitemap = marcas.map((marca) => ({
+    url: `${BASE_URL}/marca/${marca.name}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9,
+  }));
+
+  // Misma fuente que usa la grilla de categorías (src/shared/db/productos.ts).
+  const categoriaPages: MetadataRoute.Sitemap = categorias.map((categoria) => ({
+    url: `${BASE_URL}/categoria/${categoria.name}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9,
+  }));
+
+  return [...staticPages, ...marcaPages, ...categoriaPages];
 }

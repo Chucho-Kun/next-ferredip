@@ -15,7 +15,11 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Ferredip | Bienvenidos",
+  metadataBase: new URL("https://ferredip.com.mx"),
+  title: {
+    default: "Ferredip | Bienvenidos",
+    template: "%s",
+  },
   description: "Somos Ferredip una empresa de venta de Herramientas",
 };
 
