@@ -1,5 +1,5 @@
 import { getProductById, getProductVariants, getRelatedProducts } from "../db/queries";
-import { fotosAdicionalesDe } from "@/src/utils/fotosAdicionales";
+import { fotosAdicionalesDe } from "@/src/utils/fotos";
 import ProductCard from "./ProductCard";
 
 type Props = {

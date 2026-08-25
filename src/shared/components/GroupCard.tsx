@@ -7,6 +7,7 @@ import { whatsAppNumber } from "../db/contact-info";
 import { slugify } from "@/src/utils/slugify";
 import { pushEcommerce, toGA4Item, CURRENCY } from "@/src/utils/gtm";
 import { totalxcantidad } from "@/src/utils/formatPrice";
+import { fotoPrincipal, LOGO_SRC } from "@/src/utils/fotos";
 
 type Variant = {
   id: string
@@ -22,9 +23,6 @@ type GroupedProduct = {
   variants: Variant[]
 };
 
-const LOGO_SRC = '/logo_.webp';
-const fotoDe = (id: string) => `/fotos/webp/${id}.webp`;
-
 type Props = {
   group: GroupedProduct
   listId?: string
@@ -33,7 +31,7 @@ type Props = {
 
 export default function GroupCard({ group, listId, listName }: Props) {
   const [selectedVariant, setSelectedVariant] = useState(group.variants[0]);
-  const originalSrc = fotoDe(group.variants[0].id);
+  const originalSrc = fotoPrincipal(group.variants[0].id);
   const [imgSrc, setImgSrc] = useState(originalSrc);
 
   const mainName = group.baseName;
@@ -76,6 +74,7 @@ export default function GroupCard({ group, listId, listName }: Props) {
           src={imgSrc}
           alt={mainName}
           fill
+          unoptimized
           onError={handleImageError}
           className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

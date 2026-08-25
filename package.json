@@ -7,6 +7,7 @@
     "import:csv": "tsx scripts/import-csv.ts",
     "fotos:truper": "node --env-file=.env scripts/download-truper-images.mjs",
     "fotos:adicionales": "node --env-file=.env scripts/download-truper-adicionales.mjs",
+    "fotos:r2": "node --env-file=.env scripts/subir-fotos-r2.mjs",
     "dev:webpack": "next dev",
     "dev": "next dev",
     "build": "next build",
@@ -35,6 +36,7 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1117.0",
     "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
@@ -52,6 +54,7 @@
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "playwright": "^1.61.1",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "ts-jest": "^29.4.11",
     "typescript": "^5"

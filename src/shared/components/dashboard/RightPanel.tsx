@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Producto } from './types/producto';
+import { fotoPrincipal } from '@/src/utils/fotos';
 
 type RightPanelProps = {
   productos: Producto[];
@@ -74,12 +75,13 @@ export default function RightPanel({
                 className="p-3 bg-white border rounded-xl hover:border-green-400 cursor-pointer flex gap-3 transition hover:shadow-md"
               >
                 {p.id && (
-                  <Image 
-                    src={`/fotos/webp/${p.id}.webp`}
-                    alt={titulo} 
-                    width={60} 
-                    height={45} 
-                    className="rounded object-contain shrink-0" 
+                  <Image
+                    src={fotoPrincipal(p.id)}
+                    alt={titulo}
+                    width={60}
+                    height={45}
+                    unoptimized
+                    className="rounded object-contain shrink-0"
                   />
                 )}
 

@@ -7,6 +7,7 @@ import MercadoPagoBrick from './MercadoPagoBrick';
 import toast from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
 import MercadoPagoButton from './MercadoPagoButton';
+import { fotoPrincipal } from '@/src/utils/fotos';
 
 export default function MediosdePagoComponent() {
   const { items, totalPrice, subTotal, shippingCost } = useCartStore();
@@ -45,7 +46,7 @@ export default function MediosdePagoComponent() {
             id: item.id,
             title: ( item.titulo || (`Producto Ferredip ${item.id || ''}`)).toString().trim(),
             currency_id: 'MXN',
-            picture_url: `https://ferredip.com.mx/fotos/webp/${item.id}.webp`,
+            picture_url: fotoPrincipal(item.id),
             description: item.descripcion || '',
             category_id: item.marca,
             quantity: item.cantidad,

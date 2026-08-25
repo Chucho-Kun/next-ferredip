@@ -2,6 +2,7 @@
 import { Resend } from 'resend';
 import { NextRequest, NextResponse } from 'next/server';
 import { totalxcantidad, formatMoney } from '@/src/utils/formatPrice';
+import { fotoPrincipal } from '@/src/utils/fotos';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -73,7 +74,7 @@ export async function POST(request: NextRequest) {
                           <tbody>
                               <tr style="height: 18px;">
                                   <td style="width: 25%; height: 36px;" rowspan="2">
-                                      <img width="120" style="position: relative;left: 6px;border-radius: 7px;" src="https://ferredip.com.mx/fotos/webp/${ item.id }.webp">
+                                      <img width="120" style="position: relative;left: 6px;border-radius: 7px;" src="${ fotoPrincipal(item.id) }">
                                       
                                   </td>
                                   <td style="width: 25%; height: 16px;" colspan="3">

@@ -39,6 +39,9 @@ yarn-error.log*
 # scripts/download-truper-images.mjs output (raw jpg downloads + report)
 /fotos-truper
 
+# fotos de producto: migradas a Cloudflare R2 (ver SPEC 08), ya no se versionan
+/public/fotos
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -1,6 +1,7 @@
 // app/api/mercadopago/preference/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { fotoPrincipal } from '@/src/utils/fotos';
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN!,
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
       id: item.id || undefined,
       title: (item.title || item.titulo || (`Producto Ferredip ${item.id || ''}`)).toString().trim(),
       currency_id: 'MXN',
-      picture_url: `https://ferredip.com.mx/fotos/webp/${ item.id }.webp`,
+      picture_url: fotoPrincipal(item.id),
       description: (item.description || item.descripcion || '').toString(),
       category_id: item.marca,
       quantity: Number(item.quantity ?? item.cantidad ?? 1),

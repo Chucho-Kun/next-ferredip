@@ -1,6 +1,7 @@
 // app/feed.xml/route.ts
 import { getAllProductosXML } from '@/src/shared/db/queries';
 import { slugify } from '@/src/utils/slugify';
+import { fotoPrincipal } from '@/src/utils/fotos';
 import { NextResponse } from 'next/server';
 
 export const revalidate = 3600;
@@ -33,7 +34,7 @@ export async function GET() {
                     <g:title>${escapeXml( product.descripcion || '')}</g:title>
                     <g:description>${escapeXml(product.informacion || product.descripcion || '')}</g:description>
                     <g:link>https://ferredip.com.mx/producto/${product.id}/${ slugify( product.descripcion! ) }</g:link>
-                    <g:image_link>https://ferredip.com.mx/fotos/webp/${product.id}.webp</g:image_link>
+                    <g:image_link>${fotoPrincipal(product.id ?? '')}</g:image_link>
                     
                     <g:condition>new</g:condition>
                     <g:availability>in stock</g:availability>

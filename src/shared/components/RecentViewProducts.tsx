@@ -6,16 +6,14 @@ import { useEffect, useState } from 'react';
 import { slugify } from '@/src/utils/slugify';
 import { RecentProduct, useRecentProductsStore } from '@/src/store/recentProductsStore';
 import { formatPrecio } from '@/src/utils/formatPrice';
-
-const LOGO_SRC = '/logo.webp';
-const fotoDe = (id: string) => `/fotos/webp/${id}.webp`;
+import { fotoPrincipal, LOGO_SRC } from '@/src/utils/fotos';
 
 // Se guardan 5 en el store, pero nunca se muestran más de 4 tarjetas:
 // el grid es de 4 columnas y una quinta quedaría huérfana en otra fila.
 const MAX_VISIBLES = 4;
 
 function RecentCard({ producto }: { producto: RecentProduct }) {
-  const [imgSrc, setImgSrc] = useState(() => fotoDe(producto.id));
+  const [imgSrc, setImgSrc] = useState(() => fotoPrincipal(producto.id));
 
   const [ nombre, detalles ] = producto.descripcion
     .split('|')
@@ -34,6 +32,7 @@ function RecentCard({ producto }: { producto: RecentProduct }) {
           src={imgSrc}
           alt={nombre}
           fill
+          unoptimized
           onError={handleImageError}
           className="object-contain hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

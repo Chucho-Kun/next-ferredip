@@ -3,10 +3,8 @@ import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { useDeleteFromCart } from "@/src/hooks/useDeleteToast";
 import { totalxcantidad, formatPrecio } from "@/src/utils/formatPrice";
+import { fotoPrincipal, LOGO_SRC } from "@/src/utils/fotos";
 import { useState } from "react";
-
-const LOGO_SRC = '/logo.webp';
-const fotoDe = (id: string) => `/fotos/webp/${id}.webp`;
 
 type Props = {
     item: CartItem
@@ -17,7 +15,7 @@ export default function ProductComponent({ item }: Props) {
     const { updateQuantity , removeFromCart } = useCartStore()
     const { deleteItem } = useDeleteFromCart()
     const [quantity, setQuantity] = useState(1);
-    const [imgSrc, setImgSrc] = useState(() => fotoDe(item.id ?? ''));
+    const [imgSrc, setImgSrc] = useState(() => fotoPrincipal(item.id ?? ''));
 
     const handleImageError = () => {
         if (imgSrc !== LOGO_SRC) setImgSrc(LOGO_SRC);
@@ -56,6 +54,7 @@ export default function ProductComponent({ item }: Props) {
             src={imgSrc}
             alt={ item.marca }
             fill
+            unoptimized
             className="object-cover"
             sizes="366px"
             onError={handleImageError}

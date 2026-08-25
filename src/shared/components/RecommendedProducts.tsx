@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { whatsAppNumber } from '../db/contact-info';
 import { slugify } from '@/src/utils/slugify';
 import { formatPrecio } from '@/src/utils/formatPrice';
+import { fotoPrincipal } from '@/src/utils/fotos';
 
 type Props = {
   productosRecomendados: ResultadosType[]
@@ -60,9 +61,10 @@ export default function RecommendedProducts( {productosRecomendados} : Props ) {
                           {/* Imagen */}
                           <div className="relative h-52 bg-white flex items-center justify-center p-6 overflow-hidden rounded-t-2xl">
                             <Image
-                              src= {`/fotos/webp/${producto.id}.webp`}
+                              src= {fotoPrincipal(producto.id ?? '')}
                               alt={ nombre }
                               fill
+                              unoptimized
                               className="object-contain hover:scale-105 transition-transform duration-300"
                               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                             />

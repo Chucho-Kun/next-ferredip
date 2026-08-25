@@ -5,6 +5,7 @@ import RecommendedProductsServer from "@/src/shared/components/RecommendedProduc
 import { getProductById } from "@/src/shared/db/queries";
 import { slugify } from "@/src/utils/slugify";
 import { formatPrecio } from "@/src/utils/formatPrice";
+import { fotoPrincipal, fotoPrincipalZoom } from "@/src/utils/fotos";
 import { Metadata } from "next";
 
 type Props = {
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://ferredip.com.mx/producto/${id}/${ slugify( slug ) }`,
       images: [
         {
-          url: `https://ferredip.com.mx/fotos/${id}.jpg`,
+          url: fotoPrincipalZoom(id),
           width: 1800,
           height: 1800,
           alt: tituloProducto,
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${tituloProducto} | Ferredip`,
       description: `${ producto.informacion }`,
-      images: [`https://ferredip.com.mx/fotos/${id}.jpg`],
+      images: [fotoPrincipalZoom(id)],
     },
     alternates: {
       canonical: `https://ferredip.com.mx/producto/${id}/${ slugify( slug ) }`,
@@ -121,7 +122,7 @@ export default async function ProductoPage(props: PageProps<'/producto/[id]/[slu
                 "name": tituloProducto,
                 "description": tituloDesc || "varios modelos",
                 "sku": producto.clave,
-                "image": `https://ferredip.com.mx/fotos/webp/${id}.webp`,
+                "image": fotoPrincipal(id),
                 "brand": {
                   "@type": "Brand",
                   "name": producto.marca || "Ferredip"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Producto } from './types/producto';
+import { fotoPrincipal } from '@/src/utils/fotos';
 
 type LeftPanelProps = {
   productos: Producto[];
@@ -74,10 +75,11 @@ export default function LeftPanel({
                 <div className="flex gap-3">
                   {p.id && (
                     <Image
-                      src={`/fotos/webp/${p.id}.webp`}
+                      src={fotoPrincipal(p.id)}
                       alt={titulo}
                       width={100}
                       height={60}
+                      unoptimized
                       className="rounded object-contain"
                     />
                   )}

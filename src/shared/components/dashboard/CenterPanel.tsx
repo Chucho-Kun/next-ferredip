@@ -1,6 +1,7 @@
 // CenterPanel.tsx
 import Image from 'next/image';
 import { Producto } from './types/producto';
+import { fotoPrincipal } from '@/src/utils/fotos';
 
 type CenterPanelProps = {
   productoSeleccionado: Producto | null;
@@ -25,11 +26,12 @@ export default function CenterPanel({  productoSeleccionado, relacionados, elimi
         <div>
           {/* Imagen del producto */}
           {productoSeleccionado.id && (
-            <Image 
-              src={`/fotos/webp/${productoSeleccionado.id}.webp`}
-              width={366} 
-              height={214} 
-              alt={productoSeleccionado.descripcion || ''} 
+            <Image
+              src={fotoPrincipal(productoSeleccionado.id)}
+              width={366}
+              height={214}
+              alt={productoSeleccionado.descripcion || ''}
+              unoptimized
               className="rounded-lg mb-6 object-contain"
             />
           )}
@@ -66,12 +68,13 @@ export default function CenterPanel({  productoSeleccionado, relacionados, elimi
                     ✕
                   </button>
                   
-                  <Image 
-                    src={`/fotos/webp/${rel.id}.webp`}
-                    alt={titulo} 
+                  <Image
+                    src={fotoPrincipal(rel.id)}
+                    alt={titulo}
                     width={187}
                     height={109}
-                    className="rounded object-contain mb-3" 
+                    unoptimized
+                    className="rounded object-contain mb-3"
                   />
                   
                   <p className="font-medium leading-tight">{titulo}</p>

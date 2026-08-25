@@ -14,20 +14,19 @@ import ProductImageZoom from './ProductImageZoom';
 import { slugify } from '@/src/utils/slugify';
 import { pushEcommerce, toGA4Item, itemsValue, CURRENCY } from '@/src/utils/gtm';
 import { totalxcantidad, formatPrecio } from '@/src/utils/formatPrice';
-
-const LOGO_SRC = '/logo.webp';
-const fotoDe = (id: string) => `/fotos/webp/${id}.webp`;
+import { fotoPrincipal, fotoPrincipalThumb, fotoPrincipalZoom, LOGO_SRC, FotoAdicional } from '@/src/utils/fotos';
 
 type FotoGaleria = {
-  src: string;      // lo que ve el usuario a 366 px
-  zoomSrc: string;  // lo que consume la lente / el lightbox del SPEC 03
+  src: string;      // lo que ve el usuario a 366 px (800px, CDN)
+  thumb: string;    // botones de la galería, 72px (160px, CDN)
+  zoomSrc: string;  // lo que consume la lente / el lightbox del SPEC 03 (original, CDN)
 }
 
 type Props = {
   producto: ResultadosType
   productosVariantes: RelatedProductType[]
   variantes: VariantOptionType[]
-  fotosAdicionales: string[]
+  fotosAdicionales: FotoAdicional[]
 }
 
 export default function ProductCard({producto, productosVariantes, variantes, fotosAdicionales}: Props) {
@@ -40,12 +39,12 @@ export default function ProductCard({producto, productosVariantes, variantes, fo
   // (mismo segmento de ruta), así que el estado de la imagen se ajusta durante
   // el render cuando cambia producto.id, en vez de depender de un remount.
   const [renderedId, setRenderedId] = useState(producto.id);
-  const [imgSrc, setImgSrc] = useState(() => fotoDe(producto.id ?? ''));
+  const [imgSrc, setImgSrc] = useState(() => fotoPrincipal(producto.id ?? ''));
   // 0 = foto principal; 1..n = posición dentro de fotosAdicionales
   const [fotoActiva, setFotoActiva] = useState(0);
   if (producto.id !== renderedId) {
     setRenderedId(producto.id);
-    setImgSrc(fotoDe(producto.id ?? ''));
+    setImgSrc(fotoPrincipal(producto.id ?? ''));
     setFotoActiva(0);
   }
 
@@ -64,8 +63,12 @@ export default function ProductCard({producto, productosVariantes, variantes, fo
   };
 
   const fotoGaleria: FotoGaleria[] = [
-    { src: imgSrc, zoomSrc: `/fotos/${producto.id}.jpg` },
-    ...fotosAdicionales.map((src) => ({ src, zoomSrc: src })),
+    {
+      src: imgSrc,
+      thumb: imgSrc === LOGO_SRC ? LOGO_SRC : fotoPrincipalThumb(producto.id ?? ''),
+      zoomSrc: fotoPrincipalZoom(producto.id ?? ''),
+    },
+    ...fotosAdicionales.map((foto) => ({ src: foto.src, thumb: foto.thumb, zoomSrc: foto.zoom })),
   ];
   const fotoActual = fotoGaleria[fotoActiva] ?? fotoGaleria[0];
 
@@ -214,7 +217,7 @@ export default function ProductCard({producto, productosVariantes, variantes, fo
                     fotoActiva === i ? 'border-[#FF5E00]' : 'border-gray-200'
                   }`}
                 >
-                  <Image src={foto.src} alt="" fill className="object-cover" sizes="72px" />
+                  <Image src={foto.thumb} alt="" fill unoptimized className="object-cover" sizes="72px" />
                 </button>
               ))}
             </div>

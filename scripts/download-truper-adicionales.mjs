@@ -5,7 +5,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 
 const TRUPER_BASE_URL = "https://www.truper.com/media/import/imagenes";
-const OUTPUT_DIR = path.join("public", "fotos", "adicionales");
+const OUTPUT_DIR = path.join("fotos-truper", "adicionales");
 const REPORT_DIR = "fotos-truper";
 const REPORT_PATH = path.join(REPORT_DIR, "_reporte_adicionales.csv");
 const USER_AGENT = "ferredip-image-sync/1.0";
