@@ -33,6 +33,20 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      // Rutas de foto pre-migración a R2 (ver SPEC 08 en CLAUDE.md): public/fotos/
+      // ya no existe en el deploy, pero URLs viejas siguen circulando (bots que las
+      // indexaron antes del cambio, navegadores con HTML cacheado). Redirige tanto
+      // las peticiones directas como el fetch interno del optimizador de imágenes
+      // (que resuelve /_next/image?url=/fotos/... contra el propio origen) al CDN.
+      {
+        source: '/fotos/:path*',
+        destination: `${process.env.NEXT_PUBLIC_CDN_URL}/fotos/:path*`,
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
