@@ -133,7 +133,7 @@ export default function page() {
                 ],
 
                 "telephone": "+52-55-9236-8879",
-                "email": "contacto@ferredip.com.mx",
+                "email": "truperdipemsa@gmail.com",
 
                 "priceRange": "$$",
                 "paymentAccepted": ["Cash", "Credit Card", "Transferencia", "Mercado Pago"],

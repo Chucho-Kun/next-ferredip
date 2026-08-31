@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       installments: Number(formData.installments) || 1,
       description: body.description || "Compra en Ferredip",
       //additional_info: additionalItems.length ? { items: additionalItems } : undefined,
-      payer: { email: formData.payer?.email || "contacto@ferredip.com.mx" },
+      payer: { email: formData.payer?.email || "truperdipemsa@gmail.com" },
       additional_info: {
         items: additionalItems,
         payer: {
