@@ -88,8 +88,8 @@ export default function Header() {
           <div className="hidden md:flex items-center justify-center gap-14 py-4 font-bold text-large">
             
             <Link href={'/'} className='hover:text-[#FF5E00] transition'>HOME</Link>
-            <Link href={'/marcas'} className='hover:text-[#FF5E00] transition'>MARCAS</Link>
-            <Link href={'/productos'} className='hover:text-[#FF5E00] transition'>CATEGORIAS</Link>
+            <Link href={'/productos'} className='hover:text-[#FF5E00] transition'>PRODUCTOS</Link>
+            {/* <Link href={'/productos'} className='hover:text-[#FF5E00] transition'>CATEGORIAS</Link> */}
             {/* <Link href={'/soy-mayorista'} className='hover:text-[#FF5E00] transition'>SOY MAYORISTA</Link> */}
             <Link href={'/carrito-de-compra'} className='hover:text-[#FF5E00] transition'>CARRITO DE COMPRA</Link>
             <Link href={'/contacto'} className='hover:text-[#FF5E00] transition'>CONTACTO</Link>
@@ -100,7 +100,7 @@ export default function Header() {
           {isMenuOpen && (
             <div className="lg:hidden py-4 flex flex-col gap-3 text-sm border-t border-gray-700 font-bold">
               <Link href={'/'} className='hover:text-[#FF5E00] transition'>HOME</Link>
-              <Link href={'/marcas'} className='hover:text-[#FF5E00] transition'>MARCAS</Link>
+              {/* <Link href={'/marcas'} className='hover:text-[#FF5E00] transition'>MARCAS</Link> */}
               <Link href={'/productos'} className='hover:text-[#FF5E00] transition'>PRODUCTOS</Link>
               {/* <Link href={'/soy-mayorista'} className='hover:text-[#FF5E00] transition'>SOY MAYORISTA</Link> */}
               <Link href={'/carrito-de-compra'} className='hover:text-[#FF5E00] transition'>CARRITO DE COMPRA</Link>
@@ -115,8 +115,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-full mx-auto hidden md:flex items-center justify-center gap-3 md:gap-3 text-xs md:text-sm font-bold text-gray-600 flex-wrap">
             
-            { marcas.sort((a,b) => a.name.localeCompare(b.name))
-                    .map( (marca, index) => (
+            { marcas.map( (marca, index) => (
                 <React.Fragment key={marca.name}>
                   <Link href={ `/marca/${ marca.name }`  } className='hover:text-amber-600 transition' >
                     <span className='uppercase'>{ marca.name.replace('-', ' ') }</span>
