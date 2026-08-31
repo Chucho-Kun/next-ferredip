@@ -1,10 +1,14 @@
-import ProductsSection from '@/src/shared/components/ProductsSection';
+import { Metadata } from 'next';
+import CategoryResults from '@/src/shared/components/CategoryResults';
 import { productos } from '@/src/shared/db/productos';
+import { slugToCategory } from '@/src/shared/db/queries';
 
-export const metadata = {
+const primeraCategoria = productos[0].name;
+
+export const metadata: Metadata = {
   title: 'Ferredip | Productos',
   description: 'Listado de todas las categorias de productos que podrás encontrar en nuestro catálogo',
-  keywords: ["aislantes","perfiles galvanizados","sistemas de fijacion convencional","compuestos y cintas","cempanel","tornilleria","herramientas","tablaroca","plafones","liner panel","suspension","anclajes y quimicos epoxicos","perfiles plasticos","sellado","adhesivos y nivelantes"],
+  keywords: productos.map(({ name }) => slugToCategory(name)),
   openGraph: {
     title: 'Productos - Ferredip',
     description: 'Listado de todos los productos con los que contamos en nuestro catálogo',
@@ -17,20 +21,9 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: '/productos',
+    canonical: `https://ferredip.com.mx/categoria/${primeraCategoria}`,
   },
 };
 export default function ProductosPage() {
-  return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">
-          PRODUCTOS
-        </h2>
-
-        <ProductsSection productos={productos} />
-
-      </div>
-    </section>
-  );
+  return <CategoryResults slug={primeraCategoria} />;
 }

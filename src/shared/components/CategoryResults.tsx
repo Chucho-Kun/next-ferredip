@@ -1,5 +1,6 @@
 import { getProductsByGroupsofCategories, slugToCategory } from "../db/queries";
 import GroupCard from "./GroupCard";
+import CategoriasMenu from "./CategoriasMenu";
 import ViewItemListTracker from "./analytics/ViewItemListTracker";
 import { toGA4Item } from "@/src/utils/gtm";
 
@@ -26,15 +27,19 @@ export default async function CategoryResults({ slug }: Props) {
   return (
    <section className="py-16 bg-gray-50">
       <ViewItemListTracker items={ga4Items} listId={listId} listName={listName} />
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          { listName }
-        </h2>
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-8 md:gap-12">
+        <CategoriasMenu activeSlug={slug} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {groupedProducts.map((group) => (
-            <GroupCard key={group.baseName} group={group} listId={listId} listName={listName} />
-          ))}
+        <div className="flex-1 min-w-0">
+          <h2 className="text-4xl font-bold mb-12">
+            { listName }
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {groupedProducts.map((group) => (
+              <GroupCard key={group.baseName} group={group} listId={listId} listName={listName} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
