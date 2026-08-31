@@ -41,7 +41,6 @@ export async function GET() {
                     <g:price>${precioLimpio} MXN</g:price>
                     
                     <g:brand>${escapeXml(product.marca || 'Ferredip')}</g:brand>
-                    <g:gtin></g:gtin>
                     <g:mpn>${product.clave || ''}</g:mpn>
                     
                     <g:shipping>
@@ -72,7 +71,6 @@ function escapeXml(unsafe: string): string {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/%/g, 'porciento')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 }
