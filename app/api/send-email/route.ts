@@ -14,10 +14,10 @@ export async function POST(request: NextRequest) {
     const totalReal = Math.round(Number(orderData.total) * 100) / 100;
 
     const { data, error } = await resend.emails.send({
-      // ← AQUÍ ES EL CAMBIO IMPORTANTE
-      from: `Ferredip Web <avisos@noreply.ferredip.com.mx>`,
+      from: `Ferredip Web <noreply@ferredip.com.mx>`,
 
       to: [customerEmail],
+      replyTo: 'contacto@ferredip.com.mx',
       bcc: ["truperdipemsa@gmail.com"], //truperdipemsa@gmail.com
       subject: `Confirmación de compra - Orden #${orderData.paymentId}`,
       html:  `

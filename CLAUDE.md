@@ -22,7 +22,7 @@ Drizzle migrations live in `drizzle/` (SQL files + `meta/`), generated from the 
 
 ## Environment
 
-Configuration is read from `.env` (see `drizzle.config.ts` and `src/shared/db/index.ts`). Expected variables: `DATABASE_URL`, `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_GTM_ID`, `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY`, `MERCADOPAGO_ACCESS_TOKEN`, `RESEND_API_KEY`, `EMAIL_USER`, `EMAIL_PASSWORD`, `EMAIL_APP_PASSWORD`.
+Configuration is read from `.env` (see `drizzle.config.ts` and `src/shared/db/index.ts`). Expected variables: `DATABASE_URL`, `NEXT_PUBLIC_URL`, `NEXT_PUBLIC_GTM_ID`, `NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY`, `MERCADOPAGO_ACCESS_TOKEN`, `RESEND_API_KEY`.
 
 ## Architecture
 

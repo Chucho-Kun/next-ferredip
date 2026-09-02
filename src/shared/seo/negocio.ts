@@ -18,7 +18,7 @@ export const NEGOCIO = {
   logo: 'https://ferredip.com.mx/logo.webp',
   imagen: 'https://ferredip.com.mx/nuevologo.jpg',
   telefono: '+52-55-9236-8879',
-  email: 'truperdipemsa@gmail.com',
+  email: 'contacto@ferredip.com.mx',
   rangoPrecio: '$$',
   pagos: ['Cash', 'Credit Card', 'Transferencia', 'Mercado Pago'],
   sameAs: [

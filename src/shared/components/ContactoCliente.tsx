@@ -1,7 +1,6 @@
 // app/(public)/contacto/ContactoClient.tsx
 'use client';
 
-import { sendContactEmail } from "@/src/actions/contact";
 import { whatsAppNumber } from "@/src/shared/db/contact-info";
 import Link from "next/link";
 import React, { useState, useRef } from "react";
@@ -45,7 +44,7 @@ ${mensaje}`)}`;
                 <p><strong>Teléfono:</strong> (55) 8751 2194</p>
                 <p><strong>Teléfono:</strong> (55) 5770 8512</p> */}
                 <p><strong>WhatsApp:</strong>55 7347 6687</p>
-                <p><strong>Correo:</strong>truperdipemsa@gmail.com</p>
+                <p><strong>Correo:</strong>contacto@ferredip.com.mx</p>
               </div>
             </div>
             <div>
