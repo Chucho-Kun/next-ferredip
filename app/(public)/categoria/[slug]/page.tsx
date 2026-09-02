@@ -18,7 +18,7 @@ export async function generateMetadata(props: PageProps<'/categoria/[slug]'>): P
       description: `Explora nuestra selección de ${ categoriaNombre } de las mejores marcas`,
       images: [
         {
-          url: `https://ferredip.com.mx/productos/jpg/${ slug }.jpg`,
+          url: `https://ferredip.com.mx/productos/${ slug }.webp`,
           width: 363,
           height: 197,
         },

@@ -1,11 +1,12 @@
 import CompraConNosotros from "@/src/shared/components/CompraConNosotros";
 import ProductsSection from "@/src/shared/components/ProductsSection";
-import RecommendedProductsServer from "@/src/shared/components/RecommendedProductsServer";
 import SliderMain from "@/src/shared/components/SliderMain";
-import MarcasPage from "./marcas/page";
+import Marcas from "@/src/shared/components/Marcas";
 import { Metadata } from "next";
 import { productos } from "@/src/shared/db/productos";
 import RecentViewProducts from "@/src/shared/components/RecentViewProducts";
+import { organizacionJsonLd } from "@/src/shared/seo/jsonLd";
+import { NEGOCIO } from "@/src/shared/seo/negocio";
 
 // ==================== METADATA SEO ====================
 export const metadata: Metadata = {
@@ -42,7 +43,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ferredip | Herramientas",
     description: "Somos Ferredip una empresa distribuidora de herramientas, contamos con las mejores marcas y stock siempre en existencia.",
-    images: ["https://www.ferredip.com.mx/nuevologo.jpg"],
+    images: ["https://ferredip.com.mx/nuevologo.jpg"],
+  },
+
+  alternates: {
+    canonical: "https://ferredip.com.mx",
   },
 };
 // =====================================================
@@ -51,99 +56,15 @@ export default function page() {
   return (
     <>
       
-      {/* Schema.org JSON-LD - Organización con 2 Sucursales */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                "name": "Ferredip",
-                "description": "Somos Ferredip una empresa distribuidora de herramientas, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.",
-                "url": "https://ferredip.com.mx",
-                "logo": "https://ferredip.com.mx/logo.webp",
-                "image": "https://ferredip.com.mx/nuevologo.jpg",
+      {/* Schema.org JSON-LD — @graph: Organization + WebSite + 2 HardwareStore */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizacionJsonLd()) }}
+      />
 
-                // Sucursales
-                "location": [
-                  {
-                    "@type": "Place",
-                    "name": "FERREDIP PIRAMIDES",
-                    "address": {
-                      "@type": "PostalAddress",
-                      "streetAddress": "Carr. Mexico tulancingo Lote kilometro 27-5",
-                      "addressLocality": "Teotihuacán de Arista",
-                      "addressRegion": "Estado de México",
-                      "postalCode": "55800",
-                      "addressCountry": "MX"
-                    },
-                    "geo": {
-                      "@type": "GeoCoordinates",
-                      "latitude": 19.692939433412597,
-                      "longitude": -98.8239674153464
-                    },
-                    "telephone": "+52-55-7329-0946",
-                    "openingHoursSpecification": [
-                      {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                        "opens": "08:30",
-                        "closes": "18:00"
-                      },
-                      {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": "Sunday",
-                        "opens": "08:30",
-                        "closes": "18:00"
-                      }
-                    ]
-                  },
-                  {
-                    "@type": "Place",
-                    "name": "FERREDIP TEQUISISTLAN",
-                    "address": {
-                      "@type": "PostalAddress",
-                      "streetAddress": "Carretera Federal Lechería-Los Reyes km.34 Ejidos de Tequisistlán",
-                      "addressLocality": "Tequisistlán",
-                      "addressRegion": "Estado de México",
-                      "postalCode": "56020",
-                      "addressCountry": "MX"
-                    },
-                    "geo": {
-                      "@type": "GeoCoordinates",
-                      "latitude": 19.58853677394558,  
-                      "longitude": -98.92532129999836
-                    },
-                    "telephone": "+52-55-6895-3906",
-                    "openingHoursSpecification": [
-                      {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday"],
-                        "opens": "08:30",
-                        "closes": "18:00"
-                      },
-                      {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": "Sunday",
-                        "opens": "08:30",
-                        "closes": "18:00"
-                      }
-                    ]
-                  }
-                ],
-
-                "telephone": "+52-55-9236-8879",
-                "email": "truperdipemsa@gmail.com",
-
-                "priceRange": "$$",
-                "paymentAccepted": ["Cash", "Credit Card", "Transferencia", "Mercado Pago"],
-
-                "sameAs": [
-                  "https://www.facebook.com/FerreDipPiramides/"
-                ]
-              })
-            }}
-          />
+      <h1 className="text-sm font-bold text-center mb-12 text-white">
+        {NEGOCIO.nombre} | Distribuidora de herramientas
+      </h1>
 
       <main>
         <SliderMain />
@@ -166,7 +87,7 @@ export default function page() {
         <CompraConNosotros />
       </section>
 
-      <MarcasPage />
+      <Marcas />
     </>
   );
 }

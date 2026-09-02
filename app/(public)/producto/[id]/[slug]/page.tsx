@@ -1,12 +1,14 @@
 import ProductCardsServer from "@/src/shared/components/ProductCardsServer";
 import RecentViewProducts from "@/src/shared/components/RecentViewProducts";
 import TrackRecentProduct from "@/src/shared/components/TrackRecentProduct";
-import RecommendedProductsServer from "@/src/shared/components/RecommendedProductsServer";
 import { getProductById } from "@/src/shared/db/queries";
 import { slugify } from "@/src/utils/slugify";
 import { formatPrecio } from "@/src/utils/formatPrice";
-import { fotoPrincipal, fotoPrincipalZoom } from "@/src/utils/fotos";
+import { fotoPrincipalZoom } from "@/src/utils/fotos";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { breadcrumbJsonLd, productoJsonLd } from "@/src/shared/seo/jsonLd";
+import { slugToMarca, slugToCategory } from "@/src/shared/db/slugs";
 
 type Props = {
   params: Promise<{ id: string; slug: string }>;
@@ -14,29 +16,30 @@ type Props = {
 
 // Metadata Dinámica con datos reales del producto
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id, slug } = await params;
+  const { id } = await params;
 
-  const producto = await getProductById(id); 
+  const producto = await getProductById(id);
 
   if (!producto) {
-    return {
-      title: "Producto no encontrado | Ferredip",
-      description: "El producto que buscas no está disponible.",
-    };
+    notFound();
   }
 
-  const tituloProducto = producto.descripcion 
-    ? producto.descripcion.split('|')[0].trim() 
+  const tituloProducto = producto.descripcion
+    ? producto.descripcion.split('|')[0].trim()
     : producto.descripcion || "Producto Ferredip";
+
+  const canonical = `https://ferredip.com.mx/producto/${id}/${slugify(producto.descripcion ?? '')}`;
+  const descripcionSocial =
+    producto.informacion?.trim() || `${tituloProducto} — ${producto.marca ?? 'Ferredip'}`;
 
   return {
     title: `${tituloProducto} | Ferredip`,
     description: `${tituloProducto} - Marca: ${producto.marca || 'Ferredip'}. Precio: $${formatPrecio(producto.precio)}. Disponible en nuestra tienda en línea.`,
-    
+
     openGraph: {
       title: `${tituloProducto} | ${ producto.marca }`,
-      description: `${ producto.informacion }`,
-      url: `https://ferredip.com.mx/producto/${id}/${ slugify( slug ) }`,
+      description: descripcionSocial,
+      url: canonical,
       images: [
         {
           url: fotoPrincipalZoom(id),
@@ -52,172 +55,51 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: `${tituloProducto} | Ferredip`,
-      description: `${ producto.informacion }`,
+      description: descripcionSocial,
       images: [fotoPrincipalZoom(id)],
     },
     alternates: {
-      canonical: `https://ferredip.com.mx/producto/${id}/${ slugify( slug ) }`,
+      canonical,
     },
   };
 }
 
 export default async function ProductoPage(props: PageProps<'/producto/[id]/[slug]'>) {
 
-  const { id , slug } = await props.params
-  const producto = await getProductById( id )
+  const { id } = await props.params
+  const producto = await getProductById(id)
 
-  if(!producto) {
-    return <div>Producto no encontrado</div>
+  if (!producto) {
+    notFound()
   }
 
-  const [tituloProducto, tituloDesc] = (producto.descripcion?.split('|') ?? [])
-                                                    .map( parte => parte.replace(/"/g, '').trim())
+  const marcaSlug = slugify(producto.marca ?? '')
+  const categoriaSlug = slugify(producto.categoria ?? '')
+  const canonical = `https://ferredip.com.mx/producto/${id}/${slugify(producto.descripcion ?? '')}`
+  const tituloProducto = (producto.descripcion ?? '').split('|')[0].replace(/"/g, '').trim()
 
   return (
     <>
         {/* BreadcrumbList */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                  {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Inicio",
-                    "item": "https://ferredip.com.mx"
-                  },
-                  {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Marca",
-                    "item": `https://ferredip.com.mx/marca/${ slugify(producto.marca || '') }`
-                  },
-                  {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "Producto",
-                    "item": `https://ferredip.com.mx/categoria/${ slugify(producto.categoria || '') }`
-                  },
-                  {
-                    "@type": "ListItem",
-                    "position": 4,
-                    "name": tituloProducto,
-                    "item": `https://ferredip.com.mx/producto/${id}/${ slug }`
-                  }
-                ]
-              })
-            }}
-          />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              breadcrumbJsonLd([
+                { nombre: "Inicio", url: "https://ferredip.com.mx" },
+                { nombre: slugToMarca(marcaSlug), url: `https://ferredip.com.mx/marca/${marcaSlug}` },
+                { nombre: slugToCategory(categoriaSlug), url: `https://ferredip.com.mx/categoria/${categoriaSlug}` },
+                { nombre: tituloProducto, url: canonical },
+              ]),
+            ),
+          }}
+        />
 
         {/* Schema.org JSON-LD para Producto */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org/",
-                "@type": "Product",
-                "name": tituloProducto,
-                "description": tituloDesc || "varios modelos",
-                "sku": producto.clave,
-                "image": fotoPrincipal(id),
-                "brand": {
-                  "@type": "Brand",
-                  "name": producto.marca || "Ferredip"
-                },
-
-                // ← NUEVO: Aggregate Rating
-                "aggregateRating": {
-                  "@type": "AggregateRating",
-                  "ratingValue": "4.8",           // Calificación promedio (ej: 4.8)
-                  "reviewCount": "23"            // Cantidad de reseñas
-                },
-
-                // Reseña de ejemplo (Google lo recomienda)
-                "review": [
-                  {
-                    "@type": "Review",
-                    "reviewRating": {
-                      "@type": "Rating",
-                      "ratingValue": "5",
-                      "bestRating": "5"
-                    },
-                    "author": {
-                      "@type": "Person",
-                      "name": "Jesus Peralta"
-                    },
-                    "datePublished": "2026-06-23",
-                    "reviewBody": "Excelente producto, muy buena calidad y llegó rápido."
-                  }
-                ],
-                
-                "offers": {
-                  "@type": "Offer",
-                  "url": `https://ferredip.com.mx/producto/${id}/${ slug || ''}`,
-                  "priceCurrency": "MXN",
-                  "price": parseFloat(producto.precio?.replace(/[$,]/g, '') || "0"),
-                  "validFrom": "2026-01-01",
-                  "priceValidUntil": "2026-12-31",
-                  "availability": "https://schema.org/InStock", // o "OutOfStock" si no hay stock
-                  "seller": {
-                    "@type": "Organization",
-                    "name": "Ferredip"
-                  },
-
-                              // === NUEVO: Shipping Details ===
-                    "shippingDetails": {
-                      "@type": "OfferShippingDetails",
-                      "shippingRate": {
-                        "@type": "MonetaryAmount",
-                        "value": "300",                    // Cambia si tienes costo de envío
-                        "currency": "MXN"
-                      },
-                      "shippingDestination": {
-                        "@type": "DefinedRegion",
-                        "addressCountry": "MX"
-                      },
-                      "deliveryTime": {
-                        "@type": "ShippingDeliveryTime",
-                        "handlingTime": {
-                          "@type": "QuantitativeValue",
-                          "minValue": 1,
-                          "maxValue": 2,
-                          "unitCode": "d"
-                        },
-                        "transitTime": {
-                          "@type": "QuantitativeValue",
-                          "minValue": 3,
-                          "maxValue": 7,
-                          "unitCode": "d"
-                        }
-                      }
-                    },
-
-                                // === NUEVO: Return Policy ===
-                    "hasMerchantReturnPolicy": {
-                      "@type": "MerchantReturnPolicy",
-                      "applicableCountry": ["MX"],
-                      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-                      "merchantReturnDays": 30,
-                      
-                      "returnMethod": ["https://schema.org/ReturnByMail"],
-                      
-                      // ← Campo principal que Google está pidiendo
-                      "returnFees": "https://schema.org/FreeReturn",
-
-                      // Mantén este también por compatibilidad
-                      "returnShippingFeesAmount": {
-                        "@type": "MonetaryAmount",
-                        "value": "0",
-                        "currency": "MXN"
-                      }
-                    }
-                }
-              })
-            }}
-          />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productoJsonLd(producto)) }}
+        />
 
         <TrackRecentProduct
           producto={{

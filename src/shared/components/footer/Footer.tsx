@@ -36,16 +36,16 @@ export default function Footer() {
             {/* Redes Sociales */}
             <div className="flex gap-4 mt-8">
               
-              {/* <Link href={'https://wa.me/525573476687'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
+              <Link href={'https://wa.me/525573476687'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
                 <img aria-label='whatsapp de sucursal' className='hove:text-yellow-300' width={25} height={25} src={'/icons/whatsapp.svg'} alt='icono whatsApp' />
               </Link>
-              <Link href={'https://www.facebook.com/Ferredip/'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
+              <Link href={'https://www.facebook.com/FerreDipPiramides/'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
                 <img aria-label='facebook de sucursal' width={25} height={25} src={'/icons/facebook.svg'} alt='icono facebook' />
               </Link>
-              <Link href={'https://www.tiktok.com/@Ferredip_construccionlig'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
+              <Link href={'https://www.tiktok.com/@ferredip.tequisis'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
                 <img aria-label='cuenta de tiktok de Ferredip' width={25} height={25} src={'/icons/tiktok.svg'} alt='icono tiktok' />
               </Link>
-              <Link href={'https://www.instagram.com/Ferredip_/'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
+              {/* <Link href={'https://www.instagram.com/Ferredip_/'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
                 <img aria-label='cuenta de tiktok de Ferredip' width={25} height={25} src={'/icons/instagram.svg'} alt='icono instagram' />
               </Link>
               <Link href={'https://www.youtube.com/@FerredipCONSTRUCCIONLIGERA'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>

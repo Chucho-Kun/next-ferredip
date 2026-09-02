@@ -22,5 +22,13 @@ export const metadata = {
 };
 
 export default function MarcasPage() {
-  return <Marcas />;
+  return (
+    <>
+      {/* h1 a nivel de página (no en Marcas.tsx, que se reutiliza en el home).
+          sr-only: da el encabezado semántico sin cambiar el diseño — el <h2>MARCAS>
+          visible sigue viviendo en Marcas.tsx. */}
+      <h1 className="sr-only">Marcas de herramientas en Ferredip</h1>
+      <Marcas />
+    </>
+  );
 }

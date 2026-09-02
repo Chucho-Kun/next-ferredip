@@ -19,7 +19,7 @@ export async function generateMetadata(props: PageProps<'/marca/[slug]'>): Promi
       url: `https://ferredip.com.mx/marca/${ slug }`,
       images: [
       {
-        url: `https://ferredip.com.mx/marcas/jpg/${ slug }.jpg`,  // https://ferredip.com.mx/marcas/jpg/trim-tex.jpg
+        url: `https://ferredip.com.mx/marcas/${ slug }.webp`,
         width: 683,
         height: 400,
       },

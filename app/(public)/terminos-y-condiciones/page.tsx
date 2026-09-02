@@ -1,4 +1,14 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Ferredip | Términos y Condiciones',
+  description:
+    'Condiciones de envío, cambios y devoluciones, aceptación de órdenes, impuestos y facturación de Ferredip.',
+  alternates: {
+    canonical: 'https://ferredip.com.mx/terminos-y-condiciones',
+  },
+};
 
 export default function TerminosYCondicionesPage() {
   return (

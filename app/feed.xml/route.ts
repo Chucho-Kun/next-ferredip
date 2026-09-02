@@ -2,6 +2,7 @@
 import { getAllProductosXML } from '@/src/shared/db/queries';
 import { slugify } from '@/src/utils/slugify';
 import { fotoPrincipal } from '@/src/utils/fotos';
+import { ENVIO } from '@/src/shared/seo/negocio';
 import { NextResponse } from 'next/server';
 
 export const revalidate = 3600;
@@ -24,10 +25,6 @@ export async function GET() {
                 ?.replace(/[$,]/g, '')
                 .trim() || '0';
 
-                const slug = `${product.descripcion
-                ?.toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')}`;
-
                 return `
                     <item>
                     <g:id>${product.id}</g:id>
@@ -45,8 +42,13 @@ export async function GET() {
                     
                     <g:shipping>
                         <g:country>MX</g:country>
+                        <g:region>Ciudad de México</g:region>
                         <g:service>Estándar</g:service>
                         <g:price>0 MXN</g:price>
+                        <g:min_handling_time>${ENVIO.handlingDias.min}</g:min_handling_time>
+                        <g:max_handling_time>${ENVIO.handlingDias.max}</g:max_handling_time>
+                        <g:min_transit_time>${ENVIO.transitoDias.min}</g:min_transit_time>
+                        <g:max_transit_time>${ENVIO.transitoDias.max}</g:max_transit_time>
                     </g:shipping>
                     </item>`;
             })

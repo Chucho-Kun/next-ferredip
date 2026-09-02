@@ -56,19 +56,16 @@ ${mensaje}`)}`;
             </div>
 
             <div className="flex gap-4">
-              {/* <Link href={'tel:5587512193'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
-                <img width={25} height={25} src={'/icons/phone.svg'} alt="teléfono" />
-              </Link>
               <Link href={'https://wa.me/525573476687'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
                 <img width={25} height={25} src={'/icons/whatsapp.svg'} alt="whatsapp" />
               </Link>
-              <Link href={'https://www.facebook.com/Dipemsa/'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
+              <Link href={'https://www.facebook.com/FerreDipPiramides/'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
                 <img width={25} height={25} src={'/icons/facebook.svg'} alt="facebook" />
               </Link>
-              <Link href={'https://www.tiktok.com/@dipemsa_construccionlig'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
+              <Link href={'https://www.tiktok.com/@ferredip.tequisis'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
                 <img width={25} height={25} src={'/icons/tiktok.svg'} alt="tiktok" />
               </Link>
-              <Link href={'https://www.instagram.com/dipemsa_/'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
+              {/* <Link href={'https://www.instagram.com/dipemsa_/'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
                 <img width={25} height={25} src={'/icons/instagram.svg'} alt="instagram" />
               </Link>
               <Link href={'https://www.youtube.com/@DIPEMSACONSTRUCCIONLIGERA'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">

@@ -1,4 +1,14 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Ferredip | Aviso de Privacidad',
+  description:
+    'Qué datos personales recaba Ferredip, con qué finalidades los trata y cómo los protege.',
+  alternates: {
+    canonical: 'https://ferredip.com.mx/aviso-de-privacidad',
+  },
+};
 
 export default function AvisoDePrivacidad() {
   return (
