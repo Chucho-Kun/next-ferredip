@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
 
       to: [customerEmail],
       replyTo: 'contacto@ferredip.com.mx',
-      bcc: ["truperdipemsa@gmail.com"], //truperdipemsa@gmail.com
+      bcc: ["ventas@ferredip.com.mx"],
       subject: `Confirmación de compra - Orden #${orderData.paymentId}`,
       html:  `
     <html lang="es"><head>

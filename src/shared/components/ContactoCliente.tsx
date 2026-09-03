@@ -12,11 +12,50 @@ export default function ContactoClient() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const formData = new FormData(e.currentTarget);
-    const nombre = formData.get('nombre') as string;
-    const email = formData.get('email') as string;
-    const mensaje = formData.get('mensaje') as string;
+    const payload = {
+      nombre: (formData.get('nombre') as string) ?? '',
+      email: (formData.get('email') as string) ?? '',
+      telefono: (formData.get('telefono') as string) ?? '',
+      mensaje: (formData.get('mensaje') as string) ?? '',
+    };
+
+    setIsLoading(true);
+    setStatus({});
+
+    try {
+      const res = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok) {
+        setStatus({ success: true, message: '¡Mensaje enviado! Te responderemos pronto.' });
+        formRef.current?.reset();
+      } else {
+        setStatus({
+          success: false,
+          message: data?.error ?? 'No se pudo enviar el mensaje. Intenta de nuevo.',
+        });
+      }
+    } catch {
+      setStatus({
+        success: false,
+        message: 'No se pudo enviar el mensaje. Revisa tu conexión e intenta de nuevo.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const abrirWhatsApp = () => {
+    const form = formRef.current;
+    const nombre = (form?.elements.namedItem('nombre') as HTMLInputElement | null)?.value ?? '';
+    const email = (form?.elements.namedItem('email') as HTMLInputElement | null)?.value ?? '';
+    const mensaje = (form?.elements.namedItem('mensaje') as HTMLTextAreaElement | null)?.value ?? '';
 
     const consulta = `https://api.whatsapp.com/send?phone=${whatsAppNumber}&text=${encodeURIComponent(`
 *Nombre:* ${nombre}
@@ -43,8 +82,8 @@ ${mensaje}`)}`;
                 {/* <p><strong>Teléfono:</strong> (55) 8751 2193</p>
                 <p><strong>Teléfono:</strong> (55) 8751 2194</p>
                 <p><strong>Teléfono:</strong> (55) 5770 8512</p> */}
-                <p><strong>WhatsApp:</strong>55 7347 6687</p>
-                <p><strong>Correo:</strong>contacto@ferredip.com.mx</p>
+                <p><strong>WhatsApp:</strong> 55 7347 6687</p>
+                <p><strong>Correo:</strong> contacto@ferredip.com.mx</p>
               </div>
             </div>
             <div>
@@ -95,6 +134,14 @@ ${mensaje}`)}`;
                 />
               </div>
               <div>
+                <input
+                  type="tel"
+                  name="telefono"
+                  placeholder="Teléfono (opcional):"
+                  className="w-full border border-gray-300 rounded-xl px-5 py-4 focus:outline-none focus:border-orange-500 transition"
+                />
+              </div>
+              <div>
                 <textarea
                   name="mensaje"
                   placeholder="Mensaje:"
@@ -116,6 +163,13 @@ ${mensaje}`)}`;
                 </p>
               )}
             </form>
+            <button
+              type="button"
+              onClick={abrirWhatsApp}
+              className="w-full mt-4 border-2 border-[#1E2937] text-[#1E2937] hover:bg-[#1E2937] hover:text-white font-semibold py-4 rounded-2xl transition text-lg flex items-center justify-center"
+            >
+              O escríbenos por WhatsApp
+            </button>
           </div>
         </div>
       </div>

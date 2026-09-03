@@ -22,14 +22,14 @@ Este spec ejecuta ese cambio: verifica el dominio raíz en Resend (reemplazando 
 - Sustituir en Resend el dominio verificado `noreply.ferredip.com.mx` por el dominio raíz `ferredip.com.mx`, con sus registros DNS en Cloudflare.
 - Activar Cloudflare Email Routing en `ferredip.com.mx` con dos reglas: `contacto@ferredip.com.mx` y `ventas@ferredip.com.mx`, ambas hacia `truperdipemsa@gmail.com`.
 - Configurar «Enviar como» en Gmail para `contacto@ferredip.com.mx`, usando el SMTP de Resend como relay para que la respuesta salga firmada con DKIM del dominio.
-- `app/api/send-email/route.ts`: cambiar `from` a `Ferredip Web <noreply@ferredip.com.mx>` y agregar `replyTo: 'contacto@ferredip.com.mx'`.
+- `app/api/send-email/route.ts`: cambiar `from` a `Ferredip Web <noreply@ferredip.com.mx>`, agregar `replyTo: 'contacto@ferredip.com.mx'` y cambiar el `bcc` a `ventas@ferredip.com.mx`.
 - Cambiar el correo público del sitio a `contacto@ferredip.com.mx` en `src/shared/seo/negocio.ts`, `src/shared/components/footer/Footer.tsx` y `src/shared/components/ContactoCliente.tsx`.
 - Borrar el código muerto de la era Nodemailer: `src/actions/contact.ts`, su import sin usar en `ContactoCliente.tsx`, las dependencias `nodemailer` y `@types/nodemailer`, y las variables `EMAIL_USER`, `EMAIL_PASSWORD`, `EMAIL_APP_PASSWORD` de `.env`, de Railway y de la lista en `CLAUDE.md`.
 
 **Fuera de alcance (para specs futuros):**
 
 - Reconectar el formulario de `/contacto` al correo. Sigue abriendo WhatsApp con un mensaje prellenado, tal cual hoy.
-- Cambiar el `bcc` del correo de compra. Se queda en `truperdipemsa@gmail.com`, por decisión explícita del usuario.
+- ~~Cambiar el `bcc` del correo de compra. Se queda en `truperdipemsa@gmail.com`, por decisión explícita del usuario.~~ **Revisado 2026-09-02:** el usuario pidió moverlo a `ventas@ferredip.com.mx` (enrutado a `truperdipemsa@gmail.com` por Email Routing), a cambio de que la marca no exponga una dirección de gmail.com y a costa de depender del salto de reenvío de Cloudflare para esa copia.
 - Un buzón real con IMAP (Google Workspace, Zoho). La recepción es reenvío, no almacenamiento propio.
 - Rediseñar o extraer la plantilla HTML del correo de confirmación, que sigue inline en `app/api/send-email/route.ts:23–206`.
 - Mover el envío del correo al servidor. Hoy sale *fire and forget* desde el navegador (`MercadoPagoBrick.tsx:59–81`) y así se queda.
@@ -120,7 +120,7 @@ El orden importa. Los pasos 1 y 4 no se pueden intercambiar: Gmail manda un cód
 
 2. **Cambio de dominio en Resend.** El plan gratuito admite un solo dominio, así que hay que soltar el viejo antes de registrar el nuevo. En el panel de Resend: borrar `noreply.ferredip.com.mx`, agregar `ferredip.com.mx`, y copiar a Cloudflare los tres registros que pide (tabla de arriba), escribiendo el nombre sin el sufijo del dominio. Esperar a que el dominio quede en *Verified*. Luego borrar de Cloudflare los tres registros huérfanos del subdominio. **Aquí abre la ventana en la que el correo de compra falla** — ver Riesgos.
 
-3. **Remitente y `reply_to` en el código.** En `app/api/send-email/route.ts`: cambiar la línea 18 a `from: 'Ferredip Web <noreply@ferredip.com.mx>'`, agregar `replyTo: 'contacto@ferredip.com.mx'` junto al `to`, y borrar el comentario `// ← AQUÍ ES EL CAMBIO IMPORTANTE` de la línea 17, que ya no señala nada. El `bcc` no se toca. Desplegar. **Verificación:** una compra de prueba con tarjeta APRO de Mercado Pago debe llegar con el remitente nuevo y con `contacto@` prellenado al responder.
+3. **Remitente y `reply_to` en el código.** En `app/api/send-email/route.ts`: cambiar la línea 18 a `from: 'Ferredip Web <noreply@ferredip.com.mx>'`, agregar `replyTo: 'contacto@ferredip.com.mx'` junto al `to`, y borrar el comentario `// ← AQUÍ ES EL CAMBIO IMPORTANTE` de la línea 17, que ya no señala nada. Cambiar el `bcc` a `['ventas@ferredip.com.mx']` (ver Decisiones). Desplegar. **Verificación:** una compra de prueba con tarjeta APRO de Mercado Pago debe llegar con el remitente nuevo y con `contacto@` prellenado al responder.
 
 4. **Envío desde Gmail como `contacto@`.** En Gmail: Configuración → Cuentas e importación → «Enviar como» → Añadir otra dirección de correo. Poner `Ferredip` / `contacto@ferredip.com.mx` y **desmarcar** «Tratarla como un alias». En el paso de SMTP, usar los datos de la sección anterior. Gmail manda un código a `contacto@`, que llega por el paso 1. **Verificación:** escribir desde Gmail con «De: contacto@ferredip.com.mx» a una cuenta externa y revisar en el encabezado original que aparezcan `dkim=pass header.d=ferredip.com.mx` y `spf=pass`.
 
@@ -155,7 +155,7 @@ El orden importa. Los pasos 1 y 4 no se pueden intercambiar: Gmail manda un cód
 - [ ] Lo mismo para `ventas@ferredip.com.mx`.
 - [ ] Un correo enviado desde Gmail con «De: contacto@ferredip.com.mx» llega a una cuenta externa, y su encabezado original muestra `dkim=pass header.d=ferredip.com.mx` y `spf=pass`.
 - [ ] Una compra de prueba con tarjeta APRO llega con remitente `Ferredip Web <noreply@ferredip.com.mx>`.
-- [ ] Ese mismo correo llega también a `truperdipemsa@gmail.com` por copia oculta.
+- [ ] Ese mismo correo llega también a `truperdipemsa@gmail.com` por copia oculta, vía el `bcc` a `ventas@ferredip.com.mx`.
 - [ ] Pulsar «Responder» en ese correo prellena `contacto@ferredip.com.mx`, no `noreply@`.
 - [ ] Ninguno de los correos de prueba cae en la carpeta de spam de Gmail.
 
@@ -179,7 +179,7 @@ El orden importa. Los pasos 1 y 4 no se pueden intercambiar: Gmail manda un cód
 - **No: Zoho Mail gratuito.** Su plan gratuito es solo acceso web y app móvil; sin IMAP/POP no se puede leer ni responder desde Gmail, que es el requisito central.
 - **Sí: «Enviar como» de Gmail con el SMTP de Resend como relay.** Es lo que hace que la respuesta salga firmada con DKIM de `ferredip.com.mx` y alineada con DMARC.
 - **No: «Enviar como» dejando que Gmail use su propio servidor.** Gmail reescribiría el sobre y el mensaje saldría sin alineación DMARC del dominio, con más probabilidad de caer en spam.
-- **Sí: el `bcc` se queda en `truperdipemsa@gmail.com`.** Decisión del usuario: la copia de cada venta llega directo, sin depender del salto de reenvío de Cloudflare, que es una pieza más que puede fallar.
+- ~~**Sí: el `bcc` se queda en `truperdipemsa@gmail.com`.** Decisión del usuario: la copia de cada venta llega directo, sin depender del salto de reenvío de Cloudflare, que es una pieza más que puede fallar.~~ **Revertido 2026-09-02:** el `bcc` pasa a `ventas@ferredip.com.mx`. El usuario priorizó que ninguna dirección de gmail.com quede escrita en el código y que la copia de ventas use el buzón de marca ya creado. El costo asumido: esa copia ahora depende de que Email Routing reenvíe `ventas@` — si la regla se desactiva o Cloudflare falla, la copia oculta de esa venta se pierde (la venta en sí sigue registrada en `ordenes` por SPEC 07).
 - **Sí: `replyTo` apuntando a `contacto@ferredip.com.mx`.** Es la razón de existir del buzón nuevo. Se descartó apuntarlo a `truperdipemsa@gmail.com`, que habría dejado una dirección de gmail.com visible en el cliente de correo del comprador.
 - **Sí: el correo público del sitio pasa a `contacto@`, en tres lugares.** `NEGOCIO.email` cubre el JSON-LD y `llms.txt` sin tocar esos archivos; Footer y `/contacto` hardcodean el texto y hay que editarlos a mano.
 - **No: se toca el formulario de `/contacto`.** Hoy abre WhatsApp y así se queda. Conectarlo al correo exige un endpoint nuevo, una plantilla y manejo de estados de carga y error — otro spec.
@@ -205,7 +205,6 @@ El orden importa. Los pasos 1 y 4 no se pueden intercambiar: Gmail manda un cód
 ## Lo que **no** está en este spec
 
 - Reconectar el formulario de `/contacto` al correo: sigue abriendo WhatsApp.
-- Cambiar el `bcc` del correo de compra.
 - Un buzón real con IMAP (Google Workspace, Zoho).
 - Rediseñar o extraer la plantilla HTML del correo de confirmación.
 - Mover el envío del correo del navegador al servidor.
