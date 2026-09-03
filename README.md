@@ -12,15 +12,16 @@ ECommerce Platform - Specializing in the sale of tools from different brands and
 ![Resend](https://img.shields.io/badge/Resend-000000?style=for-the-badge&logo=resend&logoColor=white)
 ![Railway](https://img.shields.io/badge/Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white)
 
-<img width="1506" height="861" alt="Captura de Pantalla 2026-07-02 a la(s) 11 52 36" src="https://github.com/user-attachments/assets/71a49f6e-9def-40a0-a739-1b5712a6b09f" />
-
-## Brands Section
-<img width="1308" height="829" alt="Captura de Pantalla 2026-07-02 a la(s) 11 53 11" src="https://github.com/user-attachments/assets/e1c3073e-093b-474c-8ea5-de4354694af1" />
+## Search Section
+<img width="1447" height="865" alt="Captura de Pantalla 2026-09-01 a la(s) 13 17 11" src="https://github.com/user-attachments/assets/ca0ce966-7944-438e-8c92-6bd29da55776" />
 
 ## Product Section
-<img width="1254" height="698" alt="Captura de Pantalla 2026-07-02 a la(s) 11 54 25" src="https://github.com/user-attachments/assets/0ae42dd6-6378-41a5-b888-751fdd2b32b3" />
+<img width="1423" height="860" alt="Captura de Pantalla 2026-09-01 a la(s) 13 17 25" src="https://github.com/user-attachments/assets/e2e4af8c-f073-4731-9afc-938b42561bc5" />
+
+## Zoom Section
+<img width="1136" height="523" alt="Captura de Pantalla 2026-09-01 a la(s) 13 17 54" src="https://github.com/user-attachments/assets/a179ca26-f91d-461f-b2db-672c00da943e" />
 
 ## Cart Section
-<img width="1100" height="858" alt="Captura de Pantalla 2026-07-02 a la(s) 11 55 09" src="https://github.com/user-attachments/assets/cb82eb1e-0f13-4014-81bc-cd81b7f56429" />
+<img width="950" height="639" alt="Captura de Pantalla 2026-09-01 a la(s) 13 18 26" src="https://github.com/user-attachments/assets/18ef9e80-5c1c-443f-9c43-efffdea4425a" />
 
 Deploy in Railway
