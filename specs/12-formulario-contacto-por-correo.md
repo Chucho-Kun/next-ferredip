@@ -1,6 +1,6 @@
 # SPEC 12 — Formulario de contacto por correo a contacto@ferredip.com.mx
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 11
 > **Fecha:** 2026-09-02
 > **Objetivo:** Hacer que el formulario de `/contacto` envíe un correo a `contacto@ferredip.com.mx` a través de Resend, conservando el envío por WhatsApp como botón secundario, sin contratar ningún servicio ni costo adicional.

@@ -89,7 +89,10 @@ export default function Footer() {
                 <a target='_blank' href="https://maps.app.goo.gl/MEjFiXpEkRBntxMZ7">FERREDIP PIRAMIDES</a> 
               </li>
               <li>
-                <a target='_blank' href="https://maps.app.goo.gl/qptWK1qFwXSiRHXi6">FERREDIP TEQUISISTLAN</a> 
+                <a target='_blank' href="https://maps.app.goo.gl/qptWK1qFwXSiRHXi6">FERREDIP TEXCOCO</a> 
+              </li>
+              <li>
+                <a href="#">CDMX</a> 
               </li>
             </ul>
 
