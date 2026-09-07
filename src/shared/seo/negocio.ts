@@ -54,6 +54,7 @@ export const HORARIO = { dias: 'Mo-Su', abre: '08:30', cierra: '18:00' } as cons
 // Refleja lo que dice /terminos-y-condiciones, no lo que decía el JSON-LD viejo.
 export const ENVIO = {
   umbralGratis: 5000, // MXN — mismo valor que usa src/store/cartStore.ts
+  costoBase: 300, // MXN — tarifa plana por debajo del umbral; mismo valor que src/store/cartStore.ts
   regionGratis: 'CDMX y Área Metropolitana',
   pais: 'MX',
   handlingDias: { min: 1, max: 2 },

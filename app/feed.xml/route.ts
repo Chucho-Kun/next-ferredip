@@ -42,9 +42,8 @@ export async function GET() {
                     
                     <g:shipping>
                         <g:country>MX</g:country>
-                        <g:region>Ciudad de México</g:region>
                         <g:service>Estándar</g:service>
-                        <g:price>0 MXN</g:price>
+                        <g:price>${ENVIO.costoBase} MXN</g:price>
                         <g:min_handling_time>${ENVIO.handlingDias.min}</g:min_handling_time>
                         <g:max_handling_time>${ENVIO.handlingDias.max}</g:max_handling_time>
                         <g:min_transit_time>${ENVIO.transitoDias.min}</g:min_transit_time>
