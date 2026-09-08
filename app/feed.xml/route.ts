@@ -1,7 +1,7 @@
 // app/feed.xml/route.ts
 import { getAllProductosXML } from '@/src/shared/db/queries';
 import { slugify } from '@/src/utils/slugify';
-import { fotoPrincipal } from '@/src/utils/fotos';
+import { fotoPrincipal, fotosAdicionalesDe } from '@/src/utils/fotos';
 import { ENVIO } from '@/src/shared/seo/negocio';
 import { NextResponse } from 'next/server';
 
@@ -25,14 +25,20 @@ export async function GET() {
                 ?.replace(/[$,]/g, '')
                 .trim() || '0';
 
+                // Merchant Center admite hasta 10 g:additional_image_link; el sitio muestra máx. 3
+                const fotosSecundarias = fotosAdicionalesDe(product.id ?? '')
+                .map((foto) => `
+                    <g:additional_image_link>${escapeXml(foto.src)}</g:additional_image_link>`)
+                .join('');
+
                 return `
                     <item>
                     <g:id>${product.id}</g:id>
                     <g:title>${escapeXml( product.descripcion || '')}</g:title>
                     <g:description>${escapeXml(product.informacion || product.descripcion || '')}</g:description>
                     <g:link>https://ferredip.com.mx/producto/${product.id}/${ slugify( product.descripcion! ) }</g:link>
-                    <g:image_link>${fotoPrincipal(product.id ?? '')}</g:image_link>
-                    
+                    <g:image_link>${fotoPrincipal(product.id ?? '')}</g:image_link>${fotosSecundarias}
+
                     <g:condition>new</g:condition>
                     <g:availability>in stock</g:availability>
                     <g:price>${precioLimpio} MXN</g:price>
