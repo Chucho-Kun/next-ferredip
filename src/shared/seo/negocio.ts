@@ -38,7 +38,10 @@ export const SUCURSALES = [
     telefono: '+52-55-7329-0946',
   },
   {
-    nombre: 'FERREDIP TEQUISISTLAN',
+    // Nombre comercial alineado con el que muestra el Footer y la ficha de
+    // Google Business Profile ('FERREDIP TEXCOCO'); la dirección postal real
+    // sigue siendo la de Tequisistlán.
+    nombre: 'FERREDIP TEXCOCO',
     calle: 'Carretera Federal Lechería-Los Reyes km.34 Ejidos de Tequisistlán',
     localidad: 'Tequisistlán',
     region: 'Estado de México',

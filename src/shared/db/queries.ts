@@ -1,4 +1,5 @@
 // db/queries.ts
+import { cache } from 'react';
 import { db } from '@/src/shared/db';
 import { productos } from '@/src/shared/db/schema/productList';
 import { eq, like, desc, asc, sql, ilike, inArray, and, gt } from 'drizzle-orm';
@@ -107,14 +108,17 @@ export async function getProductsByGroupsofCategories(categoria: string) {
 /////
 
 ////// BUSCAR PRODUCTOS POR EL TEXTO DE LA URL
-export async function getProductById(id: string) {
+// `cache()` de React: la página de producto llama getProductById dos veces por
+// request (generateMetadata + el componente). Con esto comparten una sola query
+// dentro del mismo render.
+export const getProductById = cache(async (id: string) => {
   const result = await db.select()
     .from(productos)
     .where(eq(productos.id, id))
     .limit(1);
 
   return result[0];
-}
+});
 /////
 
 export async function getRecomendedProducts() {

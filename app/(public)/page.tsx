@@ -9,23 +9,27 @@ import { organizacionJsonLd } from "@/src/shared/seo/jsonLd";
 import { NEGOCIO } from "@/src/shared/seo/negocio";
 
 // ==================== METADATA SEO ====================
+const TITULO = "Ferredip | Herramientas Truper, Pretul y Fiero en Texcoco, Teotihuacán y CDMX";
+const DESCRIPCION =
+  "Distribuidora de herramientas Truper, Pretul, Fiero y más, con sucursales en Texcoco, Teotihuacán y Ciudad de México. Stock siempre en existencia: surtimos desde una pieza hasta una obra completa.";
+
 export const metadata: Metadata = {
-   title: "Ferredip | Herramientas",
-   description: "Somos FERREDIP una empresa distribuidora de herramientas para construcción ligera, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.",
-  
+   title: TITULO,
+   description: DESCRIPCION,
+
    keywords: [
     "herramientas de construcción ligera","distribuidora de herramientas","construcción ligera",
     "truper","pretul","fiero","foset","hermex","volteck","klintec","fischer","pennsylvania",
     "electricidad", "iluminacion", "acabados y remodelacion", "cerrajeria", "tornilleria y fijacion", "plomeria", "corte y desbaste", "equipo de seguridad", "accesorios para baño", "aceites y lubricantes", "mantenimiento automotriz", "jardineria", "soldadura", "accesorios neumaticos", "herramienta manual", "herramienta industrial", "articulos de limpieza",
-    "ecatepec",
+    "texcoco", "teotihuacan", "pirámides", "estado de méxico",
     "cdmx"
   ],
 
   authors: [{ name: "Ferredip" }],
   openGraph: {
-    title: "Ferredip | Herramientas",
-    description: "Somos Ferredip una empresa distribuidora de herramientas, contamos con las mejores marcas y stock siempre en existencia.",
-    url: "https://ferredip.com.mx/",
+    title: TITULO,
+    description: DESCRIPCION,
+    url: "https://ferredip.com.mx",
     siteName: "Ferredip",
     images: [
       {
@@ -41,8 +45,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Ferredip | Herramientas",
-    description: "Somos Ferredip una empresa distribuidora de herramientas, contamos con las mejores marcas y stock siempre en existencia.",
+    title: TITULO,
+    description: DESCRIPCION,
     images: ["https://ferredip.com.mx/nuevologo.jpg"],
   },
 
@@ -62,8 +66,10 @@ export default function page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizacionJsonLd()) }}
       />
 
-      <h1 className="text-sm font-bold text-center mb-12 text-white">
-        {NEGOCIO.nombre} | Distribuidora de herramientas
+      <h1 className="max-w-7xl mx-auto px-4 pt-6 pb-6 text-sm sm:text-base lg:text-lg font-bold text-center text-gray-800 text-balance lg:whitespace-nowrap">
+        {NEGOCIO.nombre}: distribuidora de herramientas{" "}
+        <span className="text-[#FF5E00]">Truper, Pretul y Fiero</span> en Texcoco,
+        Teotihuacán y CDMX
       </h1>
 
       <main>

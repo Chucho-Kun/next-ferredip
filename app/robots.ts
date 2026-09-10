@@ -49,6 +49,8 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       })),
     ],
-    sitemap: [`${BASE_URL}/sitemap.xml`, `${BASE_URL}/products.xml`],
+    // Un solo sitemap: el índice (<sitemapindex>) que referencia
+    // /paginas/sitemap.xml y /products.xml — ver app/sitemap.xml/route.ts.
+    sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }

@@ -56,16 +56,20 @@ function tituloDe(descripcion: string | null | undefined): string {
 }
 
 /**
- * Envío común a `productoJsonLd` y a `feed.xml`: refleja `ENVIO` y lo que dice
- * `/terminos-y-condiciones` (gratis sobre $5,000 MXN en CDMX y Área
- * Metropolitana), no el `300 MXN` de ejemplo del marcado viejo.
+ * Envío común a `productoJsonLd` y a `feed.xml`. Declara la tarifa plana real
+ * (`ENVIO.costoBase`, la misma que emite `<g:shipping>` en
+ * `app/feed.xml/route.ts`) — antes decía `0`, que contradecía al feed y a
+ * `/terminos-y-condiciones`. El envío gratis sobre `ENVIO.umbralGratis` es
+ * condicional (solo CDMX y Área Metropolitana) y Google no tiene una propiedad
+ * estándar para expresar ese umbral en `OfferShippingDetails`, así que no se
+ * declara aquí: se mantiene la tarifa base, que es la afirmación segura.
  */
 export function envioJsonLd(): object {
   return {
     '@type': 'OfferShippingDetails',
     shippingRate: {
       '@type': 'MonetaryAmount',
-      value: 0,
+      value: ENVIO.costoBase,
       currency: 'MXN',
     },
     shippingDestination: {
