@@ -20,5 +20,5 @@ export const productos = pgTable('productos_', {
   related_products: jsonb('related_products')
     .$type<string[]>()
     .default([]),
-  ficha: varchar('ficha', { length: 100 }),
+  ficha: varchar('ficha', { length: 150 }),
 });

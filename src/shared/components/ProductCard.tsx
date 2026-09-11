@@ -165,6 +165,11 @@ export default function ProductCard({producto, productosVariantes, variantes, fo
     
   }
 
+  // Guarda de validación: una URL de ficha técnica mal capturada (espacios,
+  // solo el nombre del archivo, sin protocolo) no debe pintar un botón roto.
+  const fichaUrl = producto.ficha?.trim();
+  const fichaValida = fichaUrl && /^https?:\/\//.test(fichaUrl);
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
 
@@ -260,10 +265,10 @@ export default function ProductCard({producto, productosVariantes, variantes, fo
           </div>
 
           {/* VER FICHA TECNICA */}
-          { producto.ficha && (
+          { fichaValida && (
             <div>
               <a
-                href={producto.ficha}
+                href={fichaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#0033A0] hover:bg-[#002280] text-white font-semibold px-5 py-2.5 rounded-lg transition"

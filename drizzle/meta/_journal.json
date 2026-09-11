@@ -43,6 +43,13 @@
       "when": 1785888734505,
       "tag": "0005_little_celestials",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789144094998,
+      "tag": "0006_wealthy_sinister_six",
+      "breakpoints": true
     }
   ]
 }
