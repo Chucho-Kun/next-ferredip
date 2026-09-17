@@ -69,4 +69,62 @@ export const DEVOLUCION = {
   metodo: 'ReturnInStore', // reportar con el chofer o en tienda, no por paquetería
   reembolso: 'StoreCredit', // nota de crédito, no efectivo
   vigenciaNotaCreditoDias: 30,
+  exclusiones: [
+    'plafones',
+    'suspensión',
+    'polvos',
+    'aislantes',
+    'químicos epóxicos',
+    'resinas',
+    'cempanel',
+    'productos de fabricación especial o descontinuados',
+  ],
 } as const;
+
+// Traducción para mostrar NEGOCIO.pagos (valores en inglés, formato schema.org)
+// en la FAQ sin duplicar la lista de métodos de pago.
+const PAGOS_ES: Record<(typeof NEGOCIO.pagos)[number], string> = {
+  Cash: 'efectivo',
+  'Credit Card': 'tarjeta de crédito o débito',
+  Transferencia: 'transferencia bancaria',
+  'Mercado Pago': 'Mercado Pago',
+};
+
+// Las 8 preguntas más comunes de un comprador, derivadas exclusivamente de las
+// constantes de arriba — misma fuente que consume faqJsonLd() en jsonLd.ts,
+// para que el texto visible y el marcado estructurado no se desincronicen.
+export const FAQ: { pregunta: string; respuesta: string }[] = [
+  {
+    pregunta: '¿Cuánto tarda mi pedido en llegar?',
+    respuesta: `Preparamos tu pedido en ${ENVIO.handlingDias.min} a ${ENVIO.handlingDias.max} días hábiles, más un tiempo de tránsito de ${ENVIO.transitoDias.min} a ${ENVIO.transitoDias.max} días hábiles adicionales.`,
+  },
+  {
+    pregunta: '¿El envío es gratis?',
+    respuesta: `El envío es gratis en compras mayores a $${ENVIO.umbralGratis.toLocaleString('es-MX')} MXN, únicamente en ${ENVIO.regionGratis} y para pedidos hechos en ${NEGOCIO.url}. Fuera de esa región, o por debajo del monto, la tarifa de envío es de $${ENVIO.costoBase} MXN.`,
+  },
+  {
+    pregunta: '¿A qué zonas del país envían?',
+    respuesta:
+      'Realizamos envíos a toda la República Mexicana. Para envíos a otros estados o zonas fuera de la región de envío gratis, es necesario cotizar con nuestro equipo de ventas.',
+  },
+  {
+    pregunta: '¿Puedo devolver un producto?',
+    respuesta: `No hacemos devoluciones en efectivo, transferencia ni cheque: en su lugar otorgamos una nota de crédito vigente por ${DEVOLUCION.vigenciaNotaCreditoDias} días naturales.`,
+  },
+  {
+    pregunta: '¿Cómo hago un cambio de producto?',
+    respuesta: `Los cambios se reportan con el chofer al recibir tu pedido o directamente en tienda (no por paquetería), dentro de un plazo de 1 a ${DEVOLUCION.diasCambio} días naturales desde la recepción del producto.`,
+  },
+  {
+    pregunta: '¿Qué productos no aceptan cambios ni devoluciones?',
+    respuesta: `No se aceptan cambios ni devoluciones en: ${DEVOLUCION.exclusiones.join(', ')}.`,
+  },
+  {
+    pregunta: '¿Qué métodos de pago aceptan?',
+    respuesta: `Aceptamos ${NEGOCIO.pagos.map((pago) => PAGOS_ES[pago]).join(', ')}.`,
+  },
+  {
+    pregunta: '¿Cuál es su horario de atención y dónde están ubicados?',
+    respuesta: `Atendemos todos los días de ${HORARIO.abre} a ${HORARIO.cierra} en nuestras dos sucursales: ${SUCURSALES.map((s) => `${s.nombre} (${s.localidad})`).join(' y ')}.`,
+  },
+];

@@ -15,7 +15,7 @@ import {
   fotoPrincipalZoom,
   fotosAdicionalesDe,
 } from '@/src/utils/fotos';
-import { NEGOCIO, SUCURSALES, HORARIO, ENVIO, DEVOLUCION } from './negocio';
+import { NEGOCIO, SUCURSALES, HORARIO, ENVIO, DEVOLUCION, FAQ } from './negocio';
 
 const SCHEMA = 'https://schema.org';
 
@@ -289,6 +289,23 @@ export function breadcrumbJsonLd(
       position: indice + 1,
       name: item.nombre,
       item: item.url,
+    })),
+  };
+}
+
+/**
+ * `FAQPage` de `/preguntas-frecuentes`. Mapea el arreglo `FAQ` de `negocio.ts`
+ * (misma fuente que renderiza la página) a la forma que exige schema.org — sin
+ * `aggregateRating` ni nada fuera de `FAQPage`/`Question`/`Answer`.
+ */
+export function faqJsonLd(): object {
+  return {
+    '@context': SCHEMA,
+    '@type': 'FAQPage',
+    mainEntity: FAQ.map((item) => ({
+      '@type': 'Question',
+      name: item.pregunta,
+      acceptedAnswer: { '@type': 'Answer', text: item.respuesta },
     })),
   };
 }

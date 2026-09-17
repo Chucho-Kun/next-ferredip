@@ -66,10 +66,9 @@ export default function page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizacionJsonLd()) }}
       />
 
-      <h1 className="max-w-7xl mx-auto px-4 pt-6 pb-6 text-sm sm:text-base lg:text-lg font-bold text-center text-gray-800 text-balance lg:whitespace-nowrap">
+      <h1 className="max-w-8xl mx-auto px-4 pt-6 pb-6 text-sm sm:text-base lg:text-lg font-bold text-center text-gray-800 text-balance lg:whitespace-nowrap">
         {NEGOCIO.nombre}: distribuidora de herramientas{" "}
-        <span className="text-[#FF5E00]">Truper, Pretul y Fiero</span> en Texcoco,
-        Teotihuacán y CDMX
+        <span className="text-[#FF5E00]">Truper, Pretul y Fiero</span> en Texcoco y Teotihuacán
       </h1>
 
       <main>

@@ -7,7 +7,9 @@ const BASE_URL = 'https://ferredip.com.mx';
 const RUTAS_BLOQUEADAS = [
   '/api/',
   '/resultados/', // búsqueda interna: contenido delgado / duplicado
-  '/carrito-de-compra',
+  // /carrito-de-compra NO va aquí: usa `noindex` en su propia metadata (ver
+  // app/(public)/carrito-de-compra/page.tsx) para que el crawler pueda leerlo
+  // en vez de toparse con un Disallow que se lo impide.
   '/compra/', // checkout y páginas de resultado de pago
   '/productos/relacionados', // única ruta de administración real
 ];

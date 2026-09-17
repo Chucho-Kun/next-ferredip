@@ -1,5 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { SUCURSALES, HORARIO } from '@/src/shared/seo/negocio';
+
+// Links a Google Maps por sucursal, en el mismo orden que SUCURSALES
+// (no viven en negocio.ts porque son URLs cortas de Google, no datos del NAP).
+const MAPS_URLS = [
+  'https://maps.app.goo.gl/MEjFiXpEkRBntxMZ7',
+  'https://maps.app.goo.gl/qptWK1qFwXSiRHXi6',
+];
 
 export default function Footer() {
   return (
@@ -25,7 +33,7 @@ export default function Footer() {
             
             <div className="space-y-3 text-sm">
               <p className="font-medium">Atención telefónica inmediata</p>
-              <p></p>
+              <p>Lunes a Domingo: <span className="font-semibold">{HORARIO.abre} a {HORARIO.cierra}</span></p>
               {/* <p><span className="font-semibold">(55) 8751 2193</span></p>
               <p><span className="font-semibold">(55) 8751 2194</span></p>
               <p><span className="font-semibold">(55) 5770 8512</span></p> */}
@@ -65,6 +73,9 @@ export default function Footer() {
               <li>
                 <Link className="text-bold hover:text-orange-400 transition" href={'/terminos-y-condiciones'} >Términos y Condiciones</Link>
               </li>
+              <li>
+                <Link className="text-bold hover:text-orange-400 transition" href={'/preguntas-frecuentes'} >Preguntas Frecuentes</Link>
+              </li>
               {/* <li>
                 <Link className="text-bold hover:text-orange-400 transition" href={''} >Quejas y Sugerencias</Link>
               </li> */}
@@ -84,16 +95,18 @@ export default function Footer() {
           {/* Columna 4 - Sucursales */}
           <div className="lg:col-span-3">
             <h3 className="font-bold text-lg mb-4">SUCURSALES</h3>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <a target='_blank' href="https://maps.app.goo.gl/MEjFiXpEkRBntxMZ7">FERREDIP PIRAMIDES</a> 
-              </li>
-              <li>
-                <a target='_blank' href="https://maps.app.goo.gl/qptWK1qFwXSiRHXi6">FERREDIP TEXCOCO</a> 
-              </li>
-              <li>
-                <a href="#">FERREDIP CDMX</a> 
-              </li>
+            <ul className="space-y-4 text-sm">
+              {SUCURSALES.map((sucursal, indice) => (
+                <li key={sucursal.nombre}>
+                  <a target='_blank' href={MAPS_URLS[indice]} className="hover:text-orange-400 transition">
+                    {sucursal.nombre}
+                  </a>
+                  <p className="text-gray-300 mt-1">
+                    {sucursal.calle}, {sucursal.localidad}, C.P. {sucursal.cp}
+                  </p>
+                  <p className="text-gray-300">Tel: {sucursal.telefono}</p>
+                </li>
+              ))}
             </ul>
 
             {/* <div className="mt-8">

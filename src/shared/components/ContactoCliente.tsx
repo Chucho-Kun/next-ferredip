@@ -2,8 +2,12 @@
 'use client';
 
 import { whatsAppNumber } from "@/src/shared/db/contact-info";
+import { SUCURSALES } from "@/src/shared/seo/negocio";
 import Link from "next/link";
 import React, { useState, useRef } from "react";
+
+// "525573476687" -> "55 7347 6687" (sin el código de país +52).
+const whatsAppFormateado = `${whatsAppNumber.slice(2, 4)} ${whatsAppNumber.slice(4, 8)} ${whatsAppNumber.slice(8)}`;
 
 export default function ContactoClient() {
   const [status, setStatus] = useState<{ success?: boolean; message?: string }>({});
@@ -82,10 +86,24 @@ ${mensaje}`)}`;
                 {/* <p><strong>Teléfono:</strong> (55) 8751 2193</p>
                 <p><strong>Teléfono:</strong> (55) 8751 2194</p>
                 <p><strong>Teléfono:</strong> (55) 5770 8512</p> */}
-                <p><strong>WhatsApp:</strong> 55 7347 6687</p>
+                <p><strong>WhatsApp:</strong> {whatsAppFormateado}</p>
                 <p><strong>Correo:</strong> contacto@ferredip.com.mx</p>
               </div>
             </div>
+
+            <div>
+              <h3 className="text-orange-600 font-bold text-xl mb-6">SUCURSALES</h3>
+              <div className="space-y-4 text-gray-700">
+                {SUCURSALES.map((sucursal) => (
+                  <div key={sucursal.nombre}>
+                    <p className="font-semibold">{sucursal.nombre}</p>
+                    <p>{sucursal.calle}, {sucursal.localidad}, C.P. {sucursal.cp}</p>
+                    <p>Tel: {sucursal.telefono}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div>
               <p className="text-orange-600 font-bold text-lg leading-tight">
                 REALIZAMOS ENTREGAS A TODA<br />

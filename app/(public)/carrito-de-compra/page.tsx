@@ -20,6 +20,10 @@ export const metadata = {
   alternates: {
     canonical: '/carrito-de-compra',
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function CompraPage() {

@@ -81,7 +81,7 @@ Horario (ambas sucursales): Lunes a Domingo, ${HORARIO.abre} a ${HORARIO.cierra}
 - Plazo para cambios: de 1 a ${DEVOLUCION.diasCambio} días naturales desde la recepción del producto.
 - Los cambios se reportan con el chofer al recibir o directamente en tienda, no por paquetería.
 - No hay devoluciones en efectivo, transferencia ni cheque: se otorga una nota de crédito vigente por ${DEVOLUCION.vigenciaNotaCreditoDias} días naturales.
-- No se aceptan cambios ni devoluciones en: plafones, suspensión, polvos, aislantes, químicos epóxicos, resinas, cempanel, y productos de fabricación especial o descontinuados.
+- No se aceptan cambios ni devoluciones en: ${DEVOLUCION.exclusiones.join(', ')}.
 
 ## Categorías
 
@@ -97,6 +97,7 @@ ${listaMarcas}
 - [Todas las marcas](${url}/marcas)
 - [Catálogo por categoría](${url}/productos)
 - [Contacto](${url}/contacto)
+- [Preguntas frecuentes](${url}/preguntas-frecuentes)
 - [Términos y condiciones](${url}/terminos-y-condiciones)
 - [Aviso de privacidad](${url}/aviso-de-privacidad)
 
