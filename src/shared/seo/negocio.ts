@@ -20,7 +20,7 @@ export const NEGOCIO = {
   telefono: '+52-55-9236-8879',
   email: 'contacto@ferredip.com.mx',
   rangoPrecio: '$$',
-  pagos: ['Cash', 'Credit Card', 'Transferencia', 'Mercado Pago'],
+  pagos: ['Credit Card', 'Mercado Pago'],
   sameAs: [
     'https://www.facebook.com/FerreDipPiramides/',
     'https://www.tiktok.com/@ferredip.tequisis',
@@ -43,7 +43,7 @@ export const SUCURSALES = [
     // sigue siendo la de Tequisistlán.
     nombre: 'FERREDIP TEXCOCO',
     calle: 'Carretera Federal Lechería-Los Reyes km.34 Ejidos de Tequisistlán',
-    localidad: 'Tequisistlán',
+    localidad: 'Ejidos de Tequisistlán',
     region: 'Estado de México',
     cp: '56020',
     geo: { lat: 19.58853677394558, lng: -98.92532129999836 },
@@ -84,9 +84,9 @@ export const DEVOLUCION = {
 // Traducción para mostrar NEGOCIO.pagos (valores en inglés, formato schema.org)
 // en la FAQ sin duplicar la lista de métodos de pago.
 const PAGOS_ES: Record<(typeof NEGOCIO.pagos)[number], string> = {
-  Cash: 'efectivo',
+  // Cash: 'efectivo',
   'Credit Card': 'tarjeta de crédito o débito',
-  Transferencia: 'transferencia bancaria',
+  // Transferencia: 'transferencia bancaria',
   'Mercado Pago': 'Mercado Pago',
 };
 
@@ -125,6 +125,6 @@ export const FAQ: { pregunta: string; respuesta: string }[] = [
   },
   {
     pregunta: '¿Cuál es su horario de atención y dónde están ubicados?',
-    respuesta: `Atendemos todos los días de ${HORARIO.abre} a ${HORARIO.cierra} en nuestras dos sucursales: ${SUCURSALES.map((s) => `${s.nombre} (${s.localidad})`).join(' y ')}.`,
+    respuesta: `Atendemos de Lunes a Viernes de ${HORARIO.abre} a ${HORARIO.cierra} y Sábados de 8:30 a 13:30 pm en nuestras dos sucursales: ${SUCURSALES.map((s) => `${s.nombre} (${s.localidad})`).join(' y ')}.`,
   },
 ];
