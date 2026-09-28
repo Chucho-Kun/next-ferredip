@@ -1,0 +1,198 @@
+{
+  "name": "Agente Ferredip — Asistente IA de productos",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "a1b2c3d4-1111-4a00-8a00-ferredip00001",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -800,
+        0
+      ],
+      "webhookId": "ferredip-chat-webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "Eres el Asistente Ferredip, el ayudante de la tienda ferretera Ferredip (https://ferredip.com.mx). Respondes siempre en español.\n\nFUENTES DE DATOS (únicas permitidas):\n1. Tool buscar_productos: catálogo real (nombre, precio real, marca, categoría, imagen y url /producto/{id}).\n2. Tool info_tienda: envíos, devoluciones, sucursales, horario, pagos y contacto.\nNunca inventes precios, stock, productos, sucursales ni políticas. Si un dato no está en los tools, dilo y enlaza a /contacto o WhatsApp https://api.whatsapp.com/send?phone=525573476687.\n\nREGLAS DE RESPUESTA:\n- Máximo 5 productos por respuesta, cada uno con nombre, precio real y enlace /producto/{id}.\n- Solo presenta productos que devolvió buscar_productos, con su precio y url exactos.\n- Usa la `url` exactamente como la devuelve el tool, sin recortarla ni modificarla: son URLs absolutas listas para enlazar en markdown como [nombre](url). Si el tool falla o devuelve vacío y ya reintentaste la búsqueda amplia, usa el fallback a contacto: nunca inventes nombres, precios ni enlaces de productos.\n- Preguntas de envíos/devoluciones/horario/sucursales/pagos: responde solo con datos de info_tienda.\n- Si la primera búsqueda devuelve 0 resultados, haz UNA segunda búsqueda más amplia (por categoría o marca, sin el modelo específico) antes de rendirte.\n- Si la búsqueda amplia trae productos, responde con la frase obligatoria \"No encontré [X] exacto, pero estas variantes te pueden servir:\" (sustituye [X] por lo que pidió el usuario, sin corchetes literales) seguida de 1 a 3 productos (máximo 3). Marca cada uno como variante/similar, nunca lo presentes como el producto exacto pedido.\n- Solo si la búsqueda amplia también devuelve 0 resultados, responde que no hay coincidencias y enlaza a /contacto o al WhatsApp, sin inventar precios.\n- Nunca agregues al carrito ni generes pedidos desde el chat."
+        }
+      },
+      "id": "a1b2c3d4-2222-4a00-8a00-ferredip00002",
+      "name": "Agente Ferredip",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        -400,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-3333-4a00-8a00-ferredip00003",
+      "name": "OpenAI GPT-4o-mini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -560,
+        240
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI — Asistente Ferredip (configurar en n8n)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}",
+        "contextWindowLength": 10
+      },
+      "id": "a1b2c3d4-4444-4a00-8a00-ferredip00004",
+      "name": "Memoria ventana 10",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -240,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "toolDescription": "Busca productos reales del catálogo Ferredip. Úsala para cualquier pregunta sobre productos, precios o disponibilidad. Si la primera búsqueda devuelve 0 resultados, reintenta con una búsqueda más amplia (solo categoría o solo marca).",
+        "method": "GET",
+        "url": "https://ferredip.com.mx/api/agente-productos",
+        "sendQuery": true,
+        "specifyQuery": "model",
+        "parametersQuery": {
+          "values": [
+            {
+              "name": "q",
+              "valueProvider": "modelRequired",
+              "value": "={{ $fromAI('q', 'texto de búsqueda del producto, ej. taladro inalámbrico o bomba bicicleta', 'string') }}"
+            },
+            {
+              "name": "marca",
+              "valueProvider": "modelOptional",
+              "value": "={{ $fromAI('marca', 'marca del producto si el usuario la menciona, ej. truper', 'string') }}"
+            },
+            {
+              "name": "categoria",
+              "valueProvider": "modelOptional",
+              "value": "={{ $fromAI('categoria', 'categoría del producto si aplica', 'string') }}"
+            },
+            {
+              "name": "limit",
+              "valueProvider": "modelOptional",
+              "value": "={{ $fromAI('limit', 'máximo de resultados, de 1 a 5', 'number', 5) }}"
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-5555-4a00-8a00-ferredip00005",
+      "name": "buscar_productos",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        -560,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "description": "Devuelve la información oficial de la tienda Ferredip: envíos, devoluciones, sucursales, horario, pagos y contacto. Úsala para preguntas de envíos, devoluciones, horario, ubicación, pagos o contacto. No inventes datos fuera de este texto.",
+        "language": "javaScript",
+        "jsCode": "return `TIENDA FERREDIP — info oficial (fuente: src/shared/seo/negocio.ts).\nSomos Ferredip una empresa distribuidora de herramientas, contamos con las mejores marcas y stock siempre en existencia. Surtimos desde una pieza hasta una obra completa.\nSitio: https://ferredip.com.mx | Tel: +52-55-9236-8879 | Email: contacto@ferredip.com.mx | Contacto: https://ferredip.com.mx/contacto | WhatsApp: https://api.whatsapp.com/send?phone=525573476687\n\nSUCURSALES (2, no hay CDMX):\n- FERREDIP PIRAMIDES, Carr. Mexico tulancingo Lote kilometro 27-5, Teotihuacán de Arista, Estado de México, CP 55800. Tel +52-55-7329-0946.\n- FERREDIP TEXCOCO, Carretera Federal Lechería-Los Reyes km.34 Ejidos de Tequisistlán, Ejidos de Tequisistlán, Estado de México, CP 56020. Tel +52-55-6895-3906.\n\nHORARIO: Lunes a Viernes de 08:30 a 18:00 y Sábados de 8:30 a 13:30 en ambas sucursales.\n\nENVÍOS: Preparamos tu pedido en 1 a 2 días hábiles, más 1 a 3 días hábiles de tránsito. Envío gratis en compras mayores a $5,000 MXN únicamente en CDMX y Área Metropolitana y para pedidos en https://ferredip.com.mx. Fuera de esa región o por debajo del monto, tarifa plana de $300 MXN. Enviamos a toda la República Mexicana; fuera de la región gratis hay que cotizar con ventas.\n\nDEVOLUCIONES/CAMBIOS: Sin devoluciones en efectivo, transferencia ni cheque: nota de crédito vigente 30 días naturales. Cambios con el chofer al recibir o en tienda (no por paquetería), dentro de 1 a 3 días naturales. Sin cambios ni devoluciones en: plafones, suspensión, polvos, aislantes, químicos epóxicos, resinas, cempanel, productos de fabricación especial o descontinuados.\n\nPAGOS: tarjeta de crédito o débito, Mercado Pago.`;",
+        "specifyInputSchema": false
+      },
+      "id": "a1b2c3d4-6666-4a00-8a00-ferredip00006",
+      "name": "info_tienda",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        480
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Agente Ferredip",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI GPT-4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Agente Ferredip",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memoria ventana 10": {
+      "ai_memory": [
+        [
+          {
+            "node": "Agente Ferredip",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buscar_productos": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente Ferredip",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "info_tienda": {
+      "ai_tool": [
+        [
+          {
+            "node": "Agente Ferredip",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
