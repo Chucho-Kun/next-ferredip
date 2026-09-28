@@ -1,6 +1,6 @@
 # SPEC 15 — Asistente IA de búsqueda de productos con n8n y ChatGPT
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Depende de:** SPEC 10, SPEC 14
 > **Fecha:** 2026-09-28
 > **Objetivo:** Integrar un chat flotante en el sitio que responde preguntas de productos consultando el catálogo real a través de una ruta de solo lectura y un agente GPT-4o-mini orquestado en n8n.

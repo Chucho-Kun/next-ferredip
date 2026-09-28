@@ -35,7 +35,9 @@ export default function RootLayout({
       className={`${jost.variable} h-full bg-white antialiased`}
       suppressHydrationWarning
     >
-      <link rel="stylesheet" href={N8N_CHAT_CSS} />
+      <head>
+        <link rel="stylesheet" href={N8N_CHAT_CSS} />
+      </head>
       <body className="min-h-full flex flex-col font-jost">
         {children}
         <Toaster

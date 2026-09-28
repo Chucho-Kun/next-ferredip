@@ -2,7 +2,7 @@
 
 @layer components {
   .slider-responsive {
-    @apply w-full aspect-[1134/377] object-cover
+    @apply w-full aspect-1134/377 object-cover
   }
 }
 
@@ -34,5 +34,65 @@ button {
     right: 10px;
     background-color: #ff5e00;
     color: white;
+}
+
+/* Asistente Ferredip (@n8n/chat, SPEC 15 propuesta B) — tema de marca.
+   Todo con scope #n8n-chat para no filtrarse al resto del sitio.
+   Variables disponibles: https://cdn.jsdelivr.net/npm/@n8n/chat@1.39.2/README.md */
+#n8n-chat {
+  --chat--color--primary: #ff5e00;
+  --chat--color--primary-shade-50: #e30613;
+  --chat--color--primary--shade-100: #b00510;
+  --chat--color--secondary: #ff5e00;
+  --chat--color-secondary-shade-50: #e30613;
+  --chat--font-family: var(--font-jost);
+  --chat--border-radius: 0.9rem;
+  --chat--window--border-radius: 1rem;
+  --chat--header--background: #ffffff;
+  --chat--header--color: #111111;
+  --chat--heading--font-size: 1.2rem;
+  --chat--subtitle--font-size: 0.85rem;
+  --chat--message--bot--border: 1px solid var(--chat--color-light-shade-50);
+  --chat--toggle--size: 60px;
+}
+
+/* Header blanco como el del sitio, con línea naranja y logo. */
+#n8n-chat .chat-header {
+  border-bottom: 2px solid #ff5e00;
+}
+#n8n-chat .chat-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+#n8n-chat .chat-header h1::before {
+  content: "";
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #1c398e url(/logo-chatbot.png) center / contain no-repeat;
+}
+#n8n-chat .chat-header p {
+  color: #555555;
+}
+
+/* Enlaces de productos con color de marca (el agente los emite en markdown). */
+#n8n-chat .chat-message-markdown a {
+  color: #e30613;
+  font-weight: 600;
+}
+
+/* Botón flotante con sombra de marca. */
+#n8n-chat .chat-window-toggle {
+  box-shadow: 0 8px 24px rgb(255 94 0 / 0.45);
+  background-color: #1c398e;
+}
+
+/* En móvil el botón del carrito vive abajo-derecha (CartModule): subir el toggle. */
+@media (max-width: 767px) {
+  #n8n-chat {
+    --chat--window--bottom: 5.5rem;
+  }
 }
 

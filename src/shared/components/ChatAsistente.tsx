@@ -19,10 +19,10 @@ function opcionesChat(webhookUrl: string): string {
     target: '#n8n-chat',
     showWelcomeScreen: false,
     enableStreaming: false,
-    initialMessages: ['¡Hola! Soy el Asistente Ferredip. ¿Qué producto buscas hoy?'],
+    initialMessages: ['¡Hola! Soy tu Asistente en Ferredip. ¿Qué producto buscas hoy?'],
     i18n: {
       en: {
-        title: 'Asistente Ferredip',
+        title: 'Chatbot de Ferredip',
         subtitle: 'Pregúntame por productos, precios, envíos y más.',
         footer: '',
         getStarted: 'Nueva conversación',
