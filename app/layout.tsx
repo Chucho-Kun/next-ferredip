@@ -3,6 +3,7 @@ import { Jost } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast"
 import Script from "next/script";
+import ChatAsistente, { N8N_CHAT_CSS } from "@/src/shared/components/ChatAsistente";
 
 
 const jost = Jost({
@@ -34,11 +35,13 @@ export default function RootLayout({
       className={`${jost.variable} h-full bg-white antialiased`}
       suppressHydrationWarning
     >
+      <link rel="stylesheet" href={N8N_CHAT_CSS} />
       <body className="min-h-full flex flex-col font-jost">
         {children}
         <Toaster
           position="top-center"
         />
+        <ChatAsistente />
       </body>
     </html>
   );
