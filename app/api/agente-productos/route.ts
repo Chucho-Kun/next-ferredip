@@ -10,11 +10,11 @@ import { NEGOCIO } from '@/src/shared/seo/negocio';
 export type AgenteProducto = {
   id: string;
   nombre: string;
+  url: string;
   precio: number | null;
   marca: string | null;
   categoria: string | null;
   imagen: string | null;
-  url: string;
 };
 
 export type AgenteResponse = {
@@ -139,13 +139,15 @@ export async function GET(request: NextRequest) {
     return {
       id: f.id,
       nombre,
+      // URL absoluta /producto/{id}/{slug} justo después del nombre: es el
+      // dato más importante y así nunca queda recortada al final del JSON.
+      // El chat de n8n renderiza fuera de ferredip.com.mx, una relativa
+      // resolvería contra el host de n8n.
+      url: `${NEGOCIO.url}/producto/${f.id}/${slugify(nombre)}`,
       precio: monto > 0 ? monto : null,
       marca: f.marca,
       categoria: f.categoria,
       imagen: fotoPrincipal(f.id),
-      // URL absoluta: el chat de n8n renderiza fuera de ferredip.com.mx,
-      // una relativa resolvería contra el host de n8n.
-      url: `${NEGOCIO.url}/producto/${f.id}/${slugify(nombre)}`,
     };
   });
 
