@@ -83,10 +83,18 @@ button {
   font-weight: 600;
 }
 
-/* Botón flotante con sombra de marca. */
+/* Botón flotante con sombra de marca e icono propio (public/chat-icon.svg).
+   @n8n/chat no expone opción de icono: se oculta el SVG del bundle. */
 #n8n-chat .chat-window-toggle {
   box-shadow: 0 8px 24px rgb(255 94 0 / 0.45);
   background-color: #1c398e;
+  background-image: url(/chat-icon.svg);
+  background-position: center;
+  background-size: 90%;
+  background-repeat: no-repeat;
+}
+#n8n-chat .chat-window-toggle svg {
+  display: none;
 }
 
 /* En móvil el botón del carrito vive abajo-derecha (CartModule): subir el toggle. */
