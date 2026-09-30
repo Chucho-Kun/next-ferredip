@@ -13,8 +13,16 @@ export default function SliderMain() {
   return (
     <div className="overflow-hidden" ref={emblaRef}>
       <div className="flex pb-5 cursor-grab">
+        
         <div className="flex-[0_0_100%] min-w-0">
-          <img src="/sliders/mainSlider/1.webp" alt="productos Truper" className="slider-responsive" fetchPriority='high' />
+          <img src="/sliders/mainSlider/A.webp" alt="Ferredip la calidad que tus proyectos merecen" className="slider-responsive" fetchPriority='high' />
+        </div>
+        <div className="flex-[0_0_100%] min-w-0">
+          <img loading="lazy" src="/sliders/mainSlider/B.webp" alt="Distribuidores autorizados Truper" className="slider-responsive" />
+        </div>
+
+        <div className="flex-[0_0_100%] min-w-0">
+          <img src="/sliders/mainSlider/1.webp" alt="productos Truper" className="slider-responsive" />
         </div>
         <div className="flex-[0_0_100%] min-w-0">
           <img loading="lazy" src="/sliders/mainSlider/2.webp" alt="productos Pretul" className="slider-responsive" />
