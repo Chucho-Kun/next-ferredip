@@ -23,8 +23,9 @@ export default function Marcas() {
                     src={marca.src}
                     alt={marca.name}
                     fill
+                    unoptimized
                     className="object-contain grayscale-0 lg:grayscale lg:group-hover:grayscale-0 transition-all duration-300"
-                    sizes='(max-width: 768px) 100vw, 180px'
+                    sizes='(max-width: 768px) 50vw, 180px'
                     />
                 </div>
               </div>

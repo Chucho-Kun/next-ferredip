@@ -65,6 +65,7 @@ export default function Header() {
                     alt="whatsapp icon"
                     width={25}
                     height={25}
+                    unoptimized
                   />
                 </span>
               </Link>

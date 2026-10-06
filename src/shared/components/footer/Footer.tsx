@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { SUCURSALES, HORARIO } from '@/src/shared/seo/negocio';
 

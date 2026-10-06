@@ -20,8 +20,9 @@ export default function SoyMayorista() {
               width={699}
               height={892}
               alt="Equipo Mayorista Ferredip"
+              unoptimized
               className="object-cover mx-auto rounded-2xl"
-              sizes="(max-width: 768px) 100vw, 1200px"
+              sizes="(max-width: 768px) 100vw, 699px"
             />
          </div>
 

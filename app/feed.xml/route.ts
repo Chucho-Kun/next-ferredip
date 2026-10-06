@@ -11,7 +11,7 @@ export async function GET() {
   try {
     const products = await getAllProductosXML();
 
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+    const header = `<?xml version="1.0" encoding="UTF-8"?>
         <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
         <channel>
             <title>Ferredip - Productos</title>
@@ -19,19 +19,29 @@ export async function GET() {
             <link>https://ferredip.com.mx</link>
             <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
 
-            ${products
-            .map((product) => {
-                const precioLimpio = product.precio
-                ?.replace(/[$,]/g, '')
-                .trim() || '0';
+            `;
+    const footer = `
+        </channel>
+        </rss>`;
 
-                // Merchant Center admite hasta 10 g:additional_image_link; el sitio muestra máx. 3
-                const fotosSecundarias = fotosAdicionalesDe(product.id ?? '')
-                .map((foto) => `
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      start(controller) {
+        try {
+          controller.enqueue(encoder.encode(header));
+          let buf = '';
+          for (const product of products) {
+            const precioLimpio = product.precio
+            ?.replace(/[$,]/g, '')
+            .trim() || '0';
+
+            // Merchant Center admite hasta 10 g:additional_image_link; el sitio muestra máx. 3
+            const fotosSecundarias = fotosAdicionalesDe(product.id ?? '')
+            .map((foto) => `
                     <g:additional_image_link>${escapeXml(foto.src)}</g:additional_image_link>`)
-                .join('');
+            .join('');
 
-                return `
+            buf += `
                     <item>
                     <g:id>${product.id}</g:id>
                     <g:title>${escapeXml( product.descripcion || '')}</g:title>
@@ -56,14 +66,25 @@ export async function GET() {
                         <g:max_transit_time>${ENVIO.transitoDias.max}</g:max_transit_time>
                     </g:shipping>
                     </item>`;
-            })
-            .join('')}
-        </channel>
-        </rss>`;
+            // Vaciar por chunks de ~64KB en vez de un solo .join('') gigante
+            if (buf.length >= 64 * 1024) {
+              controller.enqueue(encoder.encode(buf));
+              buf = '';
+            }
+          }
+          if (buf) controller.enqueue(encoder.encode(buf));
+          controller.enqueue(encoder.encode(footer));
+          controller.close();
+        } catch (err) {
+          controller.error(err);
+        }
+      },
+    });
 
-    return new NextResponse(xml, {
+    return new NextResponse(stream, {
       headers: {
         'Content-Type': 'application/xml; charset=utf-8',
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=600',
       },
     });
   } catch (error) {

@@ -75,9 +75,17 @@ export async function POST(request: NextRequest) {
       },
     };
 
-    const response = await payment.create({ body: paymentBody });
+    const mpSignal = AbortSignal.timeout(10000);
+    const mpTimeout = new Promise<never>((_, reject) =>
+      mpSignal.addEventListener('abort', () =>
+        reject(new DOMException('Mercado Pago payment timeout', 'TimeoutError')), { once: true }),
+    );
+    const response = await Promise.race([
+      payment.create({ body: paymentBody, requestOptions: { timeout: 10000 } }),
+      mpTimeout,
+    ]);
 
-    console.log("✅ Pago procesado:", response.status);
+    console.log("✅ Pago procesado payment_id:", response.id, "total:", transactionAmount, "status:", response.status);
 
     await registrarOrden({
       mp_payment_id: String(response.id),

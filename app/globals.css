@@ -83,6 +83,17 @@ button {
   font-weight: 600;
 }
 
+/* Fotos de productos del agente: tope de 300px aunque el modelo
+   emita markdown ![...](...) o un <img> sin width. */
+#n8n-chat .chat-message-markdown img {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 8px 0;
+}
+
 /* Botón flotante con sombra de marca e icono propio (public/chat-icon.svg).
    @n8n/chat no expone opción de icono: se oculta el SVG del bundle. */
 #n8n-chat .chat-window-toggle {

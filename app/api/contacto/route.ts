@@ -107,13 +107,21 @@ export async function POST(request: NextRequest) {
   const { data } = resultado;
 
   try {
-    const { error } = await resend.emails.send({
-      from: 'Ferredip Web <noreply@ferredip.com.mx>',
-      to: ['contacto@ferredip.com.mx'],
-      replyTo: data.email,
-      subject: `Nuevo mensaje de contacto — ${data.nombre}`,
-      html: construirHtml(data),
-    });
+    const emailSignal = AbortSignal.timeout(8000);
+    const emailTimeout = new Promise<never>((_, reject) =>
+      emailSignal.addEventListener('abort', () =>
+        reject(new DOMException('Resend contacto timeout', 'TimeoutError')), { once: true }),
+    );
+    const { error } = await Promise.race([
+      resend.emails.send({
+        from: 'Ferredip Web <noreply@ferredip.com.mx>',
+        to: ['contacto@ferredip.com.mx'],
+        replyTo: data.email,
+        subject: `Nuevo mensaje de contacto — ${data.nombre}`,
+        html: construirHtml(data),
+      }),
+      emailTimeout,
+    ]);
 
     if (error) {
       console.error('❌ Error Resend (contacto):', error);

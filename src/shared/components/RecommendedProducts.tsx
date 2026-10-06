@@ -6,7 +6,6 @@ import Autoplay from 'embla-carousel-autoplay';
 import { useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getRecomendedProducts } from '../db/queries';
-import { ResultadosType } from '../db/resultados';
 import Link from 'next/link';
 import { whatsAppNumber } from '../db/contact-info';
 import { slugify } from '@/src/utils/slugify';
@@ -14,7 +13,7 @@ import { formatPrecio } from '@/src/utils/formatPrice';
 import { fotoPrincipal } from '@/src/utils/fotos';
 
 type Props = {
-  productosRecomendados: ResultadosType[]
+  productosRecomendados: Awaited<ReturnType<typeof getRecomendedProducts>>
 }
 
 export default function RecommendedProducts( {productosRecomendados} : Props ) {

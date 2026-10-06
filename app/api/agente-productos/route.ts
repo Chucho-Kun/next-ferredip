@@ -53,13 +53,15 @@ function clampLimit(raw: string | null): number {
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
-  const q = (params.get('q') ?? '').trim();
-  const marca = (params.get('marca') ?? '').trim();
-  const categoria = (params.get('categoria') ?? '').trim();
+  // Acotar inputs para evitar ILIKE gigantes bajo crawl (SPEC 16, max 80)
+  const q = ((params.get('q') ?? '').trim()).slice(0, 80);
+  const marca = ((params.get('marca') ?? '').trim()).slice(0, 80);
+  const categoria = ((params.get('categoria') ?? '').trim()).slice(0, 80);
   const limit = clampLimit(params.get('limit'));
+  const headers = { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30' };
 
   if (!q && !marca && !categoria) {
-    return Response.json({ query: '', total: 0, items: [] } satisfies AgenteResponse);
+    return Response.json({ query: '', total: 0, items: [] } satisfies AgenteResponse, { headers });
   }
 
   const condiciones: SQL[] = [];
@@ -155,5 +157,5 @@ export async function GET(request: NextRequest) {
     query: q || [marca, categoria].filter(Boolean).join(' '),
     total: items.length,
     items,
-  } satisfies AgenteResponse);
+  } satisfies AgenteResponse, { headers });
 }

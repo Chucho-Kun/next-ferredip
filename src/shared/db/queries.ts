@@ -15,7 +15,17 @@ const precioMayorACero = gt(sql`${productos.precio}::numeric`, 0);
 export async function getProductsByGroupsofTrademarks(marca: string) {
   const marcaReal = slugToMarca(marca);
 
-  const rawProducts = await db.select()
+  const rawProducts = await db.select({
+    id: productos.id,
+    clave: productos.clave,
+    descripcion: productos.descripcion,
+    precio: productos.precio,
+    marca: productos.marca,
+    categoria: productos.categoria,
+    destacado: productos.destacado,
+    orden_cat: productos.orden_cat,
+    orden_prod: productos.orden_prod,
+  })
     .from(productos)
     .where(
       and(
@@ -60,7 +70,17 @@ export async function getProductsByGroupsofTrademarks(marca: string) {
 export async function getProductsByGroupsofCategories(categoria: string) {
   const categoriaReal = slugToCategory(categoria);
 
-  const rawProducts = await db.select()
+  const rawProducts = await db.select({
+    id: productos.id,
+    clave: productos.clave,
+    descripcion: productos.descripcion,
+    precio: productos.precio,
+    marca: productos.marca,
+    categoria: productos.categoria,
+    destacado: productos.destacado,
+    orden_cat: productos.orden_cat,
+    orden_prod: productos.orden_prod,
+  })
     .from(productos)
     .where(
       and(
@@ -122,13 +142,29 @@ export const getProductById = cache(async (id: string) => {
 /////
 
 export async function getRecomendedProducts() {
-        return await db.select()
+        return await db.select({
+            id: productos.id,
+            clave: productos.clave,
+            descripcion: productos.descripcion,
+            precio: productos.precio,
+            precioant: productos.precioant,
+            marca: productos.marca,
+        })
             .from(productos)
             .where(and(eq(productos.destacado, true), precioMayorACero))
+            .limit(20);
 }
 
 export async function getAllProductosXML() {
-  return await db.select()
+  return await db.select({
+                      id: productos.id,
+                      clave: productos.clave,
+                      descripcion: productos.descripcion,
+                      informacion: productos.informacion,
+                      precio: productos.precio,
+                      marca: productos.marca,
+                      createdat: productos.createdat,
+                    })
                       .from(productos)
                       .where(precioMayorACero)
                       .orderBy(desc(productos.createdat))

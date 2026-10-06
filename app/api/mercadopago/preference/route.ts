@@ -24,18 +24,23 @@ export async function POST(request: NextRequest) {
       unit_price: Number(item.unit_price ?? item.precio ?? 0)
     }));
 
-    // Loguear improvedItems para depuración antes de crear la preferencia
-    console.log('🔧 [PREFERENCE] improvedItems a enviar a Mercado Pago:');
-    console.log(JSON.stringify(improvedItems, null, 2));
-
-    console.log("🛒 Carrito completo recibido:", 
-      JSON.stringify(body.metadata?.carrito_completo, null, 2)
-    );
+    // Log mínimo: solo conteo + total (sin dump del carrito por RAM/logs)
+    const totalItems = improvedItems.length;
+    const totalAmount = improvedItems.reduce((sum: number, item: any) =>
+      sum + (Number(item.unit_price || 0) * Number(item.quantity || 0)),
+    0);
+    console.log('[PREFERENCE] items:', totalItems, 'total:', totalAmount);
 
     const preference = new Preference(client);
 
-    const response = await preference.create({
-      body: {
+    const mpSignal = AbortSignal.timeout(10000);
+    const mpTimeout = new Promise<never>((_, reject) =>
+      mpSignal.addEventListener('abort', () =>
+        reject(new DOMException('Mercado Pago preference timeout', 'TimeoutError')), { once: true }),
+    );
+    const response = await Promise.race([
+      preference.create({
+        body: {
         items: improvedItems,
         payer: body.payer,
         back_urls: {
@@ -71,15 +76,18 @@ export async function POST(request: NextRequest) {
           source: "Ferredip-web",
           platform: "nextjs",
           environment: process.env.NODE_ENV,
-          total_items: improvedItems.length,
-          total_amount: improvedItems.reduce((sum: number, item: any ) => 
-            sum + (Number(item.unit_price || 0) * Number(item.quantity || 0)), 
-          0),
+          total_items: totalItems,
+          total_amount: totalAmount,
           created_at: new Date().toISOString(),
         },
         //auto_return: 'approved',
-      },
-    });
+        },
+        requestOptions: { timeout: 10000 },
+      }),
+      mpTimeout,
+    ]);
+
+    console.log('[PREFERENCE] created preference_id:', response.id, 'total:', totalAmount);
 
     return NextResponse.json({ 
       preferenceId: response.id,

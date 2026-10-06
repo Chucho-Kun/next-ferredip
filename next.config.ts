@@ -20,9 +20,10 @@ const nextConfig = {
     // el contenedor de Railway seguía permitiendo demasiadas operaciones concurrentes.
     imgOptConcurrency: 1,
   },
-  // Solución temporal para el LRUCache
+  // ISR con tope explícito (SPEC 16): sin esto cada hit de bot re-ejecuta
+  // queries pesadas; con 0 se desactiva por completo y el fix no se sostiene.
   cacheHandler: undefined,
-  cacheMaxMemorySize: 0,        // Desactiva caché en memoria temporalmente
+  cacheMaxMemorySize: 50 * 1024 * 1024, // 50MB
   async headers() {
     return [
       {

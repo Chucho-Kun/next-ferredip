@@ -21,10 +21,19 @@ export async function GET() {
   try {
     const products = await getAllProductosXML();
 
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    const header = `<?xml version="1.0" encoding="UTF-8"?>
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-        ${products
-          .map((product) => {
+        `;
+    const footer = `
+      </urlset>`;
+
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      start(controller) {
+        try {
+          controller.enqueue(encoder.encode(header));
+          let buf = '';
+          for (const product of products) {
             const slug = slugify( product.descripcion! );
             const url = `https://ferredip.com.mx/producto/${product.id}/${slug}`;
             // Imagen principal del producto (misma URL del CDN que muestra la
@@ -32,7 +41,7 @@ export async function GET() {
             // herramientas específicas.
             const imagen = fotoPrincipal(product.id ?? '');
 
-            return `
+            buf += `
         <url>
           <loc>${url}</loc>
           <lastmod>${product.createdat ? new Date(product.createdat).toISOString() : new Date().toISOString()}</lastmod>
@@ -42,13 +51,25 @@ export async function GET() {
             <image:loc>${escapeXml(imagen)}</image:loc>
           </image:image>
         </url>`;
-          })
-          .join('')}
-      </urlset>`;
+            // Vaciar por chunks de ~64KB en vez de un solo .join('') gigante
+            if (buf.length >= 64 * 1024) {
+              controller.enqueue(encoder.encode(buf));
+              buf = '';
+            }
+          }
+          if (buf) controller.enqueue(encoder.encode(buf));
+          controller.enqueue(encoder.encode(footer));
+          controller.close();
+        } catch (err) {
+          controller.error(err);
+        }
+      },
+    });
 
-    return new NextResponse(sitemap, {
+    return new NextResponse(stream, {
       headers: {
         'Content-Type': 'application/xml',
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=600',
       },
     });
   } catch (error) {

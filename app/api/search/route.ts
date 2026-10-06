@@ -4,10 +4,13 @@ import { ilike, desc, or, and, gt, eq, sql } from 'drizzle-orm';
 import { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  const search = request.nextUrl.searchParams.get('q') || '';
+  const raw = request.nextUrl.searchParams.get('q') || '';
+  // Acotar input para evitar ILIKE gigantes bajo crawl (SPEC 16)
+  const search = raw.slice(0, 80);
+  const headers = { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30' };
 
   if (search.length < 3) {
-    return Response.json([]);
+    return Response.json([], { headers });
   }
 
   const results = await db.select({
@@ -42,5 +45,5 @@ export async function GET(request: NextRequest) {
   )
   .limit(15);
 
-  return Response.json(results);
+  return Response.json(results, { headers });
 }

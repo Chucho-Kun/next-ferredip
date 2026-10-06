@@ -13,7 +13,13 @@ export async function POST(request: NextRequest) {
     const subTotalReal = Math.round(Number(orderData.subtotal) * 100) / 100;
     const totalReal = Math.round(Number(orderData.total) * 100) / 100;
 
-    const { data, error } = await resend.emails.send({
+    const emailSignal = AbortSignal.timeout(8000);
+    const emailTimeout = new Promise<never>((_, reject) =>
+      emailSignal.addEventListener('abort', () =>
+        reject(new DOMException('Resend send-email timeout', 'TimeoutError')), { once: true }),
+    );
+    const { data, error } = await Promise.race([
+      resend.emails.send({
       from: `Ferredip Web <noreply@ferredip.com.mx>`,
 
       to: [customerEmail],
@@ -204,7 +210,9 @@ export async function POST(request: NextRequest) {
 
       </html>
     `,
-    });
+      }),
+      emailTimeout,
+    ]);
 
     if (error) {
       console.error("❌ Error Resend:", error);
