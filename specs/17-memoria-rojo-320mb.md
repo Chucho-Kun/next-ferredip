@@ -1,6 +1,6 @@
 # SPEC 17 — Memoria rojo 320MB: ISR producto, cursor en feeds e índices trigram
 
-> **Estado:** Approved
+> **Estado:** Implemented
 > **Depende de:** SPEC 16, SPEC 08
 > **Fecha:** 2026-10-07
 > **Objetivo:** Frenar la escalera de memoria que SPEC 16 no detuvo (320MB a 24h) con ISR en fichas de producto, cursor real en feeds e índices trigram en búsquedas.
