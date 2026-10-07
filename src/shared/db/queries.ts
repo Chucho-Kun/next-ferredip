@@ -155,7 +155,7 @@ export async function getRecomendedProducts() {
             .limit(20);
 }
 
-export async function getAllProductosXML() {
+export async function getAllProductosXML(limit = 500, offset = 0) {
   return await db.select({
                       id: productos.id,
                       clave: productos.clave,
@@ -168,6 +168,8 @@ export async function getAllProductosXML() {
                       .from(productos)
                       .where(precioMayorACero)
                       .orderBy(desc(productos.createdat))
+                      .limit(limit)
+                      .offset(offset);
 }
  
 export async function getProductVariants(variante: string | null) {

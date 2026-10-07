@@ -10,6 +10,8 @@ import { notFound } from "next/navigation";
 import { breadcrumbJsonLd, productoJsonLd } from "@/src/shared/seo/jsonLd";
 import { slugToMarca, slugToCategory } from "@/src/shared/db/slugs";
 
+export const revalidate = 3600;
+
 type Props = {
   params: Promise<{ id: string; slug: string }>;
 };

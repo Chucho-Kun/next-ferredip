@@ -3,6 +3,8 @@ import CategoryResults from '@/src/shared/components/CategoryResults';
 import { productos } from '@/src/shared/db/productos';
 import { slugToCategory } from '@/src/shared/db/queries';
 
+export const revalidate = 3600;
+
 const primeraCategoria = productos[0].name;
 
 export const metadata: Metadata = {

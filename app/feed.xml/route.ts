@@ -9,7 +9,7 @@ export const revalidate = 3600;
 
 export async function GET() {
   try {
-    const products = await getAllProductosXML();
+    const PAGE_SIZE = 500;
 
     const header = `<?xml version="1.0" encoding="UTF-8"?>
         <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
@@ -26,11 +26,15 @@ export async function GET() {
 
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
-      start(controller) {
+      async start(controller) {
         try {
           controller.enqueue(encoder.encode(header));
-          let buf = '';
-          for (const product of products) {
+          let offset = 0;
+          for (;;) {
+            const products = await getAllProductosXML(PAGE_SIZE, offset);
+            if (products.length === 0) break;
+            let buf = '';
+            for (const product of products) {
             const precioLimpio = product.precio
             ?.replace(/[$,]/g, '')
             .trim() || '0';
@@ -73,6 +77,9 @@ export async function GET() {
             }
           }
           if (buf) controller.enqueue(encoder.encode(buf));
+            if (products.length < PAGE_SIZE) break;
+            offset += PAGE_SIZE;
+          }
           controller.enqueue(encoder.encode(footer));
           controller.close();
         } catch (err) {

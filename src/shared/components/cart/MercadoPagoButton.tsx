@@ -43,6 +43,7 @@ export default function MercadoPagoButton( { preferenceId, crearPreferencia, loa
                     alt="Mercado Pago"
                     width={120}
                     height={32}
+                    unoptimized
                     className="h-8 w-auto"
                 />
                 Pagar con Mercado Pago

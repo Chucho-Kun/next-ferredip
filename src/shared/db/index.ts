@@ -4,8 +4,8 @@ import { Pool } from 'pg';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL!,
-  max: 8,
-  idleTimeoutMillis: 12000,
+  max: 4,
+  idleTimeoutMillis: 5000,
   connectionTimeoutMillis: 8000,
   statement_timeout: 8000,
   keepAlive: true,

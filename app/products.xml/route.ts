@@ -19,7 +19,7 @@ function escapeXml(unsafe: string): string {
 
 export async function GET() {
   try {
-    const products = await getAllProductosXML();
+    const PAGE_SIZE = 500;
 
     const header = `<?xml version="1.0" encoding="UTF-8"?>
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
@@ -29,11 +29,15 @@ export async function GET() {
 
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
-      start(controller) {
+      async start(controller) {
         try {
           controller.enqueue(encoder.encode(header));
-          let buf = '';
-          for (const product of products) {
+          let offset = 0;
+          for (;;) {
+            const products = await getAllProductosXML(PAGE_SIZE, offset);
+            if (products.length === 0) break;
+            let buf = '';
+            for (const product of products) {
             const slug = slugify( product.descripcion! );
             const url = `https://ferredip.com.mx/producto/${product.id}/${slug}`;
             // Imagen principal del producto (misma URL del CDN que muestra la
@@ -58,6 +62,9 @@ export async function GET() {
             }
           }
           if (buf) controller.enqueue(encoder.encode(buf));
+            if (products.length < PAGE_SIZE) break;
+            offset += PAGE_SIZE;
+          }
           controller.enqueue(encoder.encode(footer));
           controller.close();
         } catch (err) {

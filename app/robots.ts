@@ -49,6 +49,7 @@ export default function robots(): MetadataRoute.Robots {
       ...BOTS_IA.map((userAgent) => ({
         userAgent,
         allow: '/',
+        disallow: RUTAS_BLOQUEADAS,
       })),
     ],
     // Un solo sitemap: el índice (<sitemapindex>) que referencia

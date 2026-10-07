@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
   const marca = ((params.get('marca') ?? '').trim()).slice(0, 80);
   const categoria = ((params.get('categoria') ?? '').trim()).slice(0, 80);
   const limit = clampLimit(params.get('limit'));
-  const headers = { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30' };
+  const headers = { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60' };
 
   if (!q && !marca && !categoria) {
     return Response.json({ query: '', total: 0, items: [] } satisfies AgenteResponse, { headers });
