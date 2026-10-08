@@ -32,11 +32,23 @@ initMercadoPago(process.env.NEXT_PUBLIC_MERCADOPAGO_PUBLIC_KEY!, {
 // al brick real, el SDK ya esté listo y la ventana de carrera desaparezca.
 getIdentificationTypes().catch(() => {});
 
+export type PagoResult = {
+  payment_id?: string | number;
+  status?: string;
+  status_detail?: string;
+};
+
 interface Props {
   preferenceId: string;
   amount: number;
-  onSuccess?: (data: any) => void;
+  onSuccess?: (data: PagoResult) => void;
 }
+
+// Forma mínima de lo que el Brick entrega en onSubmit (sin `any`)
+type BrickSubmitData = {
+  formData: { payer: { email?: string } };
+  paymentType: string;
+};
 
 // Objeto estático: debe mantener la misma referencia entre renders para no
 // disparar el useEffect interno del brick de Mercado Pago (ver customization
@@ -48,7 +60,7 @@ const PAYMENT_CUSTOMIZATION = {
     ticket: [],
     creditCard: 'all',
     debitCard: 'all',
-    bankTransfer: 'all',
+    // bankTransfer fuera: el sitio no lo tiene habilitado (ver warning del Brick)
   },
 } as const;
 
@@ -56,7 +68,7 @@ const PAYMENT_CUSTOMIZATION = {
 // Vive fuera del componente porque no depende de props/estado: si estuviera
 // adentro, sería una referencia nueva en cada render y forzaría a handleSubmit
 // a recrearse también.
-async function sendEmailInBackground(data: any) {
+async function sendEmailInBackground(data: Record<string, unknown>) {
   try {
     const res = await fetch('/api/send-email', {
       method: 'POST',
@@ -70,12 +82,12 @@ async function sendEmailInBackground(data: any) {
     });
 
     if (res.ok) {
-      console.log("✅ Correo enviado en segundo plano");
+      // Correo en background: sin logs para no exponer PII
     } else {
-      console.error("❌ Error enviando correo en background");
+      console.error("No se pudo enviar el correo");
     }
-  } catch (err) {
-    console.error("Error en envío de correo background:", err);
+  } catch (_err) {
+    console.error("No se pudo enviar el correo");
     // No mostramos toast aquí porque el usuario ya vio "Pago exitoso"
   }
 }
@@ -102,7 +114,7 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
     // la siguiente.
     const initialization = useMemo(() => ({ preferenceId, amount }), [preferenceId, amount])
 
-    const handleSubmit = useCallback(async (formData: any, _brick: unknown) => {
+    const handleSubmit = useCallback(async (formData: BrickSubmitData, _brick: unknown) => {
         try {
             const { items, shippingCost, subTotal, totalPrice } = useCartStore.getState()
             const { nombre, apellidos, direccion, entreCalles, ciudad, cp, telefono } = useDeliveryStore.getState().formData
@@ -111,14 +123,10 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
             // Extraer correctamente el email
             const mpEmail = payer.email || "";
 
-            console.log("📧 Email guardado de Mercado Pago:", mpEmail);
-
-            // Guardar en el store
+            // Guardar en el store sin exponer PII en consola
             if (mpEmail) {
             useDeliveryStore.getState().setFormData({ email: mpEmail });
-            console.log("✅ Email guardado en el store");
             }
-            console.log("Enviando al backend:", formData);
 
             if (!addPaymentInfoSent.current) {
                 addPaymentInfoSent.current = true
@@ -156,14 +164,12 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
             });
 
             const result = await res.json();
-            console.log("Respuesta del servidor:", result);
 
             if (result.status === 'approved' || result.status === 'in_process') {
 
                 setEstadoPago(result.status === 'approved' ? 'aprobado' : 'pendiente')
 
                 // ==================== ENVÍO DE CORREO EN BACKGROUND ====================
-      console.log("📧 Iniciando envío de correo en segundo plano...");
 
       // Enviamos el correo sin esperar (fire and forget)
             sendEmailInBackground({
@@ -271,14 +277,12 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
 
             }
         } catch (error) {
-            console.error(error);
+            console.error('No se pudo procesar el pago');
             alert('Error al procesar el pago');
         }
     }, [onSuccess, handleReset])
 
     const handleReady = useCallback(() => {
-        console.log('✅ Brick cargado correctamente')
-
         if (!beginCheckoutSent.current) {
             beginCheckoutSent.current = true
 
@@ -292,8 +296,8 @@ export default function MercadoPagoBrick({ preferenceId, amount, onSuccess }: Pr
         }
     }, [])
 
-    const handleError = useCallback((error: unknown) => {
-        console.error('Error cargando el Brick:', error);
+    const handleError = useCallback((_error: unknown) => {
+        console.error('No se pudo cargar el pago');
     }, [])
 
   return (

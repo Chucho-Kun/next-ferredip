@@ -32,8 +32,6 @@ export default function MediosdePagoComponent() {
     setLoading(true);
 
     try {
-      console.log('🧭 CrearPreferencia: enviando items al backend', items);
-
       const controller = new AbortController();
       const timeoutMs = 15000;
       const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
@@ -112,8 +110,8 @@ export default function MediosdePagoComponent() {
       const text = await res.text(); // Primero leemos como texto
 
       if (!res.ok) {
-        console.error('Error del servidor:', res.status, text);
-        alert(`Error del servidor: ${res.status} - Revisa la consola`);
+        console.error('No se pudo crear la preferencia');
+        alert(`Error del servidor: ${res.status}`);
         return;
       }
 
@@ -121,23 +119,23 @@ export default function MediosdePagoComponent() {
       try {
         data = JSON.parse(text);
       } catch (err) {
-        console.error('Respuesta inválida al crear preferencia:', text);
-        alert('Respuesta inválida del servidor de pagos. Revisa la consola.');
+        console.error('Respuesta inválida del servidor de pagos');
+        alert('Respuesta inválida del servidor de pagos.');
         return;
       }
 
       if (data.preferenceId) {
         setPreferenceId(data.preferenceId);
       } else {
-        console.error('No se recibió preferenceId:', data);
+        console.error('No se recibió preferenceId');
         alert('Error: No se recibió preferenceId');
       }
     } catch (error) {
       if ((error as any)?.name === 'AbortError') {
-        console.error('❌ CrearPreferencia: fetch aborted (timeout)');
+        console.error('Tiempo de conexión agotado');
         alert('Tiempo de conexión agotado al crear preferencia. Intenta de nuevo.');
       } else {
-        console.error('Error completo:', error);
+        console.error('No se pudo conectar con el servidor de pagos');
         alert('Error al conectar con el servidor de pagos');
       }
     } finally {

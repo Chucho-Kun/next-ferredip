@@ -42,7 +42,7 @@ export default async function CategoryResults({ slug }: Props) {
             { nombre: 'Inicio', url: 'https://ferredip.com.mx' },
             { nombre: nombreCategoria, url: `https://ferredip.com.mx/categoria/${slug}` },
           ]),
-        ),
+        ).replace(/</g, '\\u003c'),
       }}
     />
     <script
@@ -55,7 +55,7 @@ export default async function CategoryResults({ slug }: Props) {
             nombre: nombreCategoria,
             productos: productosListado,
           }),
-        ),
+        ).replace(/</g, '\\u003c'),
       }}
     />
    <section className="py-16 bg-gray-50">

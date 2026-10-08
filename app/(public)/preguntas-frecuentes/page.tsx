@@ -17,7 +17,7 @@ export default function PreguntasFrecuentesPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()).replace(/</g, '\\u003c') }}
       />
 
       <div className="max-w-4xl mx-auto px-6">

@@ -18,7 +18,19 @@ function escapeHtml(texto: string): string {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+const SUBJECT_RE = /^[\p{L}\p{N}\s._\-@áéíóúÁÉÍÓÚñÑüÜ()]+$/u;
+const SUBJECT_MAX = 150;
+
+function buildSubject(nombre: string): string | null {
+  const clean = nombre.replace(/[\r\n]+/g, ' ').trim().slice(0, 100);
+  const subject = `Nuevo mensaje de contacto — ${clean}`;
+  if (subject.length > SUBJECT_MAX) return null;
+  if (!SUBJECT_RE.test(subject)) return null;
+  return subject;
 }
 
 function construirHtml(data: ContactoPayload): string {
@@ -106,6 +118,11 @@ export async function POST(request: NextRequest) {
 
   const { data } = resultado;
 
+  const subject = buildSubject(data.nombre);
+  if (!subject) {
+    return NextResponse.json({ error: 'El nombre contiene caracteres no válidos.' }, { status: 400 });
+  }
+
   try {
     const emailSignal = AbortSignal.timeout(8000);
     const emailTimeout = new Promise<never>((_, reject) =>
@@ -117,7 +134,7 @@ export async function POST(request: NextRequest) {
         from: 'Ferredip Web <noreply@ferredip.com.mx>',
         to: ['contacto@ferredip.com.mx'],
         replyTo: data.email,
-        subject: `Nuevo mensaje de contacto — ${data.nombre}`,
+        subject,
         html: construirHtml(data),
       }),
       emailTimeout,

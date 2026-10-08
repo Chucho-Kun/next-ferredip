@@ -37,7 +37,7 @@ export default async function TrademarckResults({ slug }: Props) {
             { nombre: 'Inicio', url: 'https://ferredip.com.mx' },
             { nombre: nombreMarca, url: `https://ferredip.com.mx/marca/${slug}` },
           ]),
-        ),
+        ).replace(/</g, '\\u003c'),
       }}
     />
     <script
@@ -50,7 +50,7 @@ export default async function TrademarckResults({ slug }: Props) {
             nombre: nombreMarca,
             productos: productosListado,
           }),
-        ),
+        ).replace(/</g, '\\u003c'),
       }}
     />
    <section className="py-16 bg-gray-50">

@@ -93,14 +93,14 @@ export default async function ProductoPage(props: PageProps<'/producto/[id]/[slu
                 { nombre: slugToCategory(categoriaSlug), url: `https://ferredip.com.mx/categoria/${categoriaSlug}` },
                 { nombre: tituloProducto, url: canonical },
               ]),
-            ),
+            ).replace(/</g, '\\u003c'),
           }}
         />
 
         {/* Schema.org JSON-LD para Producto */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(productoJsonLd(producto)) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productoJsonLd(producto)).replace(/</g, '\\u003c') }}
         />
 
         <TrackRecentProduct

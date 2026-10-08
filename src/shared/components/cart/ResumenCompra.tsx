@@ -30,8 +30,6 @@ const cotizaWhatsApp = () => {
     const shipping = shippingCost();
     const total = totalPrice();
 
-    console.log("Valores calculados:", { subtotal, shipping, total });
-
     const mensaje = `*🛒 Nuevo Pedido desde la Web*\n\n` +
       items.map((item, index) => 
         `${index + 1}. *${item.titulo}*\n` +
@@ -48,7 +46,7 @@ const cotizaWhatsApp = () => {
       '_blank'
     );
   } catch (error) {
-    console.error("Error al generar mensaje WhatsApp:", error);
+    console.error("No se pudo generar el pedido");
     toast.error("Hubo un error al generar el pedido");
   }
 };

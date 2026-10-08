@@ -1,11 +1,16 @@
-// app/api/admin/productos/route.ts
+// app/api/admin/productos/route.ts — SPEC 18 gateado con token
 import { NextResponse } from 'next/server';
 import { db } from '@/src/shared/db';
 import { productos } from '@/src/shared/db/schema/productList';
 import { desc, sql } from 'drizzle-orm';
+import { isAdminAuthorized } from '@/src/shared/auth/admin';
 
 export async function GET(request: Request) {
   try {
+    if (!isAdminAuthorized(request)) {
+      return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const rawPage = parseInt(searchParams.get('page') ?? '1', 10);
     const rawLimit = parseInt(searchParams.get('limit') ?? '50', 10);
@@ -35,6 +40,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ page, limit, total, items });
   } catch (error) {
     console.error("Error fetching products:", error);
-    return NextResponse.json({ error: "Error al obtener productos" }, { status: 500 });
+    return NextResponse.json({ error: "No se pudo procesar, intenta de nuevo" }, { status: 500 });
   }
 }

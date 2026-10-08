@@ -63,7 +63,7 @@ export default function page() {
       {/* Schema.org JSON-LD — @graph: Organization + WebSite + 2 HardwareStore */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizacionJsonLd()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizacionJsonLd()).replace(/</g, '\\u003c') }}
       />
 
       <h1 className="max-w-8xl mx-auto px-4 pt-6 pb-6 text-sm sm:text-base lg:text-lg font-bold text-center text-gray-800 text-balance lg:whitespace-nowrap">
