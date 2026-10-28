@@ -6,7 +6,7 @@ import { SUCURSALES } from "@/src/shared/seo/negocio";
 import Link from "next/link";
 import React, { useState, useRef } from "react";
 
-// "525573476687" -> "55 7347 6687" (sin el código de país +52).
+// "525513862894" -> "55 1386 2894" (sin el código de país +52).
 const whatsAppFormateado = `${whatsAppNumber.slice(2, 4)} ${whatsAppNumber.slice(4, 8)} ${whatsAppNumber.slice(8)}`;
 
 export default function ContactoClient() {
@@ -112,7 +112,7 @@ ${mensaje}`)}`;
             </div>
 
             <div className="flex gap-4">
-              <Link href={'https://wa.me/525573476687'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
+              <Link href={`https://wa.me/${whatsAppNumber}`} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">
                 <img width={25} height={25} src={'/icons/whatsapp.svg'} alt="whatsapp" />
               </Link>
               <Link href={'https://www.facebook.com/FerreDipPiramides/'} target='_blank' className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white hover:scale-110 transition">

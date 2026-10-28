@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useCartStore } from '@/src/store/cartStore';
 import { useDeliveryStore } from '@/src/store/deliveryStore';
 import MercadoPagoBrick from './MercadoPagoBrick';
@@ -8,6 +9,11 @@ import toast from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
 import MercadoPagoButton from './MercadoPagoButton';
 import { fotoPrincipal } from '@/src/utils/fotos';
+import { whatsAppNumber } from '@/src/shared/db/contact-info';
+
+// Interruptor de pagos con Mercado Pago.
+// Poner en `true` para volver a mostrar el botón y el formulario de Mercado Pago.
+const MERCADO_PAGO_ENABLED = false;
 
 export default function MediosdePagoComponent() {
   const { items, totalPrice, subTotal, shippingCost } = useCartStore();
@@ -143,6 +149,32 @@ export default function MediosdePagoComponent() {
     }
 
   };
+
+  if (!MERCADO_PAGO_ENABLED) {
+    return (
+      <div className="min-h-12 py-1">
+        <div className="max-w-2xl mx-auto px-4">
+          <a
+            href={ `https://api.whatsapp.com/send?phone=${whatsAppNumber}` }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-[#e94923] hover:bg-[#E30613] text-white font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2 transition text-lg whitespace-nowrap"
+          >
+            COTIZA POR WHATSAPP
+            <span className="text-xl">
+              <Image
+                src={'/icons/whatsapp.svg'}
+                alt="whatsapp icon"
+                width={25}
+                height={25}
+                unoptimized
+              />
+            </span>
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <MercadoPagoButton 

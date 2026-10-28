@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import { SUCURSALES, HORARIO } from '@/src/shared/seo/negocio';
+import { whatsAppNumber } from '@/src/shared/db/contact-info';
+
+// "525513862894" -> "55 1386 2894" (sin el código de país +52).
+const whatsAppFormateado = `${whatsAppNumber.slice(2, 4)} ${whatsAppNumber.slice(4, 8)} ${whatsAppNumber.slice(8)}`;
 
 // Links a Google Maps por sucursal, en el mismo orden que SUCURSALES
 // (no viven en negocio.ts porque son URLs cortas de Google, no datos del NAP).
@@ -36,14 +40,14 @@ export default function Footer() {
               {/* <p><span className="font-semibold">(55) 8751 2193</span></p>
               <p><span className="font-semibold">(55) 8751 2194</span></p>
               <p><span className="font-semibold">(55) 5770 8512</span></p> */}
-              <p>WhatsApp: <span className="font-semibold">55 7347 6687</span></p>
+              <p>WhatsApp: <span className="font-semibold">{whatsAppFormateado}</span></p>
               <p>E-mail: <span className="font-semibold">contacto@ferredip.com.mx</span></p>
             </div>
 
             {/* Redes Sociales */}
             <div className="flex gap-4 mt-8">
               
-              <Link href={'https://wa.me/525573476687'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
+              <Link href={`https://wa.me/${whatsAppNumber}`} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>
                 <img aria-label='whatsapp de sucursal' className='hove:text-yellow-300' width={25} height={25} src={'/icons/whatsapp.svg'} alt='icono whatsApp' />
               </Link>
               <Link href={'https://www.facebook.com/FerreDipPiramides/'} target='_blank' className='p-2 rounded-full hover:bg-taupe-800 transition'>

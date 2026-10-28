@@ -37,7 +37,7 @@ export default function TerminosYCondicionesPage() {
               {/* <p><span className="font-semibold">(55) 8751 2193</span></p>
               <p><span className="font-semibold">(55) 8751 2194</span></p>
               <p><span className="font-semibold">(55) 5770 8512</span></p> */}
-              <p>WhatsApp: <span className="font-semibold">55 7347 6687</span></p>
+              <p>WhatsApp: <span className="font-semibold">52 55 1386 2894</span></p>
 
           <h2 className="text-2xl font-bold text-gray-800 mt-12 mb-4">Política de Aceptación de Órdenes</h2>
           <p>
